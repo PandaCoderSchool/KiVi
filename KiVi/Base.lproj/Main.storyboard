@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B17c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ifL-E7-y9y">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Home View Controller-->
@@ -23,28 +24,96 @@
                                     <segue destination="5oH-4r-LOf" kind="embed" id="Zg8-Wm-ocD"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hS7-jg-hcO" userLabel="List Container View">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="2WI-mb-dwn" kind="embed" id="MJU-n6-3Vu"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hS7-jg-hcO" secondAttribute="bottom" id="9xy-4G-gHl"/>
                             <constraint firstAttribute="trailing" secondItem="Sx0-Gn-8LI" secondAttribute="trailing" id="cKB-dy-wpU"/>
+                            <constraint firstItem="hS7-jg-hcO" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="iDA-P2-o3F"/>
+                            <constraint firstAttribute="trailing" secondItem="hS7-jg-hcO" secondAttribute="trailing" id="lLb-I9-FBZ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Sx0-Gn-8LI" secondAttribute="bottom" id="mf9-IH-yEm"/>
                             <constraint firstItem="Sx0-Gn-8LI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nfO-x8-tpk"/>
+                            <constraint firstItem="hS7-jg-hcO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xWL-3x-Lmn"/>
                             <constraint firstItem="Sx0-Gn-8LI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="zAZ-ro-1Rj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cJ6-s2-Ekv">
                         <barButtonItem key="leftBarButtonItem" image="ListView" id="jg7-cL-Dhk">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onChangeViewType:" destination="BYZ-38-t0r" id="dWD-N1-awC"/>
+                            </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="Filter" id="Jj2-T1-xeu">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="Filter" id="Jj2-T1-xeu">
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="8eb-XW-tJm" kind="show" identifier="filterSegue" id="XOp-VR-aSf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="e8m-Wq-Qmx">
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="w2A-A4-ON5" kind="show" identifier="addSegue" id="mFs-EL-tQg"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="listContainerView" destination="hS7-jg-hcO" id="FF8-ea-6pI"/>
+                        <outlet property="mapContainerView" destination="Sx0-Gn-8LI" id="jqk-ZD-2dR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="888" y="-320"/>
+            <point key="canvasLocation" x="906" y="-500"/>
+        </scene>
+        <!--Filter Jobs -->
+        <scene sceneID="KBX-Qf-iJR">
+            <objects>
+                <viewController title="Filter Jobs " id="8eb-XW-tJm" customClass="FilterJobViewController" customModule="KiVi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JX5-hY-IRl"/>
+                        <viewControllerLayoutGuide type="bottom" id="a6H-hH-VFN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8DT-R6-5yg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="im6-4l-aJm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1723" y="-930"/>
+        </scene>
+        <!--Add Jobs-->
+        <scene sceneID="NKT-gm-d7S">
+            <objects>
+                <viewController title="Add Jobs" id="w2A-A4-ON5" customClass="AddJobViewController" customModule="KiVi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RN3-jx-io2"/>
+                        <viewControllerLayoutGuide type="bottom" id="FT4-2t-Khc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9Cd-BQ-roC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Raa-gD-06V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1723" y="-261"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Hz-YT-anx">
@@ -55,6 +124,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.56862745100000001" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -84,11 +154,124 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jGu-LS-Rr9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="888" y="420"/>
+            <point key="canvasLocation" x="631" y="411"/>
+        </scene>
+        <!--Jobs List View Controller-->
+        <scene sceneID="43f-05-akk">
+            <objects>
+                <viewController id="2WI-mb-dwn" customClass="JobsListViewController" customModule="KiVi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AxF-UY-SLY"/>
+                        <viewControllerLayoutGuide type="bottom" id="oyI-13-LWc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="drK-sB-EMf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="111" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TI0-53-h07">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="JobCell" rowHeight="120" id="Mxz-r9-CMP" userLabel="Job Cell" customClass="JobCell" customModule="KiVi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="22" width="600" height="120"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mxz-r9-CMP" id="EZI-gk-4RD">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="119.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="LyZ-eH-HCI">
+                                                    <rect key="frame" x="0.0" y="10" width="100" height="100"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="100" id="Ump-uF-Nbq"/>
+                                                        <constraint firstAttribute="width" constant="100" id="ZS1-3j-vIj"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" text="Phát tờ rơi" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kP-Nb-sUz">
+                                                    <rect key="frame" x="108" y="5" width="174" height="20.5"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" text="Cty TNHH Tờ Rơi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqo-O7-JFb">
+                                                    <rect key="frame" x="108" y="36" width="174" height="19.5"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Hạn chót: 30/9/2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZa-1Z-jhw">
+                                                    <rect key="frame" x="108" y="65" width="174" height="17"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Thoả thuận" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTe-ZO-ujS">
+                                                    <rect key="frame" x="108" y="91" width="78" height="28.5"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Hqo-O7-JFb" secondAttribute="trailing" constant="5" id="Ce2-sx-mlj"/>
+                                                <constraint firstItem="Hqo-O7-JFb" firstAttribute="leading" secondItem="3kP-Nb-sUz" secondAttribute="leading" id="Jtj-ac-TCh"/>
+                                                <constraint firstItem="3kP-Nb-sUz" firstAttribute="top" secondItem="EZI-gk-4RD" secondAttribute="top" constant="5" id="POV-09-Jge"/>
+                                                <constraint firstItem="LyZ-eH-HCI" firstAttribute="centerY" secondItem="EZI-gk-4RD" secondAttribute="centerY" id="QlP-U9-zzb"/>
+                                                <constraint firstItem="LyZ-eH-HCI" firstAttribute="leading" secondItem="EZI-gk-4RD" secondAttribute="leading" id="W62-9J-39B"/>
+                                                <constraint firstAttribute="trailing" secondItem="3kP-Nb-sUz" secondAttribute="trailing" constant="5" id="XV0-b2-eLn"/>
+                                                <constraint firstAttribute="bottom" secondItem="YTe-ZO-ujS" secondAttribute="bottom" id="Yul-Iv-Eeg"/>
+                                                <constraint firstItem="uZa-1Z-jhw" firstAttribute="top" secondItem="Hqo-O7-JFb" secondAttribute="bottom" constant="9.5" id="b7x-wb-G61"/>
+                                                <constraint firstItem="uZa-1Z-jhw" firstAttribute="leading" secondItem="Hqo-O7-JFb" secondAttribute="leading" id="gMt-AW-7IG"/>
+                                                <constraint firstItem="YTe-ZO-ujS" firstAttribute="leading" secondItem="uZa-1Z-jhw" secondAttribute="leading" id="j7g-uc-QfF"/>
+                                                <constraint firstItem="YTe-ZO-ujS" firstAttribute="top" secondItem="uZa-1Z-jhw" secondAttribute="bottom" constant="9" id="oEn-ar-CVL"/>
+                                                <constraint firstItem="3kP-Nb-sUz" firstAttribute="leading" secondItem="LyZ-eH-HCI" secondAttribute="trailing" constant="8" id="qoX-hX-nIz"/>
+                                                <constraint firstItem="Hqo-O7-JFb" firstAttribute="top" secondItem="3kP-Nb-sUz" secondAttribute="bottom" constant="10.5" id="upJ-hA-B1o"/>
+                                                <constraint firstAttribute="trailing" secondItem="uZa-1Z-jhw" secondAttribute="trailing" constant="5" id="wvt-X3-tdA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <connections>
+                                            <outlet property="companyLabel" destination="Hqo-O7-JFb" id="y1q-0R-wQ9"/>
+                                            <outlet property="dueSubmitDateLabel" destination="uZa-1Z-jhw" id="rNJ-Ug-1ji"/>
+                                            <outlet property="jobImage" destination="LyZ-eH-HCI" id="Wbm-ko-Qec"/>
+                                            <outlet property="jobTitle" destination="3kP-Nb-sUz" id="fdg-CA-LIm"/>
+                                            <outlet property="salaryLabel" destination="YTe-ZO-ujS" id="kts-J4-z3X"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2WI-mb-dwn" id="tAU-my-zxW"/>
+                                    <outlet property="delegate" destination="2WI-mb-dwn" id="Mmx-zA-n59"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TI0-53-h07" firstAttribute="leading" secondItem="drK-sB-EMf" secondAttribute="leading" id="1sr-h3-GQo"/>
+                            <constraint firstItem="oyI-13-LWc" firstAttribute="top" secondItem="TI0-53-h07" secondAttribute="bottom" id="dyg-AU-1ep"/>
+                            <constraint firstItem="TI0-53-h07" firstAttribute="top" secondItem="drK-sB-EMf" secondAttribute="top" id="kuI-1j-4v7"/>
+                            <constraint firstAttribute="trailing" secondItem="TI0-53-h07" secondAttribute="trailing" id="oyt-nt-m7X"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="jobsTableView" destination="TI0-53-h07" id="2sQ-0J-teb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NOc-zN-Jqy" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1351" y="411"/>
         </scene>
     </scenes>
     <resources>
         <image name="Filter" width="18" height="16"/>
         <image name="ListView" width="14" height="10"/>
+        <image name="defaultImage" width="800" height="600"/>
     </resources>
 </document>
