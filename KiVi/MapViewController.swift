@@ -46,6 +46,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     let userLocation: CLLocation = locations.last!
     self.updateUserCurrentLocation(userLocation)
+    if userLocation.timestamp.timeIntervalSinceNow < 300 {
+      self.locationManager.stopUpdatingLocation()
+    }
     
   }
   
@@ -69,8 +72,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   func getAddressFromLocation(location: CLLocation) {
     CLGeocoder().reverseGeocodeLocation(location) { (placemarks:[CLPlacemark]?, error: NSError?) -> Void in
       if error == nil {
-        var title = ""
-        if let pm = placemarks?[0] {
+        
+        if let pm = placemarks?.first {
           
           var subThoroughfare: String = ""
           var thoroughfare: String = ""
@@ -90,18 +93,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
           if pm.areasOfInterest != nil {
             areaOfInterest = pm.areasOfInterest!.first!
           }
-           title = "\(subThoroughfare), \(thoroughfare), \(pm.subLocality!), \(pm.administrativeArea!), \(pm.country!)"
-          print("\(subThoroughfare), \(thoroughfare), \(pm.subLocality!), \(pm.administrativeArea!), \(pm.country!)")
-          
-        }
-        if title == "" {
-          title = "Added"
-        }
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        annotation.title = title
-        self.jobMap.addAnnotation(annotation)
-
+          let title = "\(subThoroughfare), \(thoroughfare)"
+          let addr = "\(pm.subLocality!), \(pm.subAdministrativeArea!), \(pm.administrativeArea!) \(pm.country!)"
+          let annotation = MyAnnotation(title: title, locationName: addr, discipline: addr, coordinate: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+          self.jobMap.addAnnotation(annotation)
       }
     }
   }
@@ -114,4 +109,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   }
   
   
+  
 }
+}
+
