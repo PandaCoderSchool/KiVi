@@ -26,8 +26,19 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     searchBar.delegate = self
     self.setupSearchBar()
     
+//    if ParseInterface.sharedInstance.isLogInPrevious() {
+//      print("Already login. Show main screen")
+//    }else {
+//      print("User must sign up first then login again")
+//      
+//      ParseInterface.sharedInstance.parseSignIn(ParseInterface.sharedInstance.defaultUserName , userPass: ParseInterface.sharedInstance.defaultPassword)
+//    }
+    
     mapContainerView.hidden   = !isMapViewSelected
     listContainerView.hidden  = isMapViewSelected
+    
+    
+    
     
   }
   

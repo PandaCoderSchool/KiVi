@@ -52,6 +52,7 @@ class ParseInterface: NSObject {
     let query = PFQuery(className: "JobsInformation")
     query.orderByAscending("updatedAt")
 //    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
+    print(PFUser.currentUser()?.username)
     
     query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
       
@@ -122,7 +123,8 @@ class ParseInterface: NSObject {
       return true
     } else {
       // Show the signup or login screen
-      print("User should Login or signup")
+      self.parseSignUp(defaultUserName, userPass: defaultPassword)
+      
       return false
     }
 

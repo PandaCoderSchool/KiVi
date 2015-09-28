@@ -10,11 +10,13 @@ import UIKit
 
 class FilterJobViewController: UIViewController {
 
+  @IBOutlet weak var scrollView: UIScrollView!
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+      scrollView.contentSize.height = 1000
+  }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -89,14 +89,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcC-Gu-xgQ">
-                                <rect key="frame" x="0.0" y="72" width="600" height="528"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcC-Gu-xgQ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lqi-H5-tXA">
+                                        <rect key="frame" x="264" y="246" width="97" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
                                 <animations/>
+                                <color key="backgroundColor" cyan="0.65000000000000002" magenta="0.0" yellow="0.2287744729" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                             </scrollView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="hcC-Gu-xgQ" firstAttribute="top" secondItem="JX5-hY-IRl" secondAttribute="bottom" id="Brm-Zf-YMJ"/>
+                            <constraint firstItem="hcC-Gu-xgQ" firstAttribute="leading" secondItem="8DT-R6-5yg" secondAttribute="leading" id="FHn-kJ-Azy"/>
+                            <constraint firstItem="a6H-hH-VFN" firstAttribute="top" secondItem="hcC-Gu-xgQ" secondAttribute="bottom" id="Xrz-Mc-XTs"/>
+                            <constraint firstAttribute="trailing" secondItem="hcC-Gu-xgQ" secondAttribute="trailing" id="q7V-k5-ujX"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="im6-4l-aJm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -142,25 +157,27 @@
                                     <action selector="useCurrentLocation:" destination="w2A-A4-ON5" eventType="touchUpInside" id="uzq-aB-d56"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOd-ku-dkM">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="22, đường 18, Linh Đông, Thủ Đức" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOd-ku-dkM">
                                 <rect key="frame" x="10" y="232" width="580" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
+                                    <action selector="comAddressEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="NoH-cS-ItK"/>
                                     <outlet property="delegate" destination="w2A-A4-ON5" id="Set-t5-bDW"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="job Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tKg-wa-YBo">
+                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thời vụ hàn bo mạch" borderStyle="roundedRect" placeholder="job Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tKg-wa-YBo">
                                 <rect key="frame" x="10" y="272" width="580" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
+                                    <action selector="comJobTitleEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="ySI-zk-uns"/>
                                     <outlet property="delegate" destination="w2A-A4-ON5" id="24W-jt-bko"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Job description" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="I4Q-qv-QV3">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" text="Job description: Hàn bo mạch điện tử" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="I4Q-qv-QV3">
                                 <rect key="frame" x="10" y="312" width="580" height="198"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -171,7 +188,7 @@
                                     <outlet property="delegate" destination="w2A-A4-ON5" id="A2g-wb-E0F"/>
                                 </connections>
                             </textView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uaM-Yc-k0h">
+                            <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0935505362" borderStyle="roundedRect" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uaM-Yc-k0h">
                                 <rect key="frame" x="10" y="560" width="200" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -180,19 +197,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                 <connections>
+                                    <action selector="phoneNumberEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="YOS-fD-taq"/>
                                     <outlet property="delegate" destination="w2A-A4-ON5" id="xD5-DE-7k8"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Company name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4WT-iG-4e9">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Gremsy Co., Ltd" borderStyle="roundedRect" placeholder="Company name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4WT-iG-4e9">
                                 <rect key="frame" x="10" y="192" width="580" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
+                                    <action selector="comNameEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="FhQ-qb-lSA"/>
                                     <outlet property="delegate" destination="w2A-A4-ON5" id="Quw-v8-O1h"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-L8-PZy">
+                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-L8-PZy">
                                 <rect key="frame" x="220" y="560" width="370" height="30"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.56862745100000001" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -206,7 +225,7 @@
                                     <action selector="saveAllInfo:" destination="w2A-A4-ON5" eventType="touchUpInside" id="yy5-3a-2LA"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QnM-Oa-6WL">
+                            <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="tongvtdan@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QnM-Oa-6WL">
                                 <rect key="frame" x="10" y="520" width="200" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -215,6 +234,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                 <connections>
+                                    <action selector="emailEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="FVW-Ze-bCa"/>
                                     <outlet property="delegate" destination="w2A-A4-ON5" id="NY1-iv-mkV"/>
                                 </connections>
                             </textField>

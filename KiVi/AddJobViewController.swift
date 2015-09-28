@@ -25,6 +25,9 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
   var photo : UIImage?
   var locationManager = CLLocationManager()
 var kbHeight: CGFloat!
+  var editItemIndex = 0
+  var currentLocation = CLLocation()
+  
   
   
     override func viewDidLoad() {
@@ -58,24 +61,97 @@ var kbHeight: CGFloat!
   func animateTextField(up: Bool) {
     let movement = (up ? -kbHeight : 0)
 //    animateImages(!up)
-//    UIView.animateWithDuration(0.3, animations: {
-//      self.jobDescriptionText.transform = CGAffineTransformMakeTranslation(0, movement)
-//    })
+    UIView.animateWithDuration(0.3, animations: {
+      self.jobDescriptionText.transform = CGAffineTransformMakeTranslation(0, movement)
+    })
   }
   
+  @IBAction func comNameEditing(sender: UITextField) {
+    editItemIndex = sender.tag
+  }
 
+  @IBAction func comAddressEditing(sender: UITextField) {
+    editItemIndex = sender.tag
+  }
 
+  @IBAction func comJobTitleEditing(sender: UITextField) {
+    editItemIndex = sender.tag
+  }
 
+  @IBAction func emailEditing(sender: UITextField) {
+    editItemIndex = sender.tag
+  }
 
+  @IBAction func phoneNumberEditing(sender: UITextField) {
+    editItemIndex = sender.tag
+  }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
   @IBAction func saveAllInfo(sender: UIButton) {
+    
+    let jobObj = PFObject(className: "JobsInformation")
+    
+    jobObj["createdBy"] = PFUser.currentUser()
+    jobObj["jobTitle"]  = jobTitleLabel.text
+    jobObj["jobDescription"]  = jobDescriptionText.text
+    jobObj["salary"] = "NA"
+    jobObj["jobType"] = "NA"
+    jobObj["jobCategory"] = "NA"
+    jobObj["workAt"] = "Ho Chi Minh"
+//    jobObj["dueOn"] = 
+    jobObj["companyName"] = comNameLabel.text
+    jobObj["contactAddress"] = comAddressLabel.text
+    jobObj["contactEmail"] = emailLabel.text
+    jobObj["contactPhone"] = phoneNumberLabel.text
+    let geopoint = PFGeoPoint()
+    geopoint.latitude = currentLocation.coordinate.latitude
+    geopoint.longitude = currentLocation.coordinate.longitude
+    jobObj["location"] = geopoint
+    
+        
+    jobObj.saveInBackgroundWithBlock({
+      (success: Bool, error: NSError?) -> Void in
+      
+      if error == nil {
+        /**success saving, Now save image.***/
+        
+        //create an image data
+        let imageData = UIImagePNGRepresentation(self.profilePhoto.image!)
+        //create a parse file to store in cloud
+        let parseImageFile = PFFile(name: "profile_image.png", data: imageData!)
+        jobObj["profilePhoto"] = parseImageFile
+        jobObj.saveInBackgroundWithBlock({
+          (success: Bool, error: NSError?) -> Void in
+          
+          if error == nil {
+            //take user home
+            print("data uploaded")
+//            self.performSegueWithIdentifier("goHomeFromUpload", sender: self)
+            
+          }else {
+            
+            print(error)
+          }
+          
+          
+        })
+        
+        
+      }else {
+        print(error)
+        
+      }
+      
+    })
+
+    
   }
   
   @IBAction func useCurrentLocation(sender: UIButton) {
     comAddressLabel.text = addressLabel.text
+    
     
   }
 
@@ -121,8 +197,9 @@ var kbHeight: CGFloat!
   }
   
   func updateUserCurrentLocation(userLocation: CLLocation) {
-    let latitude = userLocation.coordinate.latitude
-    let longitude = userLocation.coordinate.longitude
+//    let latitude = userLocation.coordinate.latitude
+//    let longitude = userLocation.coordinate.longitude
+    self.currentLocation = userLocation
     
     
     
