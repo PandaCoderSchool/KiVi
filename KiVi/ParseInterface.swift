@@ -48,41 +48,13 @@ class ParseInterface: NSObject {
   
   func getJobsInformation() -> [PFObject]? {
 
-//    let employerQuery = PFQuery(className: "Employer")
-//    employerQuery.orderByAscending("updatedAt")
-//    employerQuery.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
-//      if error == nil {
-//        self.employers = objects
-//        for employer in self.employers! {
-//           
-//          let query = PFQuery(className: "JobInfo")
-//          query.orderByAscending("updatedAt")
-//          query.whereKey("employers", equalTo: employer)
-//          
-//          query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
-//            if let error = error {
-//              let errorStr = error.userInfo["error"] as? String
-//              print("Error: \(errorStr) ")
-//              self.jobsInfo = nil
-//            } else {
-//              self.jobsInfo = objects!
-//              let title = self.jobsInfo![0]["jobTitle"]
-//              print(title!)
-//              
-//            }
-//          } // end of block 2
-//          
-//        } // end of for
-//      }
-//      
-//      
-//    } // end of block 1
     
     let query = PFQuery(className: "JobsInformation")
     query.orderByAscending("updatedAt")
 //    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
     
     query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+      
       if let error = error {
         let errorStr = error.userInfo["error"] as? String
         print("Error: \(errorStr) ")
@@ -91,7 +63,7 @@ class ParseInterface: NSObject {
         self.jobsInfo = objects!
         
       }
-    } // end of block 2
+    } // end of block 
 
     
     return jobsInfo

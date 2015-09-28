@@ -10,13 +10,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KiVi/MapViewController.swift"
-            timestampString = "465109816.93045"
+            timestampString = "465138116.481381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "MapViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KiVi/MapViewController.swift"
+            timestampString = "465128438.990183"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "locationManager(_:didUpdateLocations:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

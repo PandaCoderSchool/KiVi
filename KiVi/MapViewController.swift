@@ -10,10 +10,13 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+var activeJob = -1
+
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MBProgressHUDDelegate {
   
   
   @IBOutlet var jobMap: MKMapView!
+  var hud : MBProgressHUD = MBProgressHUD()
   
   var selectedJob: PFObject?
   var jobsList: [PFObject]? = [PFObject]()
@@ -31,10 +34,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    locationManager = CLLocationManager()
+//    locationManager = CLLocationManager()
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestAlwaysAuthorization()
+    
+    
     
   }
   
@@ -44,9 +49,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   }
   
   override func viewDidAppear(animated: Bool) {
-    
+    if activeJob == -1 {
     locationManager.startUpdatingLocation()
     timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "fetchJobsInformation", userInfo: nil, repeats: true)
+    }
   }
   
   override func viewDidDisappear(animated: Bool) {
@@ -93,6 +99,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     return annotationView
   }
   
+  func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    
+    if control == view.rightCalloutAccessoryView {
+      let vc = self.storyboard?.instantiateViewControllerWithIdentifier("JobDetails") as! JobDetailsViewController
+      let location = view.annotation?.coordinate
+      vc.selectedLocation = location!
+      self.navigationController?.pushViewController(vc, animated: true)
+      activeJob = 1
+      
+    }
+  }
   // MARK: Location Manager Delegate
   
   func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -108,17 +125,23 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   func fetchJobsInformation() {
     jobsList = ParseInterface.sharedInstance.getJobsInformation()
     self.updateJobsMap()
-    print("Getting joblist")
     
   }
   
   func updateJobsMap() {
+    
+    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    self.hud.mode = MBProgressHUDMode.Indeterminate
+    self.hud.labelText = "Loading"
+    
     if jobsList?.count > 0 {
       for var i = 0; i < jobsList?.count; i++ {
         selectedJob = jobsList![i]
         pinJobOnMap(selectedJob)
       }
       timer.invalidate()
+      MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+      
     }
     
   }
@@ -134,11 +157,34 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
       
       if localSearchResponse == nil{
-        let alert = UIAlertView(title: nil, message: "Place not found", delegate: self, cancelButtonTitle: "Try again")
-        alert.show()
+        let alert = UIAlertController(title: "Place not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+//        let alert = UIAlertView(title: nil, message: "Place not found", delegate: self, cancelButtonTitle: "Try again")
+//        alert.show()
         return
       }
-      //3
+
+      
+      let geoPoint = PFGeoPoint()
+      geoPoint.latitude = localSearchResponse!.boundingRegion.center.latitude
+      geoPoint.longitude  = localSearchResponse!.boundingRegion.center.longitude
+      
+      // Update to current Job
+      
+      let query = PFQuery(className:"JobsInformation")
+      query.getObjectInBackgroundWithId((jobToPin?.objectId)!) {
+        (joblist : PFObject?, error: NSError?) -> Void in
+        if error != nil {
+          print(error)
+        } else if let joblist = joblist {
+          joblist["jobId"] = "T0001"
+          joblist["location"] = geoPoint
+          joblist.saveInBackground()
+
+        }
+      }
+      
+      
       self.pointAnnotation = MKPointAnnotation()
       self.pointAnnotation.title    = jobToPin!["jobTitle"] as? String
       self.pointAnnotation.subtitle = jobToPin!["contactAddress"] as? String
@@ -228,5 +274,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   
 }
+  
+  
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    if segue.identifier == "addJobSegue" {
+      activeJob = -1
+    }
+    
+  }
+
 }
 

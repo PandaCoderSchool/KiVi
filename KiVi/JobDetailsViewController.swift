@@ -9,11 +9,15 @@
 import UIKit
 import MapKit
 
-class JobDetailsViewController: UIViewController, MKMapViewDelegate {
+class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressHUDDelegate {
   
   @IBOutlet weak var map: MKMapView!
   
+  @IBOutlet weak var jobTitle: UILabel!
   @IBOutlet weak var jobDescription: UITextView!
+  
+  var hud : MBProgressHUD = MBProgressHUD()
+  
   var selectedJob: PFObject?
   
   var localSearchRequest:MKLocalSearchRequest!
@@ -22,9 +26,67 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate {
   var pointAnnotation:MKPointAnnotation!
   var pinAnnotationView:MKPinAnnotationView!
   
+  var selectedLocation = CLLocationCoordinate2D()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    
+
+    
+  }
+  override func viewDidAppear(animated: Bool) {
+    if selectedJob == nil {
+      updateWithSelectedPinJob(selectedLocation) // trigger from MAP
+    } else {
+      updateWithSelectedJob() // trigger from Table
+    }
+  }
+  func updateWithSelectedPinJob(location: CLLocationCoordinate2D) {
+    // getting info base on location
+    
+    let geopoint = PFGeoPoint()
+    geopoint.latitude = location.latitude
+    geopoint.longitude = location.longitude
+    
+    let query = PFQuery(className: "JobsInformation")
+    query.whereKey("location", equalTo: geopoint)
+    query.orderByAscending("updatedAt")
+    query.findObjectsInBackgroundWithBlock { (jobObject: [PFObject]?, error: NSError?) -> Void in
+      
+      self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+      self.hud.mode = MBProgressHUDMode.Indeterminate
+      self.hud.labelText = "Loading"
+      
+      if let error = error {
+        let errorStr = error.userInfo["error"] as? String
+        print("Error: \(errorStr) ")
+      } else {
+
+        if let obj = jobObject?.last
+//          for obj in jobObject!
+        {
+          self.selectedJob = obj
+          self.updateWithSelectedJob()
+        }
+        
+      }
+
+    }
+    
+    
+    let latDelta: CLLocationDegrees = 0.01
+    let lonDelta: CLLocationDegrees = 0.01
+    let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
+    let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+    self.map.setRegion(region, animated: true)
+    
+    
+
+    
+    
+  }
+  func updateWithSelectedJob() {
     // Update Map
     localSearchRequest = MKLocalSearchRequest()
     localSearchRequest.naturalLanguageQuery = selectedJob!["contactAddress"] as? String
@@ -33,8 +95,8 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate {
     localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
       
       if localSearchResponse == nil{
-        let alert = UIAlertView(title: nil, message: "Place not found", delegate: self, cancelButtonTitle: "Try again")
-        alert.show()
+        let alert = UIAlertController(title: "Place not found", message: "Please check again", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.presentedViewController
         return
       }
       
@@ -48,6 +110,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate {
       self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
       self.map.centerCoordinate = self.pointAnnotation.coordinate
       self.map.addAnnotation(self.pinAnnotationView.annotation!)
+
       
       let latitude: CLLocationDegrees = localSearchResponse!.boundingRegion.center.latitude
       let longitue: CLLocationDegrees = localSearchResponse!.boundingRegion.center.longitude
@@ -59,14 +122,16 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate {
       let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
       self.map.setRegion(region, animated: true)
       
+      
+      
     }
-    
     // Update Job info
-    self.title = selectedJob!["jobTitle"] as? String
+    self.title = "Job Details"
+    self.jobTitle.text = selectedJob!["jobTitle"] as? String
     jobDescription.text = selectedJob!["jobDetails"] as! String
-    
-    
-    
+
+    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+
     
   }
   
@@ -84,7 +149,84 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate {
   }
   
   @IBAction func onApplyJob(sender: UIBarButtonItem) {
+    let alertController = UIAlertController(title: "Apply for the job", message: nil, preferredStyle: .ActionSheet)
+    let emailStr = "Email: " + (selectedJob!["contactEmail"] as! String)
+    let emailAddress = selectedJob!["contactEmail"] as! String
+    let email = UIAlertAction(title: emailStr, style: .Default, handler: { (action) -> Void in
+      print("Apply by email")
+      UIApplication.sharedApplication().openURL(NSURL(string: "mailto:\(emailAddress)")!)
+    })
+    let phoneStr = "Phone: " + (selectedJob!["contactPhone"] as! String)
+    let phoneNumber = selectedJob!["contactPhone"] as! String
+    let  phone = UIAlertAction(title: phoneStr, style: .Default) { (action) -> Void in
+      print("Apply by phone")
+      UIApplication.sharedApplication().openURL(NSURL(string: "telprompt://\(phoneNumber)")!)
+    }
+    let addrStr = "Direct to: " + (selectedJob!["contactAddress"] as! String)
+    let  address = UIAlertAction(title: addrStr, style: .Default) { (action) -> Void in
+      print("Apply by going to address")
+      self.getDirection()
+    }
+
+    let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+      print("Cancel Button Pressed")
+    })
+    
+    
+    alertController.addAction(email)
+    alertController.addAction(phone)
+    alertController.addAction(address)
+    
+    alertController.addAction(cancel)
+    
+    
+    presentViewController(alertController, animated: true, completion: nil)
   }
+  
+  func getDirection() {
+    let selectedPlacemark = MKPlacemark(coordinate: selectedLocation, addressDictionary: nil)
+    let mapItem = MKMapItem(placemark: selectedPlacemark)
+    
+    mapItem.name = selectedJob!["contactAddress"] as?  String
+    
+    //You could also choose: MKLaunchOptionsDirectionsModeWalking
+    let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+    
+    mapItem.openInMapsWithLaunchOptions(launchOptions)
+  }
+  
+//  
+//  func getDirections() {
+//    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+//    
+//    let currentLocMapItem = MKMapItem.mapItemForCurrentLocation()
+//    let selectedPlacemark = MKPlacemark(coordinate: selectedLoc.coordinate, addressDictionary: nil)
+//    let selectedMapItem = MKMapItem(placemark: selectedPlacemark);
+//    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+//    var placemarkStartingLocation:MKPlacemark = MKPlacemark(coordinate: carInitialCoordinate, addressDictionary: nil)
+//    var startingLocationItem:MKMapItem = MKMapItem(placemark: placemarkStartingLocation);
+//    let mapItems = [startingLocationItem, currentLocMapItem]
+//    
+//    MKMapItem.openMapsWithItems(mapItems, launchOptions:launchOptions)
+//  }
+  
+//  func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+//    let selectedLoc = annotation
+//    let currentLocMapItem = MKMapItem.mapItemForCurrentLocation()
+//    let selectedPlacemark = MKPlacemark(coordinate: selectedLoc.coordinate, addressDictionary: nil)
+//    let selectedMapItem = MKMapItem(placemark: selectedPlacemark);
+//    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+//    var placemarkStartingLocation:MKPlacemark = MKPlacemark(coordinate: (annotation.coordinate), addressDictionary: nil)
+//    var startingLocationItem:MKMapItem = MKMapItem(placemark: placemarkStartingLocation);
+//    let mapItems = [startingLocationItem, currentLocMapItem]
+//    
+//    MKMapItem.openMapsWithItems(mapItems, launchOptions:launchOptions)
+//    return nil
+//  }
+//  func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+//    
+//  }
+  
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
