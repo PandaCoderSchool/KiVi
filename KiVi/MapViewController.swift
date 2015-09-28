@@ -95,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
           }
           let title = "\(subThoroughfare), \(thoroughfare)"
           let addr = "\(pm.subLocality!), \(pm.subAdministrativeArea!), \(pm.administrativeArea!) \(pm.country!)"
-          let annotation = MyAnnotation(title: title, locationName: addr, discipline: addr, coordinate: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+          let annotation = JobAnnotation(title: title, address: addr, coordinate: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
           self.jobMap.addAnnotation(annotation)
       }
     }

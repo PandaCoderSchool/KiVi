@@ -89,23 +89,21 @@ class Map: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
 
 }
 
-class MyAnnotation: NSObject, MKAnnotation {
+class JobAnnotation: NSObject, MKAnnotation {
   let title: String?
-  let locationName: String
-  let discipline: String
+  let address: String
   let coordinate: CLLocationCoordinate2D
   
-  init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D) {
+  init(title: String, address: String, coordinate: CLLocationCoordinate2D) {
     self.title = title
-    self.locationName = locationName
-    self.discipline = discipline
+    self.address = address
     self.coordinate = coordinate
     
     super.init()
   }
   
   var subtitle: String? {
-    return locationName
+    return address
   }
 }
 
