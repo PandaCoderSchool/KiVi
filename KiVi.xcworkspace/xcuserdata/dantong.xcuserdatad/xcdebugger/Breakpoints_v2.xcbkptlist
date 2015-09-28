@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KiVi/MapViewController.swift"
-            timestampString = "465108893.069827"
+            timestampString = "465109816.93045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "MapViewController"
             landmarkType = "3">
          </BreakpointContent>
