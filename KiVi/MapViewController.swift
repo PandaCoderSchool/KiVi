@@ -8,33 +8,110 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class MapViewController: UIViewController, MKMapViewDelegate {
-
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+  
   
   @IBOutlet var jobMap: MKMapView!
   
+  var locationManager: CLLocationManager!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    locationManager = CLLocationManager()
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.requestAlwaysAuthorization()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-      
-    }
-
-      override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  override func viewDidAppear(animated: Bool) {
     
+    locationManager.startUpdatingLocation()
+  }
+  
+  override func viewDidDisappear(animated: Bool) {
+    locationManager.stopUpdatingLocation()
+  }
+  
+  // MARK: Location Manager Delegate
+  
+  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    
+    let userLocation: CLLocation = locations.last!
+    self.updateUserCurrentLocation(userLocation)
+    
+  }
+  
+  
+  func updateUserCurrentLocation(userLocation: CLLocation) {
+    let latitude = userLocation.coordinate.latitude
+    let longitude = userLocation.coordinate.longitude
+    
+    let lonDelta:  CLLocationDegrees  = 0.01
+    let latDelta: CLLocationDegrees   = lonDelta
+    let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
+    let location: CLLocationCoordinate2D  = CLLocationCoordinate2DMake(latitude, longitude)
+    let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+    
+    self.jobMap.setRegion(region, animated: false)
+    
+    self.getAddressFromLocation(userLocation)
 
-    /*
-    // MARK: - Navigation
+  }
+  
+  func getAddressFromLocation(location: CLLocation) {
+    CLGeocoder().reverseGeocodeLocation(location) { (placemarks:[CLPlacemark]?, error: NSError?) -> Void in
+      if error == nil {
+        var title = ""
+        if let pm = placemarks?[0] {
+          
+          var subThoroughfare: String = ""
+          var thoroughfare: String = ""
+          var name: String = ""
+          var areaOfInterest: String = ""
+          
+          
+          if pm.subThoroughfare != nil {
+            subThoroughfare = pm.subThoroughfare!
+          }
+          if pm.thoroughfare != nil {
+            thoroughfare = pm.thoroughfare!
+          }
+          if pm.name != nil {
+            name = pm.name!
+          }
+          if pm.areasOfInterest != nil {
+            areaOfInterest = pm.areasOfInterest!.first!
+          }
+           title = "\(subThoroughfare), \(thoroughfare), \(pm.subLocality!), \(pm.administrativeArea!), \(pm.country!)"
+          print("\(subThoroughfare), \(thoroughfare), \(pm.subLocality!), \(pm.administrativeArea!), \(pm.country!)")
+          
+        }
+        if title == "" {
+          title = "Added"
+        }
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        annotation.title = title
+        self.jobMap.addAnnotation(annotation)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+      }
     }
-    */
-
+  }
+  
+  let regionRadius: CLLocationDistance = 1000
+  func centerMapOnLocation(location: CLLocation) {
+    let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+      regionRadius * 2.0, regionRadius * 2.0)
+    jobMap.setRegion(coordinateRegion, animated: true)
+  }
+  
+  
 }
