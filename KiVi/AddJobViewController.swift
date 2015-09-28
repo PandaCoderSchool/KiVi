@@ -24,7 +24,7 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
   let imagePicker = UIImagePickerController()
   var photo : UIImage?
   var locationManager = CLLocationManager()
-
+var kbHeight: CGFloat!
   
   
     override func viewDidLoad() {
@@ -34,8 +34,38 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
       locationManager.desiredAccuracy = kCLLocationAccuracyBest
       locationManager.requestAlwaysAuthorization()
       
-
+      NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillAppear:"), name:UIKeyboardWillShowNotification, object: nil);
+      NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillDisappear:"), name:UIKeyboardWillHideNotification, object: nil);
+  }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  func keyboardWillAppear(notification: NSNotification) {
+    if let userInfo = notification.userInfo {
+      if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+        kbHeight = keyboardSize.height
+        animateTextField(true)
+      }
     }
+  }
+  func keyboardWillDisappear(notification: NSNotification){
+    animateTextField(false)
+    
+  }
+  
+  func animateTextField(up: Bool) {
+    let movement = (up ? -kbHeight : 0)
+//    animateImages(!up)
+//    UIView.animateWithDuration(0.3, animations: {
+//      self.jobDescriptionText.transform = CGAffineTransformMakeTranslation(0, movement)
+//    })
+  }
+  
+
+
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -152,6 +182,8 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     return true
     
   }
+  
+  
     /*
     // MARK: - Navigation
 
