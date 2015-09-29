@@ -65,17 +65,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       return nil
     }
     
-//    // Resize the image selected
-//    let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
-//    resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
-//    resizeRenderImageView.layer.borderWidth = 3.0
-//    resizeRenderImageView.contentMode = UIViewContentMode.ScaleAspectFill
-//    resizeRenderImageView.image = UIImage(named: "defaultImage")
-//    
-//    UIGraphicsBeginImageContext(resizeRenderImageView.frame.size)
-//    resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-//    let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
-//    UIGraphicsEndImageContext()
+    // Resize the image selected
+    let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
+    resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
+    resizeRenderImageView.layer.borderWidth = 3.0
+    resizeRenderImageView.contentMode = UIViewContentMode.ScaleAspectFill
+    resizeRenderImageView.image = UIImage(named: "defaultImage")
+    
+    UIGraphicsBeginImageContext(resizeRenderImageView.frame.size)
+    resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
     
     let reuseID = "myAnnotationView"
     var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
@@ -83,7 +83,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       // Must use MKAnnotationView instead of MKPointAnnotationView if we want to use image for pin annotation
       annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
       annotationView!.canShowCallout = true
-//      annotationView!.image = thumbnail
+      annotationView!.image = thumbnail
       // Left Image annotation
       annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
       let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
