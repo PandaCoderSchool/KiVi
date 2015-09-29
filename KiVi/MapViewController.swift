@@ -195,8 +195,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
       self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
       
-      let coordinateRegion = MKCoordinateRegionMakeWithDistance(self.pointAnnotation.coordinate, self.regionRadius, self.regionRadius)
-      self.jobMap.setRegion(coordinateRegion, animated: true)
+//      let coordinateRegion = MKCoordinateRegionMakeWithDistance(self.pointAnnotation.coordinate, self.regionRadius, self.regionRadius)
+//      self.jobMap.setRegion(coordinateRegion, animated: true)
       
       
     }
@@ -205,18 +205,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
   
   func updateUserCurrentLocation(userLocation: CLLocation) {
-    let latitude = userLocation.coordinate.latitude
-    let longitude = userLocation.coordinate.longitude
+    self.centerMapOnLocation(userLocation)
+//    let latitude = userLocation.coordinate.latitude
+//    let longitude = userLocation.coordinate.longitude
+//    
+//    let lonDelta:  CLLocationDegrees  = 0.01
+//    let latDelta: CLLocationDegrees   = lonDelta
+//    let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
+//    let location: CLLocationCoordinate2D  = CLLocationCoordinate2DMake(latitude, longitude)
+//    let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+//    
+//    self.jobMap.setRegion(region, animated: false)
     
-    let lonDelta:  CLLocationDegrees  = 0.01
-    let latDelta: CLLocationDegrees   = lonDelta
-    let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
-    let location: CLLocationCoordinate2D  = CLLocationCoordinate2DMake(latitude, longitude)
-    let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
     
-    self.jobMap.setRegion(region, animated: false)
-    
-    self.getAddressFromLocation(userLocation)
+//    self.getAddressFromLocation(userLocation)
 
   }
   
@@ -275,17 +277,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   }
   
   
-  func centerMapOnLocation(location: CLLocation) {
-    let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-      regionRadius * 2.0, regionRadius * 2.0)
-    jobMap.setRegion(coordinateRegion, animated: true)
-  }
-  
+    
   
   
 }
   
-  
+  func centerMapOnLocation(location: CLLocation) {
+    let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+      regionRadius * 20.0, regionRadius * 20.0)
+    jobMap.setRegion(coordinateRegion, animated: true)
+  }
+
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
