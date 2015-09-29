@@ -49,7 +49,7 @@ class ParseInterface: NSObject {
   // Get Jobs Information from Database, return the PFObject array
   
   func getJobsInformation() -> [PFObject]? {
-//    if loginIsSuccess {
+    if loginIsSuccess {
     let query = PFQuery(className: "JobsInformation")
     query.orderByAscending("updatedAt")
 //    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
@@ -66,11 +66,11 @@ class ParseInterface: NSObject {
       }
     } // end of block 
       return jobsInfo
-//    }
-//    else {
-//      return nil
-//
-//    }
+    }
+    else {
+      return nil
+
+    }
   }
   
   

@@ -79,19 +79,10 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
       }
     } else {
       cell.dueSubmitDateLabel.text = "NA"
-    }
-  
-    
-    
+    }    
     cell.salaryLabel.text = jobsList![indexPath.row]["salary"] as? String
     
     // MARK: Load image
-//    cell.jobImage.image = nil
-//    if let photoUrl = NSURL(string: (jobsList![indexPath.row]["photoURL"] as? String)!) {
-//      cell.jobImage.setImageWithURL(photoUrl)
-//    } else {
-//      cell.jobImage.image = UIImage(named: "defaultImage")
-//    }
     
     let object = jobsList![indexPath.row]
     

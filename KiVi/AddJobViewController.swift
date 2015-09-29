@@ -28,7 +28,7 @@ var kbHeight: CGFloat!
   var editItemIndex = 0
   var currentLocation = CLLocation()
   
-  
+  var hud = MBProgressHUD()
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +91,24 @@ var kbHeight: CGFloat!
     }
   @IBAction func saveAllInfo(sender: UIButton) {
     
+    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    self.hud.mode = MBProgressHUDMode.Indeterminate
+    self.hud.labelText = "Saving your data to server..."
+    
+    saveNewJob()
+    
+    self.navigationController?.popToRootViewControllerAnimated(true)
+    activeJob = -1
+    
+  }
+  
+  @IBAction func useCurrentLocation(sender: UIButton) {
+    comAddressLabel.text = addressLabel.text
+    
+    
+  }
+
+  func saveNewJob() {
     let jobObj = PFObject(className: "JobsInformation")
     
     jobObj["createdBy"] = PFUser.currentUser()
@@ -100,7 +118,7 @@ var kbHeight: CGFloat!
     jobObj["jobType"] = "NA"
     jobObj["jobCategory"] = "NA"
     jobObj["workAt"] = "Ho Chi Minh"
-//    jobObj["dueOn"] = 
+    //    jobObj["dueOn"] =
     jobObj["companyName"] = comNameLabel.text
     jobObj["contactAddress"] = comAddressLabel.text
     jobObj["contactEmail"] = emailLabel.text
@@ -110,7 +128,11 @@ var kbHeight: CGFloat!
     geopoint.longitude = currentLocation.coordinate.longitude
     jobObj["location"] = geopoint
     
-        
+    let nowDate = NSDate()
+    let dayToDue:Double = 30
+    let dueDate = nowDate.dateByAddingTimeInterval(60*60*24*dayToDue)
+    jobObj["dueOn"] = dueDate
+    
     jobObj.saveInBackgroundWithBlock({
       (success: Bool, error: NSError?) -> Void in
       
@@ -124,37 +146,22 @@ var kbHeight: CGFloat!
         jobObj["profilePhoto"] = parseImageFile
         jobObj.saveInBackgroundWithBlock({
           (success: Bool, error: NSError?) -> Void in
-          
           if error == nil {
             //take user home
             print("data uploaded")
-//            self.performSegueWithIdentifier("goHomeFromUpload", sender: self)
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             
           }else {
-            
             print(error)
           }
-          
-          
-        })
-        
-        
+        }) // saveInBackgroundWithBlock - save image - End
       }else {
         print(error)
-        
       }
-      
-    })
+    }) // saveInBackgroundWithBlock - save obj - End
 
-    
   }
   
-  @IBAction func useCurrentLocation(sender: UIButton) {
-    comAddressLabel.text = addressLabel.text
-    
-    
-  }
-
   // MARK: Image picker protocol
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     let editedImage = info[UIImagePickerControllerEditedImage]as! UIImage
@@ -164,6 +171,7 @@ var kbHeight: CGFloat!
     
     picker.dismissViewControllerAnimated(true) { () -> Void in
       print("Image was captured")
+      
       
       //      let vc = self.storyboard?.instantiateViewControllerWithIdentifier("LocationsViewController") as! LocationsViewController
       //      vc.delegate = self
@@ -177,6 +185,7 @@ var kbHeight: CGFloat!
     let currentLocation: CLLocation = locations.last!
     self.updateUserCurrentLocation(currentLocation)
     self.getAddressFromLocation(currentLocation)
+    locationManager.stopUpdatingLocation()
     
   }
   

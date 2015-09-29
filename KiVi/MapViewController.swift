@@ -162,6 +162,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       
       if localSearchResponse == nil{
         let alert = UIAlertController(title: "Place not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancel = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        alert.addAction(cancel)
+      
         self.presentViewController(alert, animated: true, completion: nil)
 
         return
