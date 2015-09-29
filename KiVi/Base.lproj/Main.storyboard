@@ -22,14 +22,14 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <animations/>
                                 <connections>
-                                    <segue destination="5oH-4r-LOf" kind="embed" id="Zg8-Wm-ocD"/>
+                                    <segue destination="5oH-4r-LOf" kind="embed" identifier="mapsegue" id="Zg8-Wm-ocD"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hS7-jg-hcO" userLabel="List Container View">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <animations/>
                                 <connections>
-                                    <segue destination="2WI-mb-dwn" kind="embed" id="MJU-n6-3Vu"/>
+                                    <segue destination="2WI-mb-dwn" kind="embed" identifier="listsegue" id="MJU-n6-3Vu"/>
                                 </connections>
                             </containerView>
                         </subviews>

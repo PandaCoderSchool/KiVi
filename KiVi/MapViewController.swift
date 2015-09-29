@@ -40,7 +40,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestAlwaysAuthorization()
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateMap:"), name: "searchResultUpdated", object: nil)
+    
   }
+  
+  deinit{
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -60,6 +68,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   override func viewDidDisappear(animated: Bool) {
     locationManager.stopUpdatingLocation()
+  }
+  
+  func updateMap(notification: NSNotification) {
+    let userInfo:Dictionary<String,[PFObject]!> = notification.userInfo as! Dictionary<String,[PFObject]!>
+    jobsList = userInfo["result"]
+    print("Updated: \(jobsList!.count)" )
+    updateJobsMap()
   }
   
   // MARK: Map View Delegate protocol
@@ -134,11 +149,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   }
   
   func updateJobsMap() {
+    // 1: remove all current on map annotation
+    jobMap.removeAnnotations(self.jobMap.annotations)
     
 //    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
 //    self.hud.mode = MBProgressHUDMode.Indeterminate
 //    self.hud.labelText = "Loading"
-    
+    // 2: update new
     if jobsList?.count > 0 {
       for var i = 0; i < jobsList?.count; i++ {
         selectedJob = jobsList![i]

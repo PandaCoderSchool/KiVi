@@ -23,9 +23,12 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     jobsTableView.estimatedRowHeight = 160
     
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateTable:"), name: "searchResultUpdated", object: nil)
     
-
-    
+  }
+  
+  deinit{
+    NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
   override func didReceiveMemoryWarning() {
@@ -41,6 +44,14 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     timer.invalidate()
   }
   
+  func updateTable(notification: NSNotification) {
+    let userInfo:Dictionary<String,[PFObject]!> = notification.userInfo as! Dictionary<String,[PFObject]!>
+    jobsList = userInfo["result"]
+    if jobsList != nil {
+      jobsTableView.reloadData()
+      
+    }
+  }
   
   func fetchJobsInformation() {
     jobsList = ParseInterface.sharedInstance.getJobsInformation()
@@ -62,7 +73,7 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
   }
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    print("Updating cells")
+
     let cell = tableView.dequeueReusableCellWithIdentifier("JobCell", forIndexPath: indexPath) as! JobCell
     
     cell.jobTitle.text = jobsList![indexPath.row]["jobTitle"] as? String

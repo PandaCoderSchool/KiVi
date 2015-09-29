@@ -19,24 +19,20 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   let listView = "ListView"
   var isMapViewSelected: Bool = true
   
+  var searchResult : [PFObject]? = [PFObject]()
+  
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     searchBar.delegate = self
+    
     self.setupSearchBar()
     
-//    if ParseInterface.sharedInstance.isLogInPrevious() {
-//      print("Already login. Show main screen")
-//    }else {
-//      print("User must sign up first then login again")
-//      
-//      ParseInterface.sharedInstance.parseSignIn(ParseInterface.sharedInstance.defaultUserName , userPass: ParseInterface.sharedInstance.defaultPassword)
-//    }
     
     mapContainerView.hidden   = !isMapViewSelected
     listContainerView.hidden  = isMapViewSelected
-    
     
     
     
@@ -48,12 +44,70 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   }
   
   
+  
   func setupSearchBar() {
     
-    searchBar.placeholder = "Search a job"
+    searchBar.placeholder = "Search with a location"
     self.navigationItem.titleView = self.searchBar
   }
   
+  func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    
+    fetchNewJob(searchBar.text!)
+    searchBar.resignFirstResponder()
+    
+  }
+  func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    searchBar.resignFirstResponder()
+  }
+//  func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+//    let newText = NSString(string: searchBar.text!).stringByReplacingCharactersInRange(range, withString: text)
+//    fetchNewJob(newText)
+//    searchBar.resignFirstResponder()
+//    return true
+//  }
+  
+  func fetchNewJob(searchText: String) {
+    print("Searching...")
+    let searchQuery = PFQuery(className: "JobsInformation")
+    searchQuery.whereKey("contactAddress", matchesRegex: "(?i)\(searchText)")
+    searchQuery.whereKey("contactAddress", containsString: searchText)
+    let searchQuerySecond = PFQuery(className: "JobsInformation")
+    searchQuerySecond.whereKey("workAt", matchesRegex: "(?i)\(searchText)")
+    
+    let query = PFQuery.orQueryWithSubqueries([searchQuery, searchQuerySecond])
+    query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
+      if error != nil {
+        let errorAlert = UIAlertController(title: "Search Alert", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        errorAlert.addAction(okAction)
+        self.presentViewController(errorAlert, animated: true, completion: nil)
+        return
+      }
+      if let objects = results {
+        self.searchResult?.removeAll(keepCapacity: false)
+        self.searchResult = objects
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          
+          
+          if self.searchResult?.count == 0 {
+            let errorAlert = UIAlertController(title: "Search Alert", message: "No jobs found", preferredStyle: UIAlertControllerStyle.Alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+            errorAlert.addAction(okAction)
+            self.presentViewController(errorAlert, animated: true, completion: nil)
+          } else {
+            print("Post Notification with result = \(self.searchResult!.count)")
+            NSNotificationCenter.defaultCenter().postNotificationName("searchResultUpdated", object: nil, userInfo: ["result" : self.searchResult!])
+            
+          }
+          
+        }) // dispatch_async - End
+      }
+      
+    }
+    
+  }
   @IBAction func onChangeViewType(sender: UIBarButtonItem) {
     isMapViewSelected = !isMapViewSelected
     
@@ -97,14 +151,27 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
   }
 
-  /*
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  
+    searchBar.resignFirstResponder()
+  }
+  
+  
+  
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
+//    if segue.identifier == "mapsegue" {
+//      let vc = segue.destinationViewController as! MapViewController
+//      if searchResult != nil {
+//        vc.jobsList = searchResult
+//        vc.updateJobsMap()
+//        print("Updating map")
+//      }
+//    }
+  
   }
-  */
+  
   
 }
