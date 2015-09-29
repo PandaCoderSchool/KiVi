@@ -128,7 +128,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     // Update Job info
     self.title = "Job Details"
     self.jobTitle.text = selectedJob!["jobTitle"] as? String
-    jobDescription.text = selectedJob!["jobDetails"] as! String
+    jobDescription.text = selectedJob!["jobDescription"] as! String
 
     MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
 

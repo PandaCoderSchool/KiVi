@@ -68,17 +68,30 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     cell.jobTitle.text = jobsList![indexPath.row]["jobTitle"] as? String
     cell.companyLabel.text  = jobsList![indexPath.row]["companyName"] as? String
     
-//    let dateFormatter = NSDateFormatter()
-//    dateFormatter.dateFormat = "dd'/'MM'/'yyyy"
-//    let date = dateFormatter.stringFromDate((jobsList![indexPath.row]["dueOn"] as? NSDate)!)
-//    cell.dueSubmitDateLabel.text = "Hạn chót: " + date
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "dd'/'MM'/'yyyy"
+    if let getDate = jobsList![indexPath.row]["dueOn"] as? NSDate {
+      let date = dateFormatter.stringFromDate(getDate)
+      if !date.isEmpty {
+        cell.dueSubmitDateLabel.text = "Hạn chót: " + date
+      } else {
+        cell.dueSubmitDateLabel.text = "NA"
+      }
+    } else {
+      cell.dueSubmitDateLabel.text = "NA"
+    }
+  
+    
     
     cell.salaryLabel.text = jobsList![indexPath.row]["salary"] as? String
     
     // MARK: Load image
 //    cell.jobImage.image = nil
-//    let photoUrl = NSURL(string: (jobsList![indexPath.row]["photoURL"] as? String)!)
-//    cell.jobImage.setImageWithURL(photoUrl!)
+//    if let photoUrl = NSURL(string: (jobsList![indexPath.row]["photoURL"] as? String)!) {
+//      cell.jobImage.setImageWithURL(photoUrl)
+//    } else {
+//      cell.jobImage.image = UIImage(named: "defaultImage")
+//    }
     
     return cell
   }
