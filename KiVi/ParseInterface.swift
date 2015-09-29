@@ -22,6 +22,8 @@ class ParseInterface: NSObject {
   var jobsInfo  : [PFObject]?
   var employers : [PFObject]?
   
+  var signUpIsSuccess = false
+  var loginIsSuccess = false
   // sharedInstance to be used in other classes
   
   class var sharedInstance: ParseInterface {
@@ -47,27 +49,28 @@ class ParseInterface: NSObject {
   // Get Jobs Information from Database, return the PFObject array
   
   func getJobsInformation() -> [PFObject]? {
-
-    
+    if loginIsSuccess {
     let query = PFQuery(className: "JobsInformation")
     query.orderByAscending("updatedAt")
-//    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
-    print(PFUser.currentUser()?.username)
+    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
     
     query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
       
       if let error = error {
         let errorStr = error.userInfo["error"] as? String
-        print("Error: \(errorStr) ")
+        print("Error when finding object: \(errorStr) ")
         self.jobsInfo = nil
       } else {
         self.jobsInfo = objects!
         
       }
     } // end of block 
+      return jobsInfo
+    }
+    else {
+      return nil
 
-    
-    return jobsInfo
+    }
   }
   
   
@@ -77,38 +80,38 @@ class ParseInterface: NSObject {
     user.username = userName as? String
     user.password = userPass as? String
     
-    var signUpIsSuccess = false
+    
     
     user.signUpInBackgroundWithBlock {
       (succeeded: Bool, error: NSError?) -> Void in
       if let error = error {
         let errorString = error.userInfo["error"] as? NSString
         print(errorString)
-        signUpIsSuccess = false
+        self.signUpIsSuccess = false
       } else {
 //        self.performSegueWithIdentifier("loginSegue", sender: self)
         print("Sign up successful")
-        signUpIsSuccess = true
+        self.signUpIsSuccess = true
       }
     }
     return signUpIsSuccess
   }
   
   func parseSignIn(userName: String?, userPass: String?) -> Bool {
-    var loginIsSuccess = false
+    
     PFUser.logInWithUsernameInBackground(userName!, password: userPass!) { (user: PFUser?, err: NSError?) -> Void in
       
       if user != nil {
         
-        loginIsSuccess = true
+        self.loginIsSuccess = true
+        print("Login succeeded")
         
       } else {
-        
-        loginIsSuccess = false
+        self.loginIsSuccess = false
         
         if let error = err {
           let errStr = error.userInfo["user"] as? NSString
-          print("Error: \(errStr)")
+          print("Error when login: \(errStr)")
         }
       }
     }
