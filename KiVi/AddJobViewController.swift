@@ -9,7 +9,7 @@
 import UIKit
 
 class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
-
+  
   
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var profilePhoto: UIImageView!
@@ -24,21 +24,22 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
   let imagePicker = UIImagePickerController()
   var photo : UIImage?
   var locationManager = CLLocationManager()
-var kbHeight: CGFloat!
+  var kbHeight: CGFloat!
   var editItemIndex = 0
   var currentLocation = CLLocation()
   
   var hud = MBProgressHUD()
+  var dataIsSaved = false
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-      locationManager.delegate = self
-      locationManager.desiredAccuracy = kCLLocationAccuracyBest
-      locationManager.requestAlwaysAuthorization()
-      
-      NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillAppear:"), name:UIKeyboardWillShowNotification, object: nil);
-      NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillDisappear:"), name:UIKeyboardWillHideNotification, object: nil);
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.requestAlwaysAuthorization()
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillAppear:"), name:UIKeyboardWillShowNotification, object: nil);
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillDisappear:"), name:UIKeyboardWillHideNotification, object: nil);
   }
   
   deinit {
@@ -60,7 +61,7 @@ var kbHeight: CGFloat!
   
   func animateTextField(up: Bool) {
     let movement = (up ? -kbHeight : 0)
-//    animateImages(!up)
+    //    animateImages(!up)
     UIView.animateWithDuration(0.3, animations: {
       self.jobDescriptionText.transform = CGAffineTransformMakeTranslation(0, movement)
     })
@@ -69,36 +70,37 @@ var kbHeight: CGFloat!
   @IBAction func comNameEditing(sender: UITextField) {
     editItemIndex = sender.tag
   }
-
+  
   @IBAction func comAddressEditing(sender: UITextField) {
     editItemIndex = sender.tag
   }
-
+  
   @IBAction func comJobTitleEditing(sender: UITextField) {
     editItemIndex = sender.tag
   }
-
+  
   @IBAction func emailEditing(sender: UITextField) {
     editItemIndex = sender.tag
   }
-
+  
   @IBAction func phoneNumberEditing(sender: UITextField) {
     editItemIndex = sender.tag
   }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
   @IBAction func saveAllInfo(sender: UIButton) {
-    
+    dataIsSaved = false
     self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     self.hud.mode = MBProgressHUDMode.Indeterminate
     self.hud.labelText = "Saving your data to server..."
     
     saveNewJob()
-    
-    self.navigationController?.popToRootViewControllerAnimated(true)
-    activeJob = -1
+    if dataIsSaved {
+      self.navigationController?.popToRootViewControllerAnimated(true)
+      activeJob = -1
+    }
     
   }
   
@@ -107,7 +109,7 @@ var kbHeight: CGFloat!
     
     
   }
-
+  
   func saveNewJob() {
     let jobObj = PFObject(className: "JobsInformation")
     
@@ -150,7 +152,7 @@ var kbHeight: CGFloat!
             //take user home
             print("data uploaded")
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-            
+            self.dataIsSaved = true
           }else {
             print(error)
           }
@@ -159,7 +161,7 @@ var kbHeight: CGFloat!
         print(error)
       }
     }) // saveInBackgroundWithBlock - save obj - End
-
+    
   }
   
   // MARK: Image picker protocol
@@ -177,7 +179,7 @@ var kbHeight: CGFloat!
       //      vc.delegate = self
       //      self.presentViewController(vc, animated: true, completion: nil)
     }
-
+    
   }
   
   // MARK: LocationManager protocol
@@ -206,14 +208,14 @@ var kbHeight: CGFloat!
   }
   
   func updateUserCurrentLocation(userLocation: CLLocation) {
-//    let latitude = userLocation.coordinate.latitude
-//    let longitude = userLocation.coordinate.longitude
+    //    let latitude = userLocation.coordinate.latitude
+    //    let longitude = userLocation.coordinate.longitude
     self.currentLocation = userLocation
     
     
     
   }
-
+  
   func getAddressFromLocation(location: CLLocation) {
     CLGeocoder().reverseGeocodeLocation(location) { (placemarks:[CLPlacemark]?, error: NSError?) -> Void in
       if error == nil {
@@ -270,14 +272,14 @@ var kbHeight: CGFloat!
   }
   
   
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  /*
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  // Get the new view controller using segue.destinationViewController.
+  // Pass the selected object to the new view controller.
+  }
+  */
+  
 }
