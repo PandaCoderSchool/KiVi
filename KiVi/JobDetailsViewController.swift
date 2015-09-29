@@ -136,7 +136,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
   }
   
   @IBAction func onShareJob(sender: UIBarButtonItem) {
-    let textToShare = (selectedJob!["jobTitlt"] as! String) + "\n" + (selectedJob!["jobDescription"] as! String)
+    let textToShare = (selectedJob!["jobTitle"] as! String) + "\n" + (selectedJob!["jobDescription"] as! String)
     let contactAddress = self.selectedJob!["contactAddress"] as! String
       let objectsToShare = [textToShare, contactAddress]
       let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
