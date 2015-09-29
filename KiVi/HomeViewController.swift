@@ -60,12 +60,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   func searchBarCancelButtonClicked(searchBar: UISearchBar) {
     searchBar.resignFirstResponder()
   }
-//  func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-//    let newText = NSString(string: searchBar.text!).stringByReplacingCharactersInRange(range, withString: text)
-//    fetchNewJob(newText)
-//    searchBar.resignFirstResponder()
-//    return true
-//  }
+
   
   func fetchNewJob(searchText: String) {
     print("Searching...")
@@ -157,21 +152,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   }
   
   
-  
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//    if segue.identifier == "mapsegue" {
-//      let vc = segue.destinationViewController as! MapViewController
-//      if searchResult != nil {
-//        vc.jobsList = searchResult
-//        vc.updateJobsMap()
-//        print("Updating map")
-//      }
-//    }
-  
-  }
   
   
 }

@@ -156,9 +156,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // 1: remove all current on map annotation
     jobMap.removeAnnotations(self.jobMap.annotations)
     
-//    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//    self.hud.mode = MBProgressHUDMode.Indeterminate
-//    self.hud.labelText = "Loading"
     // 2: update new
     if jobsList?.count > 0 {
       for var i = 0; i < jobsList?.count; i++ {
@@ -197,22 +194,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       geoPoint.latitude = localSearchResponse!.boundingRegion.center.latitude
       geoPoint.longitude  = localSearchResponse!.boundingRegion.center.longitude
       
-//      // Update to current Job
-//      
-//      let query = PFQuery(className:"JobsInformation")
-//      query.getObjectInBackgroundWithId((jobToPin?.objectId)!) {
-//        (joblist : PFObject?, error: NSError?) -> Void in
-//        if error != nil {
-//          print(error)
-//        } else if let joblist = joblist {
-//          joblist["jobId"] = "T0001"
-//          joblist["location"] = geoPoint
-//          joblist.saveInBackground()
-//
-//        }
-//      }
-      
-      
       self.pointAnnotation = MKPointAnnotation()
       self.pointAnnotation.title    = jobToPin!["jobTitle"] as? String
       self.pointAnnotation.subtitle = jobToPin!["contactAddress"] as? String
@@ -236,9 +217,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
       self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
       
-//      let coordinateRegion = MKCoordinateRegionMakeWithDistance(self.pointAnnotation.coordinate, self.regionRadius, self.regionRadius)
-//      self.jobMap.setRegion(coordinateRegion, animated: true)
-      
       
     }
     
@@ -247,19 +225,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   func updateUserCurrentLocation(userLocation: CLLocation) {
     self.centerMapOnLocation(userLocation)
-//    let latitude = userLocation.coordinate.latitude
-//    let longitude = userLocation.coordinate.longitude
-//    
-//    let lonDelta:  CLLocationDegrees  = 0.01
-//    let latDelta: CLLocationDegrees   = lonDelta
-//    let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
-//    let location: CLLocationCoordinate2D  = CLLocationCoordinate2DMake(latitude, longitude)
-//    let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
-//    
-//    self.jobMap.setRegion(region, animated: false)
-    
-    
-//    self.getAddressFromLocation(userLocation)
 
   }
   
@@ -329,16 +294,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     jobMap.setRegion(coordinateRegion, animated: true)
   }
 
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    
-    if segue.identifier == "addJobSegue" {
-      activeJob = -1
-    }
-    
-  }
+
 
 }
 

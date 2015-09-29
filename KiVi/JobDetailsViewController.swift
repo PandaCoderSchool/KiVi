@@ -191,53 +191,12 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     mapItem.openInMapsWithLaunchOptions(launchOptions)
   }
   
-//  
-//  func getDirections() {
-//    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-//    
-//    let currentLocMapItem = MKMapItem.mapItemForCurrentLocation()
-//    let selectedPlacemark = MKPlacemark(coordinate: selectedLoc.coordinate, addressDictionary: nil)
-//    let selectedMapItem = MKMapItem(placemark: selectedPlacemark);
-//    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
-//    var placemarkStartingLocation:MKPlacemark = MKPlacemark(coordinate: carInitialCoordinate, addressDictionary: nil)
-//    var startingLocationItem:MKMapItem = MKMapItem(placemark: placemarkStartingLocation);
-//    let mapItems = [startingLocationItem, currentLocMapItem]
-//    
-//    MKMapItem.openMapsWithItems(mapItems, launchOptions:launchOptions)
-//  }
-  
-//  func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-//    let selectedLoc = annotation
-//    let currentLocMapItem = MKMapItem.mapItemForCurrentLocation()
-//    let selectedPlacemark = MKPlacemark(coordinate: selectedLoc.coordinate, addressDictionary: nil)
-//    let selectedMapItem = MKMapItem(placemark: selectedPlacemark);
-//    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
-//    var placemarkStartingLocation:MKPlacemark = MKPlacemark(coordinate: (annotation.coordinate), addressDictionary: nil)
-//    var startingLocationItem:MKMapItem = MKMapItem(placemark: placemarkStartingLocation);
-//    let mapItems = [startingLocationItem, currentLocMapItem]
-//    
-//    MKMapItem.openMapsWithItems(mapItems, launchOptions:launchOptions)
-//    return nil
-//  }
-//  func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
-//    
-//  }
-  
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
   
-  
-  /*
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
-  }
-  */
+
   
 }

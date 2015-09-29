@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KiVi/HomeViewController.swift"
-            timestampString = "465206546.322408"
+            timestampString = "465210928.874806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "fetchNewJob(_:)"
             landmarkType = "5">
          </BreakpointContent>
