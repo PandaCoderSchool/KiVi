@@ -228,9 +228,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
           
           var subThoroughfare: String = ""
           var thoroughfare: String = ""
-          var name: String = ""
-          var areaOfInterest: String = ""
-          
+          var subLocality: String = ""
+          var subAdministrativeArea: String = ""
+          var administrativeArea: String = ""
+          var country: String = ""
           
           if pm.subThoroughfare != nil {
             subThoroughfare = pm.subThoroughfare!
@@ -238,18 +239,28 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
           if pm.thoroughfare != nil {
             thoroughfare = pm.thoroughfare!
           }
-          if pm.name != nil {
-            name = pm.name!
+          if pm.subLocality != nil {
+            subLocality = pm.subLocality!
           }
-          if pm.areasOfInterest != nil {
-            areaOfInterest = pm.areasOfInterest!.first!
+          if pm.subAdministrativeArea != nil {
+            subAdministrativeArea = pm.subAdministrativeArea!
           }
-          let title = "\(subThoroughfare), \(thoroughfare)"
-          let addr = "\(pm.subLocality!), \(pm.subAdministrativeArea!), \(pm.administrativeArea!) \(pm.country!)"
+          if pm.administrativeArea != nil {
+            administrativeArea = pm.administrativeArea!
+          }
+          if pm.country != nil {
+            country = pm.country!
+          }
+          
+          let addr = "\(subThoroughfare), \(thoroughfare), \(subLocality), \(subAdministrativeArea), \(administrativeArea), \(country)"
+          
+          
+          print(addr)
+
           
           
           self.pointAnnotation = MKPointAnnotation()
-          self.pointAnnotation.title    = title
+          self.pointAnnotation.title    = "Job Address"
           self.pointAnnotation.subtitle = addr
           
           self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)

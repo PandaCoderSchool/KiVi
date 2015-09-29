@@ -99,7 +99,6 @@ class ParseInterface: NSObject {
     PFUser.logInWithUsernameInBackground(userName!, password: userPass!) { (user: PFUser?, err: NSError?) -> Void in
       
       if user != nil {
-        
         self.loginIsSuccess = true
         print("Login succeeded with username: \(userName!)")
         
