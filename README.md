@@ -8,14 +8,22 @@ The app focus on jobs for students only, including part-time or full time jobs.
 
 
 ## REQUIRED:
-- User can sign up/sign in using email or OAuth loging flow with Google, Facebook or Twitter.
-- The current signed in user will be persisted across restarts
 
-### For Students:
-- Must have student ID to be qualified as a student, universities will help to verify this ID.
-- Can set interested job fields, e.g: engineering, marketing, ... and set notifications.
-- Application must have push notification when new jobs are posted by companies.
-- Can share jobs info to their friends through Social: Facebook, Twitter, Google+
+- [x] Search results page
+   - [x] Search by location and updated on Map and List 
+   - [x] Search bar is in the navigation bar .
+   - [x] User can switch between Map and List View
+- [x] Job
+   - [x] Can view all jobs within 20km from their current location 
+   - [x] Can view jobs summary by selecting a pin on map.
+   - [x] Can view job details.
+- [x] Job details and  job application 
+   - [x] Apply by phone call. send and email by calling: UIApplication.sharedApplication().openURL
+   - [x] When apply directly, will show a map with routes to the job location by calling: mapItem.openInMapsWithLaunchOptions(launchOptions)
+   - [x] Job can be shared to socials by using: UIActivityViewController
+- [x] Add a new job
+   - [x] Take photo at job location, app will get current location and tag to it, save to server.
+   - [x] Photo can be read and used in map and list view
 
 
 ## OPTIONALS:
@@ -23,7 +31,10 @@ The app focus on jobs for students only, including part-time or full time jobs.
 - Can share jobs info to their friends through Email, SMS.
 - Also can set job expectations on their profiles.
 - Can set profiles for private or public.
-
+- Must have student ID to be qualified as a student, universities will help to verify this ID.
+- Can set interested job fields, e.g: engineering, marketing, ... and set notifications.
+- Application must have push notification when new jobs are posted by companies.
+- 
 ### For Companies:
 - Payment method for companies: bank card, bank account or cash
 - Currency for payments.
