@@ -93,6 +93,20 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
 //      cell.jobImage.image = UIImage(named: "defaultImage")
 //    }
     
+    let object = jobsList![indexPath.row]
+    
+    if let thumbNail = object["profilePhoto"] as? PFFile {
+    
+      thumbNail.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError?) -> Void in
+        if (error == nil) {
+          let image = UIImage(data:imageData!)
+          //image object implementation
+          cell.jobImage.image = image
+        }
+      }) // getDataInBackgroundWithBlock - end
+    }
+//
+  
     return cell
   }
   
