@@ -79,9 +79,6 @@ class ParseInterface: NSObject {
     let user = PFUser()
     user.username = userName as? String
     user.password = userPass as? String
-    
-    
-    
     user.signUpInBackgroundWithBlock {
       (succeeded: Bool, error: NSError?) -> Void in
       if let error = error {
@@ -104,7 +101,7 @@ class ParseInterface: NSObject {
       if user != nil {
         
         self.loginIsSuccess = true
-        print("Login succeeded")
+        print("Login succeeded with username: \(userName!)")
         
       } else {
         self.loginIsSuccess = false

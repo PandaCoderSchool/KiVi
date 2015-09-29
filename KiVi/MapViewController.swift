@@ -123,7 +123,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   func fetchJobsInformation() {
     jobsList = ParseInterface.sharedInstance.getJobsInformation()
-    self.updateJobsMap()
+    if jobsList?.count > 0 {
+      self.updateJobsMap()
+    }
     
   }
   
