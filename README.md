@@ -56,5 +56,8 @@ The app focus on jobs for students only, including part-time or full time jobs.
 
 ![Job4Students](Mockups/Concept 02.png)
 
+![Video Walkthrough](YelpWalkthrough.gif)
+
+
 ## Notes:
 - Project is developed based on XCode 7
