@@ -34,6 +34,7 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
   }
   
   override func viewDidAppear(animated: Bool) {
+    
     timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "fetchJobsInformation", userInfo: nil, repeats: true)
   }
   override func viewDidDisappear(animated: Bool) {
@@ -44,8 +45,8 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
   func fetchJobsInformation() {
     jobsList = ParseInterface.sharedInstance.getJobsInformation()
     
-    jobsTableView.reloadData()
-    if jobsList?.count != 0 {
+    if jobsList?.count >  0 {
+      jobsTableView.reloadData()
       timer.invalidate()
     }
     
@@ -61,23 +62,23 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
   }
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
+    print("Updating cells")
     let cell = tableView.dequeueReusableCellWithIdentifier("JobCell", forIndexPath: indexPath) as! JobCell
     
     cell.jobTitle.text = jobsList![indexPath.row]["jobTitle"] as? String
     cell.companyLabel.text  = jobsList![indexPath.row]["companyName"] as? String
     
-    let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "dd'/'MM'/'yyyy"
-    let date = dateFormatter.stringFromDate(jobsList![indexPath.row]["dueOn"] as! NSDate)
-    cell.dueSubmitDateLabel.text = "Hạn chót: " + date
+//    let dateFormatter = NSDateFormatter()
+//    dateFormatter.dateFormat = "dd'/'MM'/'yyyy"
+//    let date = dateFormatter.stringFromDate((jobsList![indexPath.row]["dueOn"] as? NSDate)!)
+//    cell.dueSubmitDateLabel.text = "Hạn chót: " + date
     
     cell.salaryLabel.text = jobsList![indexPath.row]["salary"] as? String
     
     // MARK: Load image
-    cell.jobImage.image = nil
-    let photoUrl = NSURL(string: (jobsList![indexPath.row]["photoURL"] as? String)!)
-    cell.jobImage.setImageWithURL(photoUrl!)
+//    cell.jobImage.image = nil
+//    let photoUrl = NSURL(string: (jobsList![indexPath.row]["photoURL"] as? String)!)
+//    cell.jobImage.setImageWithURL(photoUrl!)
     
     return cell
   }

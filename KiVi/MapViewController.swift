@@ -36,7 +36,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   override func viewDidLoad() {
     super.viewDidLoad()
-//    locationManager = CLLocationManager()
+
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestAlwaysAuthorization()
@@ -49,8 +49,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   override func viewDidAppear(animated: Bool) {
     if activeJob == -1 {
-    locationManager.startUpdatingLocation()
-    timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "fetchJobsInformation", userInfo: nil, repeats: true)
+      self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+      self.hud.mode = MBProgressHUDMode.Indeterminate
+      self.hud.labelText = "Updating map with job location"
+      
+      locationManager.startUpdatingLocation()
+      timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "fetchJobsInformation", userInfo: nil, repeats: true)
     }
   }
   
@@ -131,9 +135,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   func updateJobsMap() {
     
-    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-    self.hud.mode = MBProgressHUDMode.Indeterminate
-    self.hud.labelText = "Loading"
+//    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//    self.hud.mode = MBProgressHUDMode.Indeterminate
+//    self.hud.labelText = "Loading"
     
     if jobsList?.count > 0 {
       for var i = 0; i < jobsList?.count; i++ {
