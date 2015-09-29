@@ -62,9 +62,9 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
   func animateTextField(up: Bool) {
     let movement = (up ? -kbHeight : 0)
     //    animateImages(!up)
-    UIView.animateWithDuration(0.3, animations: {
-      self.jobDescriptionText.transform = CGAffineTransformMakeTranslation(0, movement)
-    })
+//    UIView.animateWithDuration(0.3, animations: {
+//      self.jobDescriptionText.transform = CGAffineTransformMakeTranslation(0, movement)
+//    })
   }
   
   @IBAction func comNameEditing(sender: UITextField) {
