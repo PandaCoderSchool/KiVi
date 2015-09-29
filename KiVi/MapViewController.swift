@@ -32,15 +32,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   var timer: NSTimer = NSTimer()
   
+  let regionRadius: CLLocationDistance = 1000
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 //    locationManager = CLLocationManager()
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestAlwaysAuthorization()
-    
-    
-    
   }
   
   override func didReceiveMemoryWarning() {
@@ -66,17 +65,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       return nil
     }
     
-    // Resize the image selected
-    let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
-    resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
-    resizeRenderImageView.layer.borderWidth = 3.0
-    resizeRenderImageView.contentMode = UIViewContentMode.ScaleAspectFill
-    resizeRenderImageView.image = UIImage(named: "defaultImage")
-    
-    UIGraphicsBeginImageContext(resizeRenderImageView.frame.size)
-    resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-    let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
+//    // Resize the image selected
+//    let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
+//    resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
+//    resizeRenderImageView.layer.borderWidth = 3.0
+//    resizeRenderImageView.contentMode = UIViewContentMode.ScaleAspectFill
+//    resizeRenderImageView.image = UIImage(named: "defaultImage")
+//    
+//    UIGraphicsBeginImageContext(resizeRenderImageView.frame.size)
+//    resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+//    let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
+//    UIGraphicsEndImageContext()
     
     let reuseID = "myAnnotationView"
     var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
@@ -84,7 +83,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       // Must use MKAnnotationView instead of MKPointAnnotationView if we want to use image for pin annotation
       annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
       annotationView!.canShowCallout = true
-      annotationView!.image = thumbnail
+//      annotationView!.image = thumbnail
       // Left Image annotation
       annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
       let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
@@ -147,7 +146,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   }
   
   // View job on Map
-  let regionRadius: CLLocationDistance = 20000 // 20 km
   
   func pinJobOnMap(jobToPin: PFObject?) {
     localSearchRequest = MKLocalSearchRequest()
@@ -159,8 +157,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       if localSearchResponse == nil{
         let alert = UIAlertController(title: "Place not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
         self.presentViewController(alert, animated: true, completion: nil)
-//        let alert = UIAlertView(title: nil, message: "Place not found", delegate: self, cancelButtonTitle: "Try again")
-//        alert.show()
+
         return
       }
 
@@ -264,7 +261,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
   }
   
-  let regionRadius: CLLocationDistance = 1000
+  
   func centerMapOnLocation(location: CLLocation) {
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
       regionRadius * 2.0, regionRadius * 2.0)
