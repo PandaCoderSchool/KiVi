@@ -32,7 +32,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   
   var timer: NSTimer = NSTimer()
   
-  let regionRadius: CLLocationDistance = 1000
+  let regionRadius: CLLocationDistance = 1000 // 1000m
+  
+  var profilePhoto: UIImage?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -89,7 +91,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
     resizeRenderImageView.layer.borderWidth = 3.0
     resizeRenderImageView.contentMode = UIViewContentMode.ScaleAspectFill
-    resizeRenderImageView.image = UIImage(named: "defaultImage")
+    resizeRenderImageView.image = profilePhoto //UIImage(named: "defaultImage")
     
     UIGraphicsBeginImageContext(resizeRenderImageView.frame.size)
     resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
@@ -102,11 +104,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       // Must use MKAnnotationView instead of MKPointAnnotationView if we want to use image for pin annotation
       annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
       annotationView!.canShowCallout = true
-      annotationView!.image = thumbnail
-      // Left Image annotation
+       // Left Image annotation
       annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
       let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
-      imageView.image = UIImage(named: "defaultImage")
+      
+      annotationView!.image = thumbnail
+      
+      imageView.image = profilePhoto //UIImage(named: "defaultImage")
       // Right button annotation
       annotationView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIButton
     }
@@ -171,6 +175,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   // View job on Map
   
   func pinJobOnMap(jobToPin: PFObject?) {
+    
     localSearchRequest = MKLocalSearchRequest()
     localSearchRequest.naturalLanguageQuery = jobToPin!["contactAddress"] as? String
     
@@ -192,25 +197,37 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       geoPoint.latitude = localSearchResponse!.boundingRegion.center.latitude
       geoPoint.longitude  = localSearchResponse!.boundingRegion.center.longitude
       
-      // Update to current Job
-      
-      let query = PFQuery(className:"JobsInformation")
-      query.getObjectInBackgroundWithId((jobToPin?.objectId)!) {
-        (joblist : PFObject?, error: NSError?) -> Void in
-        if error != nil {
-          print(error)
-        } else if let joblist = joblist {
-          joblist["jobId"] = "T0001"
-          joblist["location"] = geoPoint
-          joblist.saveInBackground()
-
-        }
-      }
+//      // Update to current Job
+//      
+//      let query = PFQuery(className:"JobsInformation")
+//      query.getObjectInBackgroundWithId((jobToPin?.objectId)!) {
+//        (joblist : PFObject?, error: NSError?) -> Void in
+//        if error != nil {
+//          print(error)
+//        } else if let joblist = joblist {
+//          joblist["jobId"] = "T0001"
+//          joblist["location"] = geoPoint
+//          joblist.saveInBackground()
+//
+//        }
+//      }
       
       
       self.pointAnnotation = MKPointAnnotation()
       self.pointAnnotation.title    = jobToPin!["jobTitle"] as? String
       self.pointAnnotation.subtitle = jobToPin!["contactAddress"] as? String
+      
+      if let thumbNail = jobToPin!["profilePhoto"] as? PFFile {
+        
+        thumbNail.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError?) -> Void in
+          if (error == nil) {
+            let image = UIImage(data:imageData!)
+            //image object implementation
+            self.profilePhoto = image
+          }
+        }) // getDataInBackgroundWithBlock - end
+      }
+
       
       self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
       
