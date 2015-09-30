@@ -20,6 +20,8 @@
 		C516A8441BB8B07300982F94 /* AddJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8431BB8B07300982F94 /* AddJobViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C516A8461BB8B0A100982F94 /* FilterJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8451BB8B0A100982F94 /* FilterJobViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C516A8481BB8B4F800982F94 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8471BB8B4F800982F94 /* Map.swift */; settings = {ASSET_TAGS = (); }; };
+		C52003881BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52003871BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m */; settings = {ASSET_TAGS = (); }; };
+		C520038B1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C520038A1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; settings = {ASSET_TAGS = (); }; };
 		C5AD4DA51BB25E7C008939D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4DA41BB25E7C008939D7 /* AppDelegate.swift */; };
 		C5AD4DA71BB25E7C008939D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4DA61BB25E7C008939D7 /* ViewController.swift */; };
 		C5AD4DAA1BB25E7C008939D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5AD4DA81BB25E7C008939D7 /* Main.storyboard */; };
@@ -62,6 +64,10 @@
 		C516A8431BB8B07300982F94 /* AddJobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddJobViewController.swift; sourceTree = "<group>"; };
 		C516A8451BB8B0A100982F94 /* FilterJobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterJobViewController.swift; sourceTree = "<group>"; };
 		C516A8471BB8B4F800982F94 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		C52003861BBB4C560035E532 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		C52003871BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		C52003891BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		C520038A1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		C5AD4DA11BB25E7C008939D7 /* KiVi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiVi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5AD4DA41BB25E7C008939D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5AD4DA61BB25E7C008939D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -164,9 +170,21 @@
 		C516A8491BB8B4FC00982F94 /* Other Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C520038C1BBB4C880035E532 /* TPKeyboardAvoiding */,
 				C516A8471BB8B4F800982F94 /* Map.swift */,
 			);
 			name = "Other Classes";
+			sourceTree = "<group>";
+		};
+		C520038C1BBB4C880035E532 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				C52003861BBB4C560035E532 /* TPKeyboardAvoidingScrollView.h */,
+				C52003871BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m */,
+				C52003891BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				C520038A1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+			);
+			name = TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
 		C5AD4D981BB25E7C008939D7 = {
@@ -395,12 +413,14 @@
 				C516A8361BB8A79C00982F94 /* JobsListViewController.swift in Sources */,
 				C516A8401BB8AA2000982F94 /* JobCell.swift in Sources */,
 				C516A8461BB8B0A100982F94 /* FilterJobViewController.swift in Sources */,
+				C520038B1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				C516A8441BB8B07300982F94 /* AddJobViewController.swift in Sources */,
 				C5AD4DA71BB25E7C008939D7 /* ViewController.swift in Sources */,
 				C5AD4DA51BB25E7C008939D7 /* AppDelegate.swift in Sources */,
 				C516A83D1BB8A84500982F94 /* ParseInterface.swift in Sources */,
 				C516A8481BB8B4F800982F94 /* Map.swift in Sources */,
 				C516A8271BB7FD0700982F94 /* HomeViewController.swift in Sources */,
+				C52003881BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				C516A82C1BB7FF4400982F94 /* MapViewController.swift in Sources */,
 				C516A8341BB8A79C00982F94 /* JobDetailsViewController.swift in Sources */,
 			);

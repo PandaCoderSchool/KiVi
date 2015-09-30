@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B17c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ifL-E7-y9y">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -89,14 +90,160 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcC-Gu-xgQ">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcC-Gu-xgQ" customClass="TPKeyboardAvoidingScrollView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lqi-H5-tXA">
-                                        <rect key="frame" x="264" y="246" width="97" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0935505362" borderStyle="roundedRect" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vfw-XI-qea">
+                                        <rect key="frame" x="246" y="285" width="107" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <connections>
+                                            <action selector="phoneNumberEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="Qoj-6t-M7C"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="kAE-dG-ZgJ"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0x-D0-kZ6">
+                                        <rect key="frame" x="284" y="291.5" width="31" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" tag="6" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3L-Fv-9lp">
+                                        <rect key="frame" x="250" y="285" width="100" height="30"/>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.0" green="0.56862745100000001" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="4lv-YV-hJn"/>
+                                            <constraint firstAttribute="height" constant="30" id="dxc-kH-5Ja"/>
+                                        </constraints>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveAllInfo:" destination="w2A-A4-ON5" eventType="touchUpInside" id="23w-FO-Fy4"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkf-Ne-dBD">
+                                        <rect key="frame" x="277" y="291.5" width="46" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Gremsy Co., Ltd" borderStyle="roundedRect" placeholder="Company name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bbo-Bs-hAv">
+                                        <rect key="frame" x="237" y="285" width="125" height="30"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="comNameEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="RUQ-hE-2k3"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="ZCk-6U-WMt"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thời vụ hàn bo mạch" borderStyle="roundedRect" placeholder="job Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6dG-oq-rSt">
+                                        <rect key="frame" x="221" y="285" width="157" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="comJobTitleEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="uFI-mh-0R5"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="6VS-U2-z4F"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsm-9l-4ha">
+                                        <rect key="frame" x="259" y="285" width="81" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="Use current"/>
+                                        <connections>
+                                            <action selector="useCurrentLocation:" destination="w2A-A4-ON5" eventType="touchUpInside" id="G7e-3x-xy9"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4B-df-GsL">
+                                        <rect key="frame" x="280" y="291.5" width="39" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="rdp-7i-0h0">
+                                        <rect key="frame" x="150" y="250" width="300" height="100"/>
+                                        <animations/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="1cQ-lv-t64"/>
+                                            <constraint firstAttribute="width" constant="300" id="QDV-bk-OhM"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap on image to take a photo and address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-LX-dan">
+                                        <rect key="frame" x="163" y="291" width="274" height="18"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Job owner information:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2S1-jx-Sw7">
+                                        <rect key="frame" x="225" y="291" width="149" height="18"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qui-Nd-HNv">
+                                        <rect key="frame" x="278" y="291.5" width="43" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Job information:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3k-q7-HW7">
+                                        <rect key="frame" x="257" y="414" width="104.5" height="18"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="tongvtdan@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dmp-uS-oea">
+                                        <rect key="frame" x="208" y="90" width="166" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <action selector="emailEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="uNp-9e-Kbl"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="Szk-64-Xhv"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMa-rP-0LJ">
+                                        <rect key="frame" x="271" y="291.5" width="58" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Job description: Hàn bo mạch điện tử" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="qVx-Zh-HQc">
+                                        <rect key="frame" x="300" y="200" width="0.0" height="200"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="Umd-gQ-aZR"/>
+                                        </constraints>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="3Uw-cq-A4w"/>
+                                        </connections>
+                                    </textView>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="22, đường 18, Linh Đông, Thủ Đức" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kyD-0t-Mw5">
+                                        <rect key="frame" x="44" y="427" width="242" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="comAddressEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="Hon-Ah-Cf0"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="S8v-hz-PoU"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <animations/>
@@ -107,12 +254,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="hcC-Gu-xgQ" firstAttribute="top" secondItem="JX5-hY-IRl" secondAttribute="bottom" id="Brm-Zf-YMJ"/>
                             <constraint firstItem="hcC-Gu-xgQ" firstAttribute="leading" secondItem="8DT-R6-5yg" secondAttribute="leading" id="FHn-kJ-Azy"/>
                             <constraint firstItem="a6H-hH-VFN" firstAttribute="top" secondItem="hcC-Gu-xgQ" secondAttribute="bottom" id="Xrz-Mc-XTs"/>
+                            <constraint firstItem="hcC-Gu-xgQ" firstAttribute="top" secondItem="8DT-R6-5yg" secondAttribute="topMargin" id="dXk-8n-V2G"/>
                             <constraint firstAttribute="trailing" secondItem="hcC-Gu-xgQ" secondAttribute="trailing" id="q7V-k5-ujX"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tpScrollView" destination="hcC-Gu-xgQ" id="V5d-8a-SpI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="im6-4l-aJm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -130,146 +280,218 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="sdw-vn-TBP">
-                                <rect key="frame" x="10" y="74" width="80" height="80"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZIB-wt-Wuk" customClass="TPKeyboardAvoidingScrollView">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <subviews>
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="sdw-vn-TBP">
+                                        <rect key="frame" x="150" y="10" width="300" height="100"/>
+                                        <animations/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="Sgl-dK-pXl"/>
+                                            <constraint firstAttribute="height" constant="100" id="eHG-eP-sY8"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="wqT-a9-O9Y" appends="YES" id="gVO-jN-ALp"/>
+                                        </connections>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on image to take a photo and address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xx-zx-GEc">
+                                        <rect key="frame" x="163" y="92" width="274" height="18"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POD-iK-KR6">
+                                        <rect key="frame" x="600" y="159" width="81" height="30"/>
+                                        <animations/>
+                                        <state key="normal" title="Use current"/>
+                                        <connections>
+                                            <action selector="useCurrentLocation:" destination="w2A-A4-ON5" eventType="touchUpInside" id="uzq-aB-d56"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Gremsy Co., Ltd" borderStyle="roundedRect" placeholder="Company name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4WT-iG-4e9">
+                                        <rect key="frame" x="83" y="126" width="507" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="comNameEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="FhQ-qb-lSA"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="Quw-v8-O1h"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDV-TR-V0Q">
+                                        <rect key="frame" x="10" y="132" width="43" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job owner information:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjk-tN-5ew">
+                                        <rect key="frame" x="10" y="104" width="149" height="18"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="tongvtdan@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QnM-Oa-6WL">
+                                        <rect key="frame" x="83" y="193" width="507" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <action selector="emailEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="FVW-Ze-bCa"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="NY1-iv-mkV"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0935505362" borderStyle="roundedRect" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uaM-Yc-k0h">
+                                        <rect key="frame" x="83" y="226" width="507" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <connections>
+                                            <action selector="phoneNumberEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="YOS-fD-taq"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="xD5-DE-7k8"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zD-hE-Ey7">
+                                        <rect key="frame" x="10" y="166" width="58" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7LI-I7-LBv">
+                                        <rect key="frame" x="10" y="199" width="39" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIo-38-iHn">
+                                        <rect key="frame" x="10" y="232" width="46" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="22, đường 18, Linh Đông, Thủ Đức" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOd-ku-dkM">
+                                        <rect key="frame" x="83" y="159" width="507" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="comAddressEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="NoH-cS-ItK"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="Set-t5-bDW"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job information:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ly1-p1-otT">
+                                        <rect key="frame" x="10" y="274" width="104.5" height="18"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" text="Job description: Hàn bo mạch điện tử" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="I4Q-qv-QV3">
+                                        <rect key="frame" x="10" y="348" width="580" height="200"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="nlU-TS-sd5"/>
+                                        </constraints>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="A2g-wb-E0F"/>
+                                        </connections>
+                                    </textView>
+                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-L8-PZy">
+                                        <rect key="frame" x="250" y="558" width="100" height="30"/>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.0" green="0.56862745100000001" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="8ga-Qg-s3u"/>
+                                            <constraint firstAttribute="height" constant="30" id="yaX-62-T47"/>
+                                        </constraints>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveAllInfo:" destination="w2A-A4-ON5" eventType="touchUpInside" id="yy5-3a-2LA"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-iz-hli">
+                                        <rect key="frame" x="10" y="308" width="31" height="17.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thời vụ hàn bo mạch" borderStyle="roundedRect" placeholder="job Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tKg-wa-YBo">
+                                        <rect key="frame" x="83" y="302" width="507" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="comJobTitleEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="ySI-zk-uns"/>
+                                            <outlet property="delegate" destination="w2A-A4-ON5" id="24W-jt-bko"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
                                 <animations/>
-                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="UEE-tY-3dt"/>
-                                    <constraint firstAttribute="width" constant="80" id="hTZ-d7-h2o"/>
+                                    <constraint firstAttribute="trailing" secondItem="4WT-iG-4e9" secondAttribute="trailing" constant="10" id="4mt-ve-8dW"/>
+                                    <constraint firstItem="I4Q-qv-QV3" firstAttribute="top" secondItem="tKg-wa-YBo" secondAttribute="bottom" constant="16" id="9xM-ed-Uee"/>
+                                    <constraint firstItem="jIo-38-iHn" firstAttribute="leading" secondItem="VDV-TR-V0Q" secondAttribute="leading" id="Bzu-oD-fKp"/>
+                                    <constraint firstItem="POD-iK-KR6" firstAttribute="centerY" secondItem="VOd-ku-dkM" secondAttribute="centerY" id="CpT-7K-Mex"/>
+                                    <constraint firstItem="VDV-TR-V0Q" firstAttribute="top" secondItem="hjk-tN-5ew" secondAttribute="bottom" constant="10" id="DAn-Pk-kP6"/>
+                                    <constraint firstItem="fgV-L8-PZy" firstAttribute="top" secondItem="I4Q-qv-QV3" secondAttribute="bottom" constant="10" id="FJa-yz-3cb"/>
+                                    <constraint firstAttribute="trailing" secondItem="tKg-wa-YBo" secondAttribute="trailing" constant="10" id="FoQ-Hl-gVS"/>
+                                    <constraint firstItem="VOd-ku-dkM" firstAttribute="centerY" secondItem="3zD-hE-Ey7" secondAttribute="centerY" id="Gk3-a8-ZCV"/>
+                                    <constraint firstItem="0xx-zx-GEc" firstAttribute="centerX" secondItem="sdw-vn-TBP" secondAttribute="centerX" id="IeH-GQ-zeb"/>
+                                    <constraint firstAttribute="trailing" secondItem="QnM-Oa-6WL" secondAttribute="trailing" constant="10" id="MNR-wY-yK4"/>
+                                    <constraint firstItem="3zD-hE-Ey7" firstAttribute="top" secondItem="VDV-TR-V0Q" secondAttribute="bottom" constant="16" id="N0K-tX-KQf"/>
+                                    <constraint firstItem="fgV-L8-PZy" firstAttribute="centerX" secondItem="ZIB-wt-Wuk" secondAttribute="centerX" id="NdR-bd-rQz"/>
+                                    <constraint firstItem="uaM-Yc-k0h" firstAttribute="leading" secondItem="QnM-Oa-6WL" secondAttribute="leading" id="OqH-T2-cs5"/>
+                                    <constraint firstItem="VOd-ku-dkM" firstAttribute="leading" secondItem="4WT-iG-4e9" secondAttribute="leading" id="OtY-ly-Uax"/>
+                                    <constraint firstItem="I4Q-qv-QV3" firstAttribute="leading" secondItem="ZIB-wt-Wuk" secondAttribute="leading" constant="10" id="P90-hU-6Us"/>
+                                    <constraint firstItem="0xx-zx-GEc" firstAttribute="bottom" secondItem="sdw-vn-TBP" secondAttribute="bottom" id="QU6-hy-gRW"/>
+                                    <constraint firstItem="Ly1-p1-otT" firstAttribute="leading" secondItem="jIo-38-iHn" secondAttribute="leading" id="Sw0-Ct-Wod"/>
+                                    <constraint firstItem="hjk-tN-5ew" firstAttribute="leading" secondItem="ZIB-wt-Wuk" secondAttribute="leading" constant="10" id="WMM-X1-Pi5"/>
+                                    <constraint firstItem="tKg-wa-YBo" firstAttribute="leading" secondItem="uaM-Yc-k0h" secondAttribute="leading" id="XAL-cx-fTV"/>
+                                    <constraint firstItem="tKg-wa-YBo" firstAttribute="centerY" secondItem="5Uc-iz-hli" secondAttribute="centerY" id="YeK-4W-dfn"/>
+                                    <constraint firstItem="4WT-iG-4e9" firstAttribute="leading" secondItem="VDV-TR-V0Q" secondAttribute="trailing" constant="30" id="aQx-wn-HEl"/>
+                                    <constraint firstItem="jIo-38-iHn" firstAttribute="top" secondItem="7LI-I7-LBv" secondAttribute="bottom" constant="16" id="b1Y-Na-p7q"/>
+                                    <constraint firstItem="I4Q-qv-QV3" firstAttribute="centerX" secondItem="ZIB-wt-Wuk" secondAttribute="centerX" id="bbG-C2-ruX"/>
+                                    <constraint firstItem="4WT-iG-4e9" firstAttribute="centerY" secondItem="VDV-TR-V0Q" secondAttribute="centerY" id="cPm-df-yVf"/>
+                                    <constraint firstItem="7LI-I7-LBv" firstAttribute="leading" secondItem="VDV-TR-V0Q" secondAttribute="leading" id="cRN-rg-Eku"/>
+                                    <constraint firstItem="4WT-iG-4e9" firstAttribute="top" secondItem="sdw-vn-TBP" secondAttribute="bottom" constant="16" id="dQb-tS-tkK"/>
+                                    <constraint firstItem="QnM-Oa-6WL" firstAttribute="leading" secondItem="VOd-ku-dkM" secondAttribute="leading" id="f45-me-lLa"/>
+                                    <constraint firstItem="5Uc-iz-hli" firstAttribute="leading" secondItem="Ly1-p1-otT" secondAttribute="leading" id="fJs-NZ-jh8"/>
+                                    <constraint firstItem="uaM-Yc-k0h" firstAttribute="centerY" secondItem="jIo-38-iHn" secondAttribute="centerY" id="g7W-cP-U6v"/>
+                                    <constraint firstItem="QnM-Oa-6WL" firstAttribute="centerY" secondItem="7LI-I7-LBv" secondAttribute="centerY" id="jZB-Ms-ADZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="VOd-ku-dkM" secondAttribute="trailing" constant="10" id="lQp-IH-ftw"/>
+                                    <constraint firstItem="sdw-vn-TBP" firstAttribute="top" secondItem="ZIB-wt-Wuk" secondAttribute="top" constant="10" id="lkz-vv-hA7"/>
+                                    <constraint firstAttribute="trailing" secondItem="I4Q-qv-QV3" secondAttribute="trailing" constant="10" id="ows-nc-i0d"/>
+                                    <constraint firstItem="POD-iK-KR6" firstAttribute="leading" secondItem="VOd-ku-dkM" secondAttribute="trailing" constant="10" id="q8d-MV-Nv6"/>
+                                    <constraint firstItem="Ly1-p1-otT" firstAttribute="top" secondItem="jIo-38-iHn" secondAttribute="bottom" constant="24" id="sT9-9A-qa2"/>
+                                    <constraint firstItem="3zD-hE-Ey7" firstAttribute="leading" secondItem="VDV-TR-V0Q" secondAttribute="leading" id="t1O-Rx-yXJ"/>
+                                    <constraint firstItem="7LI-I7-LBv" firstAttribute="top" secondItem="3zD-hE-Ey7" secondAttribute="bottom" constant="16" id="vcQ-7v-d74"/>
+                                    <constraint firstItem="VDV-TR-V0Q" firstAttribute="leading" secondItem="ZIB-wt-Wuk" secondAttribute="leading" constant="10" id="vdN-Dg-6Q0"/>
+                                    <constraint firstAttribute="trailing" secondItem="uaM-Yc-k0h" secondAttribute="trailing" constant="10" id="vyk-jF-2aH"/>
+                                    <constraint firstItem="5Uc-iz-hli" firstAttribute="top" secondItem="Ly1-p1-otT" secondAttribute="bottom" constant="16" id="z3g-KR-OVR"/>
+                                    <constraint firstItem="sdw-vn-TBP" firstAttribute="centerX" secondItem="ZIB-wt-Wuk" secondAttribute="centerX" id="ziK-G3-Fo8"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="wqT-a9-O9Y" appends="YES" id="gVO-jN-ALp"/>
-                                </connections>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on image to take a photo and address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xx-zx-GEc">
-                                <rect key="frame" x="100" y="74" width="490" height="80"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POD-iK-KR6">
-                                <rect key="frame" x="100" y="158" width="139" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Use current location"/>
-                                <connections>
-                                    <action selector="useCurrentLocation:" destination="w2A-A4-ON5" eventType="touchUpInside" id="uzq-aB-d56"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="22, đường 18, Linh Đông, Thủ Đức" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOd-ku-dkM">
-                                <rect key="frame" x="10" y="232" width="580" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="comAddressEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="NoH-cS-ItK"/>
-                                    <outlet property="delegate" destination="w2A-A4-ON5" id="Set-t5-bDW"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thời vụ hàn bo mạch" borderStyle="roundedRect" placeholder="job Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tKg-wa-YBo">
-                                <rect key="frame" x="10" y="272" width="580" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="comJobTitleEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="ySI-zk-uns"/>
-                                    <outlet property="delegate" destination="w2A-A4-ON5" id="24W-jt-bko"/>
-                                </connections>
-                            </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" text="Job description: Hàn bo mạch điện tử" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="I4Q-qv-QV3">
-                                <rect key="frame" x="10" y="312" width="580" height="198"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <connections>
-                                    <outlet property="delegate" destination="w2A-A4-ON5" id="A2g-wb-E0F"/>
-                                </connections>
-                            </textView>
-                            <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0935505362" borderStyle="roundedRect" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uaM-Yc-k0h">
-                                <rect key="frame" x="10" y="560" width="200" height="30"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="eqz-X4-Ica"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                                <connections>
-                                    <action selector="phoneNumberEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="YOS-fD-taq"/>
-                                    <outlet property="delegate" destination="w2A-A4-ON5" id="xD5-DE-7k8"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Gremsy Co., Ltd" borderStyle="roundedRect" placeholder="Company name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4WT-iG-4e9">
-                                <rect key="frame" x="10" y="192" width="580" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="comNameEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="FhQ-qb-lSA"/>
-                                    <outlet property="delegate" destination="w2A-A4-ON5" id="Quw-v8-O1h"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-L8-PZy">
-                                <rect key="frame" x="220" y="560" width="370" height="30"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.56862745100000001" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="yaX-62-T47"/>
-                                </constraints>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveAllInfo:" destination="w2A-A4-ON5" eventType="touchUpInside" id="yy5-3a-2LA"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="tongvtdan@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QnM-Oa-6WL">
-                                <rect key="frame" x="10" y="520" width="200" height="30"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="0Vw-pQ-D3g"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                                <connections>
-                                    <action selector="emailEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="FVW-Ze-bCa"/>
-                                    <outlet property="delegate" destination="w2A-A4-ON5" id="NY1-iv-mkV"/>
-                                </connections>
-                            </textField>
+                            </scrollView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="VOd-ku-dkM" secondAttribute="trailing" constant="10" id="1jZ-66-zuQ"/>
-                            <constraint firstItem="tKg-wa-YBo" firstAttribute="top" secondItem="VOd-ku-dkM" secondAttribute="bottom" constant="10" id="2c3-Oz-ph9"/>
-                            <constraint firstAttribute="trailing" secondItem="fgV-L8-PZy" secondAttribute="trailing" constant="10" id="2tK-wJ-5ri"/>
-                            <constraint firstAttribute="trailing" secondItem="4WT-iG-4e9" secondAttribute="trailing" constant="10" id="6Jr-Au-HHs"/>
-                            <constraint firstItem="4WT-iG-4e9" firstAttribute="top" secondItem="POD-iK-KR6" secondAttribute="bottom" constant="4" id="6Qj-iM-Ogh"/>
-                            <constraint firstItem="POD-iK-KR6" firstAttribute="leading" secondItem="0xx-zx-GEc" secondAttribute="leading" id="6jC-zK-1DH"/>
-                            <constraint firstItem="uaM-Yc-k0h" firstAttribute="leading" secondItem="9Cd-BQ-roC" secondAttribute="leading" constant="10" id="7kk-CJ-u4Q"/>
-                            <constraint firstItem="QnM-Oa-6WL" firstAttribute="leading" secondItem="uaM-Yc-k0h" secondAttribute="leading" id="9ii-6d-2YD"/>
-                            <constraint firstItem="POD-iK-KR6" firstAttribute="top" secondItem="0xx-zx-GEc" secondAttribute="bottom" constant="4" id="AP1-MR-Ber"/>
-                            <constraint firstItem="0xx-zx-GEc" firstAttribute="leading" secondItem="sdw-vn-TBP" secondAttribute="trailing" constant="10" id="E3b-Pn-Viq"/>
-                            <constraint firstItem="sdw-vn-TBP" firstAttribute="leading" secondItem="9Cd-BQ-roC" secondAttribute="leading" constant="10" id="ElQ-jO-VAe"/>
-                            <constraint firstItem="FT4-2t-Khc" firstAttribute="top" secondItem="fgV-L8-PZy" secondAttribute="bottom" constant="10" id="H7b-nO-GyR"/>
-                            <constraint firstItem="VOd-ku-dkM" firstAttribute="top" secondItem="4WT-iG-4e9" secondAttribute="bottom" constant="10" id="OgW-aN-Tuv"/>
-                            <constraint firstAttribute="trailing" secondItem="I4Q-qv-QV3" secondAttribute="trailing" constant="10" id="QNu-f2-hjQ"/>
-                            <constraint firstItem="sdw-vn-TBP" firstAttribute="top" secondItem="RN3-jx-io2" secondAttribute="bottom" constant="10" id="SNa-Ep-BPs"/>
-                            <constraint firstItem="I4Q-qv-QV3" firstAttribute="top" secondItem="tKg-wa-YBo" secondAttribute="bottom" constant="10" id="WiH-AH-06n"/>
-                            <constraint firstItem="0xx-zx-GEc" firstAttribute="height" secondItem="sdw-vn-TBP" secondAttribute="height" id="X1d-9D-COL"/>
-                            <constraint firstItem="FT4-2t-Khc" firstAttribute="top" secondItem="uaM-Yc-k0h" secondAttribute="bottom" constant="10" id="YLB-FZ-zvj"/>
-                            <constraint firstItem="0xx-zx-GEc" firstAttribute="centerY" secondItem="sdw-vn-TBP" secondAttribute="centerY" id="bUh-zK-PL9"/>
-                            <constraint firstItem="uaM-Yc-k0h" firstAttribute="top" secondItem="QnM-Oa-6WL" secondAttribute="bottom" constant="10" id="eK2-AA-mbh"/>
-                            <constraint firstItem="VOd-ku-dkM" firstAttribute="leading" secondItem="9Cd-BQ-roC" secondAttribute="leading" constant="10" id="glj-Ni-BTo"/>
-                            <constraint firstItem="4WT-iG-4e9" firstAttribute="leading" secondItem="9Cd-BQ-roC" secondAttribute="leading" constant="10" id="hAi-5X-5lG"/>
-                            <constraint firstAttribute="trailing" secondItem="tKg-wa-YBo" secondAttribute="trailing" constant="10" id="lHM-zM-a7p"/>
-                            <constraint firstItem="tKg-wa-YBo" firstAttribute="leading" secondItem="9Cd-BQ-roC" secondAttribute="leading" constant="10" id="nNc-Io-Cpc"/>
-                            <constraint firstItem="QnM-Oa-6WL" firstAttribute="top" secondItem="I4Q-qv-QV3" secondAttribute="bottom" constant="10" id="nXd-5L-emS"/>
-                            <constraint firstItem="fgV-L8-PZy" firstAttribute="leading" secondItem="QnM-Oa-6WL" secondAttribute="trailing" constant="10" id="qtq-rp-3ht"/>
-                            <constraint firstItem="I4Q-qv-QV3" firstAttribute="leading" secondItem="9Cd-BQ-roC" secondAttribute="leading" constant="10" id="sct-xX-bmR"/>
-                            <constraint firstAttribute="trailing" secondItem="0xx-zx-GEc" secondAttribute="trailing" constant="10" id="zRh-WL-n8a"/>
+                            <constraint firstItem="ZIB-wt-Wuk" firstAttribute="leading" secondItem="9Cd-BQ-roC" secondAttribute="leading" id="4pL-mP-dNg"/>
+                            <constraint firstAttribute="trailing" secondItem="ZIB-wt-Wuk" secondAttribute="trailing" id="hmL-YX-jxL"/>
+                            <constraint firstItem="ZIB-wt-Wuk" firstAttribute="top" secondItem="RN3-jx-io2" secondAttribute="bottom" id="iGP-xh-qcj"/>
+                            <constraint firstItem="FT4-2t-Khc" firstAttribute="top" secondItem="ZIB-wt-Wuk" secondAttribute="bottom" id="uez-pL-gYN"/>
                         </constraints>
                     </view>
                     <connections>
@@ -281,6 +503,7 @@
                         <outlet property="jobTitleLabel" destination="tKg-wa-YBo" id="DXJ-wK-g14"/>
                         <outlet property="phoneNumberLabel" destination="uaM-Yc-k0h" id="aLy-Cq-q54"/>
                         <outlet property="profilePhoto" destination="sdw-vn-TBP" id="hRO-Ga-apE"/>
+                        <outlet property="tpScrollView" destination="ZIB-wt-Wuk" id="K8L-qq-Xm0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Raa-gD-06V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -291,7 +514,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1723" y="-261"/>
+            <point key="canvasLocation" x="1723" y="-266"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Hz-YT-anx">

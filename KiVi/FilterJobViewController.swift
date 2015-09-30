@@ -10,12 +10,12 @@ import UIKit
 
 class FilterJobViewController: UIViewController {
 
-  @IBOutlet weak var scrollView: UIScrollView!
+  @IBOutlet weak var tpScrollView: TPKeyboardAvoidingScrollView!
   
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      scrollView.contentSize.height = 1000
+      tpScrollView.contentSize.height = 1000
   }
 
     override func didReceiveMemoryWarning() {
