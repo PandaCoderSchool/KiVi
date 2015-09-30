@@ -525,11 +525,11 @@
                         <viewControllerLayoutGuide type="bottom" id="sI4-0v-qB4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eml-w8-waM" userLabel="MainView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hm6-LL-nAv" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="820"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="08i-ik-dcG" userLabel="profile Photo">
                                         <rect key="frame" x="180" y="10" width="240" height="128"/>
@@ -652,7 +652,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmX-9J-vxH" userLabel="JobInfoView">
-                                        <rect key="frame" x="0.0" y="340" width="600" height="500"/>
+                                        <rect key="frame" x="0.0" y="340" width="600" height="420"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="e.g: Assemble electronics " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7A1-Hd-B7R">
                                                 <rect key="frame" x="71" y="33" width="519" height="30"/>
@@ -763,7 +763,7 @@
                                                 </connections>
                                             </textField>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="black" text="More details here" translatesAutoresizingMaskIntoConstraints="NO" id="FTk-Mw-rhX">
-                                                <rect key="frame" x="10" y="279" width="580" height="216"/>
+                                                <rect key="frame" x="10" y="279" width="580" height="136"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -789,7 +789,7 @@
                                             <constraint firstItem="eMb-j8-4kL" firstAttribute="leading" secondItem="EmX-9J-vxH" secondAttribute="leading" constant="10" id="NRW-Pc-bJt"/>
                                             <constraint firstItem="ZuF-SA-4D6" firstAttribute="leading" secondItem="rch-bf-K3P" secondAttribute="leading" id="PdJ-S7-bdB"/>
                                             <constraint firstAttribute="bottom" secondItem="FTk-Mw-rhX" secondAttribute="bottom" constant="5" id="QX3-xs-aYh"/>
-                                            <constraint firstAttribute="height" constant="500" id="REX-qP-9Wj"/>
+                                            <constraint firstAttribute="height" constant="420" id="REX-qP-9Wj"/>
                                             <constraint firstAttribute="trailing" secondItem="WeE-px-QTZ" secondAttribute="trailing" constant="10" id="UtZ-D9-4dn"/>
                                             <constraint firstItem="AN0-ME-vnz" firstAttribute="top" secondItem="1w9-PI-od4" secondAttribute="bottom" constant="16" id="WJQ-HA-uzS"/>
                                             <constraint firstItem="mEp-Ss-sMi" firstAttribute="top" secondItem="cI8-wQ-PLu" secondAttribute="bottom" constant="16" id="WhC-nA-jG2"/>
@@ -816,7 +816,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C6n-68-1jk">
-                                        <rect key="frame" x="220" y="850" width="160" height="40"/>
+                                        <rect key="frame" x="220" y="770" width="160" height="40"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -865,7 +865,7 @@
                     </view>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="900"/>
+                    <size key="freeformSize" width="600" height="820"/>
                     <connections>
                         <outlet property="addImage" destination="fOv-OS-RhX" id="hQd-sJ-J9U"/>
                         <outlet property="datePickerTextField" destination="eIV-Xi-E9q" id="6uN-vw-s9g"/>

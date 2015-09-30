@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-var activeJob = -1
+var jobIsUpdated = -1
 
 class MapViewController: UIViewController, MBProgressHUDDelegate {
   
@@ -57,10 +57,10 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
   }
   
   override func viewDidAppear(animated: Bool) {
-    if activeJob == -1 {
+    if jobIsUpdated == -1 {
       self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
       self.hud.mode = MBProgressHUDMode.Indeterminate
-      self.hud.labelText = "Updating map with job location"
+      self.hud.labelText = "Updating jobs on map"
       
       locationManager.startUpdatingLocation()
       timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "fetchJobsInformation", userInfo: nil, repeats: true)
@@ -83,6 +83,7 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
     jobsList = ParseInterface.sharedInstance.getJobsInformation()
     if jobsList?.count > 0 {
       self.updateJobsMap()
+      jobIsUpdated = 1
     }
     
   }
@@ -269,7 +270,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
       let vc = self.storyboard?.instantiateViewControllerWithIdentifier("JobDetails") as! JobDetailsViewController
       vc.selectedAnnotation = view
       self.navigationController?.pushViewController(vc, animated: true)
-      activeJob = 1
+      jobIsUpdated = 1
       
     }
   }

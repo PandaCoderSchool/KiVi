@@ -59,11 +59,20 @@ class AddJobViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    initViewController()
+    
+    
+  }
+  func initViewController() {
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestAlwaysAuthorization()
     
-    tpScrollView.contentSize.height = 1200
+    imagePicker.delegate = self
+    imagePicker.allowsEditing = true
+    
+    
+    tpScrollView.contentSize.height = 820
     // Date Picker for Due Date
     datePickerView.datePickerMode = UIDatePickerMode.Date
     datePickerView.backgroundColor = UIColor.whiteColor()
@@ -82,8 +91,7 @@ class AddJobViewController: UIViewController {
     sectorPickerView.delegate = self
     sectorPickerView.backgroundColor = UIColor.whiteColor()
     sectorPickerTextField.inputView = sectorPickerView
-    
-    
+
   }
   
   override func didReceiveMemoryWarning() {
@@ -212,7 +220,7 @@ class AddJobViewController: UIViewController {
             self.dataIsSaved = true
             if self.dataIsSaved {
               self.navigationController?.popToRootViewControllerAnimated(true)
-              activeJob = -1
+              jobIsUpdated = -1
             }
           }else {
             print(error)
@@ -229,17 +237,30 @@ class AddJobViewController: UIViewController {
   
   @IBAction func TapToTakePhoto(sender: UITapGestureRecognizer) {
     
-    locationManager.startUpdatingLocation()
-    
-    imagePicker.delegate = self
-    
-    imagePicker.allowsEditing = true
-    if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-      imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-    } else {
-      imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+    locationManager.startUpdatingLocation() // Get location
+    // Alert to select photo source
+    let sourceAlert = UIAlertController(title: "GET A PROFILE PHOTO", message: "Please select a photo source", preferredStyle: UIAlertControllerStyle.ActionSheet)
+    let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) { (action) -> Void in
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+        self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      }
+    } // cameraAction-End
+    let libraryAction = UIAlertAction(title: "Library", style: UIAlertActionStyle.Default) { (action) -> Void in
+      self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
     }
-    self.presentViewController(imagePicker, animated: true, completion: nil)
+    let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+      print("Cancel Button Pressed")
+    })
+
+    sourceAlert.addAction(cameraAction)
+    sourceAlert.addAction(libraryAction)
+    sourceAlert.addAction(cancel)
+    
+    presentViewController(sourceAlert, animated: true, completion: nil)
+    
+    
   }
   
   func updateUserCurrentLocation(userLocation: CLLocation) {
