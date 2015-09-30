@@ -556,7 +556,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="comNameEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="XyR-aA-vUH"/>
+                                                    <action selector="employerNameChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="K6n-7T-aSo"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="2kf-Fh-HYi"/>
                                                 </connections>
                                             </textField>
@@ -579,6 +579,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 <connections>
                                                     <action selector="emailEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="jdj-Ef-TJy"/>
+                                                    <action selector="employerEmailChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="hDW-pV-LoM"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="SeG-yE-Z4U"/>
                                                 </connections>
                                             </textField>
@@ -588,6 +589,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 <connections>
+                                                    <action selector="employerPhoneChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="Bqq-as-d8n"/>
                                                     <action selector="phoneNumberEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="xTc-id-e1g"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="xGC-e6-E1Z"/>
                                                 </connections>
@@ -616,7 +618,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="comAddressEditing:" destination="w2A-A4-ON5" eventType="editingChanged" id="Zny-R3-6R9"/>
+                                                    <action selector="employerAddressChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="eCo-3j-mAG"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="Bzo-DK-orB"/>
                                                 </connections>
                                             </textField>
@@ -658,6 +660,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
+                                                    <action selector="jobTitleChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="gGN-Zp-9HM"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="hvz-gM-nIf"/>
                                                 </connections>
                                             </textField>
@@ -679,6 +682,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 <connections>
+                                                    <action selector="workAtChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="B5B-8W-HnN"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="5DF-ic-wTa"/>
                                                 </connections>
                                             </textField>
@@ -706,6 +710,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
+                                                    <action selector="jobSalaryChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="A6r-CH-s2B"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="myo-kH-103"/>
                                                 </connections>
                                             </textField>
@@ -715,6 +720,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 <connections>
+                                                    <action selector="dueDateChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="vI3-U7-okm"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="HjG-VW-qoB"/>
                                                 </connections>
                                             </textField>
@@ -736,6 +742,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 <connections>
+                                                    <action selector="sectorChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="e9g-Vd-RvA"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="cnA-MN-lx7"/>
                                                 </connections>
                                             </textField>
@@ -751,6 +758,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 <connections>
+                                                    <action selector="jobTypeChanged:" destination="R5r-76-azm" eventType="editingDidEnd" id="ihf-nm-0cs"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="ML7-Di-2up"/>
                                                 </connections>
                                             </textField>
@@ -841,6 +849,9 @@
                                     <constraint firstItem="08i-ik-dcG" firstAttribute="centerX" secondItem="hm6-LL-nAv" secondAttribute="centerX" id="uWh-Ar-lo3"/>
                                     <constraint firstItem="EmX-9J-vxH" firstAttribute="top" secondItem="3EJ-iX-lXj" secondAttribute="bottom" constant="10" id="z7h-ot-G6E"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="R5r-76-azm" id="oSu-j3-Gnc"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <animations/>
@@ -857,14 +868,15 @@
                     <size key="freeformSize" width="600" height="900"/>
                     <connections>
                         <outlet property="addImage" destination="fOv-OS-RhX" id="hQd-sJ-J9U"/>
-                        <outlet property="comAddressLabel" destination="mdo-mL-CAD" id="VMt-cc-mIE"/>
-                        <outlet property="comNameLabel" destination="1Pf-Iq-RXT" id="gUX-4A-huw"/>
                         <outlet property="datePickerTextField" destination="eIV-Xi-E9q" id="6uN-vw-s9g"/>
-                        <outlet property="emailLabel" destination="FTY-DX-LGl" id="xzd-tk-onA"/>
+                        <outlet property="employerAddressText" destination="mdo-mL-CAD" id="bEi-fL-HZd"/>
+                        <outlet property="employerEmailText" destination="FTY-DX-LGl" id="VUS-uy-j3e"/>
+                        <outlet property="employerNameText" destination="1Pf-Iq-RXT" id="LFF-hR-8ap"/>
+                        <outlet property="employerPhoneText" destination="AXC-Mc-V2x" id="GWy-Cb-kQ3"/>
                         <outlet property="jobDescriptionText" destination="FTk-Mw-rhX" id="jAe-KZ-Daf"/>
-                        <outlet property="jobTitleLabel" destination="7A1-Hd-B7R" id="iiJ-pX-e9R"/>
+                        <outlet property="jobSalaryText" destination="D7L-Lz-6UV" id="Bvq-M9-pgZ"/>
+                        <outlet property="jobTitleText" destination="7A1-Hd-B7R" id="GmU-bM-VDx"/>
                         <outlet property="jobTypePickerTextField" destination="AjT-yG-EEK" id="Y3U-0y-Lxn"/>
-                        <outlet property="phoneNumberLabel" destination="AXC-Mc-V2x" id="Wrd-7W-40I"/>
                         <outlet property="profilePhoto" destination="08i-ik-dcG" id="nEn-cN-eAd"/>
                         <outlet property="sectorPickerTextField" destination="yWI-Bp-p6n" id="umT-zf-IhV"/>
                         <outlet property="tpScrollView" destination="hm6-LL-nAv" id="iH8-50-Lz6"/>

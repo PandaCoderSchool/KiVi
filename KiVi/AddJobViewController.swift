@@ -8,18 +8,14 @@
 
 import UIKit
 
-class AddJobViewController: UIViewController, CLLocationManagerDelegate {
+class AddJobViewController: UIViewController {
   
   
   @IBOutlet weak var addImage: UIImageView!
   @IBOutlet weak var profilePhoto: UIImageView!
   
-  @IBOutlet weak var comNameLabel: UITextField!
-  @IBOutlet weak var comAddressLabel: UITextField!
-  @IBOutlet weak var jobTitleLabel: UITextField!
+  
   @IBOutlet weak var jobDescriptionText: UITextView!
-  @IBOutlet weak var emailLabel: UITextField!
-  @IBOutlet weak var phoneNumberLabel: UITextField!
   
   @IBOutlet weak var tpScrollView: TPKeyboardAvoidingScrollView!
   
@@ -30,17 +26,22 @@ class AddJobViewController: UIViewController, CLLocationManagerDelegate {
   var editItemIndex = 0
   var currentLocation = CLLocation()
   
+  @IBOutlet weak var employerNameText: UITextField!
+  @IBOutlet weak var employerAddressText: UITextField!
+  @IBOutlet weak var employerEmailText: UITextField!
+  @IBOutlet weak var employerPhoneText: UITextField!
   
-  @IBOutlet weak var salaryPickerTextField: UITextField!
+  @IBOutlet weak var jobTitleText: UITextField!
+  @IBOutlet weak var jobSalaryText: UITextField!
+  
   @IBOutlet weak var workAtPickerTextField: UITextField!
   @IBOutlet weak var datePickerTextField: UITextField!
-  
   @IBOutlet weak var jobTypePickerTextField: UITextField!
-  
   @IBOutlet weak var sectorPickerTextField: UITextField!
   
+  
   let datePickerView: UIDatePicker = UIDatePicker()
-
+  
   let workAtList = ["Ho Chi Minh", "Da Nang", "Ha Noi", "Binh Duong", "Vung Tau", "Can Tho", "Phan Thiet"]
   let workAtPickerView = UIPickerView()
   
@@ -49,7 +50,7 @@ class AddJobViewController: UIViewController, CLLocationManagerDelegate {
   
   let sectorList = ["Admin", "Advertising/Marketing/PR", "Agriculture", "Art/Music","Catering/Leisure", "Childcare/Care Work","Customer Service/Call Center", "Defense/Security","Education", "Engineering", "IT",  "Manufacturing/Industrial", "Promotion/Events","Real Estate","Retail", "Sales", "Travel/Tourism" ]
   let sectorPickerView = UIPickerView()
-  
+  let jobObj = PFObject(className: ParseInterface.sharedInstance.databaseClassName)
   
   
   var hud = MBProgressHUD()
@@ -77,7 +78,7 @@ class AddJobViewController: UIViewController, CLLocationManagerDelegate {
     jobTypePickerView.delegate = self
     jobTypePickerView.backgroundColor = UIColor.whiteColor()
     jobTypePickerTextField.inputView = jobTypePickerView
-
+    
     sectorPickerView.delegate = self
     sectorPickerView.backgroundColor = UIColor.whiteColor()
     sectorPickerTextField.inputView = sectorPickerView
@@ -100,40 +101,106 @@ class AddJobViewController: UIViewController, CLLocationManagerDelegate {
       self.navigationController?.popToRootViewControllerAnimated(true)
       activeJob = -1
     }
-    
   }
   
- 
+  @IBAction func employerNameChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["employerName"] = sender.text
+    } else {
+      jobObj["employerName"] = "NA"
+    }
+  }
+  
+  @IBAction func employerAddressChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["employerAddress"] = sender.text
+    } else {
+      jobObj["employerAddress"] = "NA"
+    }
+  }
+  
+  @IBAction func employerEmailChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["employerEmail"] = sender.text
+    } else {
+      jobObj["employerEmail"] = "NA"
+    }
+  }
+  
+  @IBAction func employerPhoneChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["employerPhone"] = sender.text
+    } else {
+      jobObj["employerPhone"] = "NA"
+    }
+  }
+  
+  @IBAction func jobTitleChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["jobTitle"] = sender.text
+    } else {
+      jobObj["jobTitle"] = "NA"
+    }
+  }
+  
+  @IBAction func jobSalaryChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["salary"] = sender.text
+    } else {
+      jobObj["salary"] = "NA"
+    }
+  }
+  
+  @IBAction func workAtChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["workAt"] = sender.text
+    } else {
+      jobObj["workAt"] = "NA"
+    }
+  }
+  
+  @IBAction func dueDateChanged(sender: UITextField) {
+    print(sender.text)
+    var date = NSDate()
+    let dateformatter = NSDateFormatter()
+    dateformatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+    date = dateformatter.dateFromString(sender.text!)!
+    jobObj["dueDate"] = date
+  }
+  
   func getDate(sender: UIDatePicker) {
     let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "dd/MM/yyyy"
+    dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss" // "dd/MM/yyyy"
     datePickerTextField.text = dateFormatter.stringFromDate(sender.date)
     
   }
+  
+  @IBAction func jobTypeChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["jobType"] = sender.text
+    } else {
+      jobObj["jobType"] = "NA"
+    }
+  }
+  
+  @IBAction func sectorChanged(sender: UITextField) {
+    if sender.text != nil {
+      jobObj["jobSector"] = sender.text
+    } else {
+      jobObj["jobSector"] = "NA"
+    }
+  }
+  
   func saveNewJob() {
-    let jobObj = PFObject(className: "JobsInformation")
-    
-    jobObj["createdBy"] = PFUser.currentUser()
-    jobObj["jobTitle"]  = jobTitleLabel.text
-    jobObj["jobDescription"]  = jobDescriptionText.text
-    jobObj["salary"] = "NA"
-    jobObj["jobType"] = "NA"
-    jobObj["jobCategory"] = "NA"
-    jobObj["workAt"] = "Ho Chi Minh"
-    //    jobObj["dueOn"] =
-    jobObj["companyName"] = comNameLabel.text
-    jobObj["contactAddress"] = comAddressLabel.text
-    jobObj["contactEmail"] = emailLabel.text
-    jobObj["contactPhone"] = phoneNumberLabel.text
     let geopoint = PFGeoPoint()
     geopoint.latitude = currentLocation.coordinate.latitude
     geopoint.longitude = currentLocation.coordinate.longitude
     jobObj["location"] = geopoint
     
-    let nowDate = NSDate()
-    let dayToDue:Double = 30
-    let dueDate = nowDate.dateByAddingTimeInterval(60*60*24*dayToDue)
-    jobObj["dueOn"] = dueDate
+//    let nowDate = NSDate()
+//    let dayToDue:Double = 30
+//    let dueDate = nowDate.dateByAddingTimeInterval(60*60*24*dayToDue)
+//    jobObj["dueOn"] = dueDate
     
     jobObj.saveInBackgroundWithBlock({
       (success: Bool, error: NSError?) -> Void in
@@ -145,8 +212,8 @@ class AddJobViewController: UIViewController, CLLocationManagerDelegate {
         let imageData = UIImagePNGRepresentation(self.profilePhoto.image!)
         //create a parse file to store in cloud
         let parseImageFile = PFFile(name: "profile_image.png", data: imageData!)
-        jobObj["profilePhoto"] = parseImageFile
-        jobObj.saveInBackgroundWithBlock({
+        self.jobObj["profilePhoto"] = parseImageFile
+        self.jobObj.saveInBackgroundWithBlock({
           (success: Bool, error: NSError?) -> Void in
           if error == nil {
             //take user home
@@ -164,14 +231,7 @@ class AddJobViewController: UIViewController, CLLocationManagerDelegate {
     
   }
   
-    // MARK: LocationManager protocol
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    let currentLocation: CLLocation = locations.last!
-    self.updateUserCurrentLocation(currentLocation)
-    self.getAddressFromLocation(currentLocation)
-    locationManager.stopUpdatingLocation()
-    
-  }
+  
   
   @IBAction func TapToTakePhoto(sender: UITapGestureRecognizer) {
     
@@ -228,8 +288,7 @@ class AddJobViewController: UIViewController, CLLocationManagerDelegate {
           
           
           print(addr)
-            self.comAddressLabel.text = addr
-          
+          self.employerAddressText.text = addr
         }
       }
     }
@@ -256,7 +315,7 @@ extension AddJobViewController:UIPickerViewDelegate, UIPickerViewDataSource {
   
   func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     if pickerView == workAtPickerView {
-    return workAtList.count
+      return workAtList.count
     } else if pickerView == jobTypePickerView {
       return jobTypeList.count
     } else if pickerView == sectorPickerView {
@@ -266,7 +325,7 @@ extension AddJobViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     }
   }
   
- 
+  
   
   func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
     var attributedString: NSAttributedString!
@@ -313,7 +372,22 @@ extension AddJobViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
     
   }
-  
+} // extension - end
 
-  
+// MARK: LocationManager protocol
+
+extension AddJobViewController: CLLocationManagerDelegate {
+  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    let currentLocation: CLLocation = locations.last!
+    self.updateUserCurrentLocation(currentLocation)
+    self.getAddressFromLocation(currentLocation)
+    locationManager.stopUpdatingLocation()
+    
+  }
+} // extension - end
+
+extension AddJobViewController: UITextViewDelegate {
+  func textViewDidChange(textView: UITextView) {
+    jobObj["jobDescription"] = textView.text
+  }
 }

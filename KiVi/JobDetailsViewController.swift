@@ -49,7 +49,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     geopoint.latitude = location.latitude
     geopoint.longitude = location.longitude
     
-    let query = PFQuery(className: "JobsInformation")
+    let query = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     query.whereKey("location", equalTo: geopoint)
     query.orderByAscending("updatedAt")
     query.findObjectsInBackgroundWithBlock { (jobObject: [PFObject]?, error: NSError?) -> Void in

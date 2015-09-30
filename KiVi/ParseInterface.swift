@@ -9,12 +9,14 @@
 import UIKit
 
 
+
 class ParseInterface: NSObject {
   
   // Refer to App setting on Parse: https://www.parse.com/apps/job4students/edit#keys
   
   let appId = "GVaD3r4Vyi7uQHSydphnOWW2KC4EHHAKm31GXDm7"
   let clientKey = "ICQxhc9IndnBEq5X0e4XBAvYIeULHhxzuyi0yzzS"
+  let databaseClassName = "JobDatabase"
   
   let defaultUserName = "panda"
   let defaultPassword = "panda"
@@ -50,7 +52,7 @@ class ParseInterface: NSObject {
   
   func getJobsInformation() -> [PFObject]? {
     if loginIsSuccess {
-    let query = PFQuery(className: "JobsInformation")
+    let query = PFQuery(className: databaseClassName)
     query.orderByAscending("updatedAt")
 //    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
     

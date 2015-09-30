@@ -64,10 +64,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   
   func fetchNewJob(searchText: String) {
     print("Searching...")
-    let searchQuery = PFQuery(className: "JobsInformation")
+    let searchQuery = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQuery.whereKey("contactAddress", matchesRegex: "(?i)\(searchText)")
     searchQuery.whereKey("contactAddress", containsString: searchText)
-    let searchQuerySecond = PFQuery(className: "JobsInformation")
+    let searchQuerySecond = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQuerySecond.whereKey("workAt", matchesRegex: "(?i)\(searchText)")
     
     let query = PFQuery.orQueryWithSubqueries([searchQuery, searchQuerySecond])
