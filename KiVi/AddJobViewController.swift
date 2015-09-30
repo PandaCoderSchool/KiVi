@@ -97,10 +97,7 @@ class AddJobViewController: UIViewController {
     self.hud.labelText = "Saving your data to server..."
     
     saveNewJob()
-    if dataIsSaved {
-      self.navigationController?.popToRootViewControllerAnimated(true)
-      activeJob = -1
-    }
+    
   }
   
   @IBAction func employerNameChanged(sender: UITextField) {
@@ -192,16 +189,9 @@ class AddJobViewController: UIViewController {
   }
   
   func saveNewJob() {
-    let geopoint = PFGeoPoint()
-    geopoint.latitude = currentLocation.coordinate.latitude
-    geopoint.longitude = currentLocation.coordinate.longitude
-    jobObj["location"] = geopoint
-    
-//    let nowDate = NSDate()
-//    let dayToDue:Double = 30
-//    let dueDate = nowDate.dateByAddingTimeInterval(60*60*24*dayToDue)
-//    jobObj["dueOn"] = dueDate
-    
+    jobObj["jobStatus"] = "Open" // Status of new job is open
+    jobObj["createdBy"] = PFUser.currentUser() // Add the user to the job 
+    jobObj["jobDescription"] = jobDescriptionText.text
     jobObj.saveInBackgroundWithBlock({
       (success: Bool, error: NSError?) -> Void in
       
@@ -220,6 +210,10 @@ class AddJobViewController: UIViewController {
             print("data uploaded")
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             self.dataIsSaved = true
+            if self.dataIsSaved {
+              self.navigationController?.popToRootViewControllerAnimated(true)
+              activeJob = -1
+            }
           }else {
             print(error)
           }
@@ -250,6 +244,11 @@ class AddJobViewController: UIViewController {
   
   func updateUserCurrentLocation(userLocation: CLLocation) {
     self.currentLocation = userLocation
+    
+    let geopoint = PFGeoPoint()
+    geopoint.latitude = currentLocation.coordinate.latitude
+    geopoint.longitude = currentLocation.coordinate.longitude
+    jobObj["location"] = geopoint
   }
   
   func getAddressFromLocation(location: CLLocation) {
@@ -286,9 +285,9 @@ class AddJobViewController: UIViewController {
           
           let addr = "\(subThoroughfare), \(thoroughfare), \(subLocality), \(subAdministrativeArea), \(administrativeArea) \(country)"
           
-          
           print(addr)
           self.employerAddressText.text = addr
+          self.jobObj["employerAddress"] = addr
         }
       }
     }
@@ -387,7 +386,8 @@ extension AddJobViewController: CLLocationManagerDelegate {
 } // extension - end
 
 extension AddJobViewController: UITextViewDelegate {
-  func textViewDidChange(textView: UITextView) {
+  
+  func textViewDidEndEditing(textView: UITextView) {
     jobObj["jobDescription"] = textView.text
   }
 }

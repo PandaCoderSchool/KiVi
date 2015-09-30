@@ -89,7 +89,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
   func updateWithSelectedJob() {
     // Update Map
     localSearchRequest = MKLocalSearchRequest()
-    localSearchRequest.naturalLanguageQuery = selectedJob!["contactAddress"] as? String
+    localSearchRequest.naturalLanguageQuery = selectedJob!["employerAddress"] as? String
     
     localSearch = MKLocalSearch(request: localSearchRequest)
     localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
@@ -102,7 +102,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
       
       self.pointAnnotation = MKPointAnnotation()
       self.pointAnnotation.title  = self.selectedJob!["jobTitle"] as? String
-      self.pointAnnotation.subtitle = self.selectedJob!["contactAddress"] as? String
+      self.pointAnnotation.subtitle = self.selectedJob!["employerAddress"] as? String
       
       self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
       
@@ -137,7 +137,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
   
   @IBAction func onShareJob(sender: UIBarButtonItem) {
     let textToShare = (selectedJob!["jobTitle"] as! String) + "\n" + (selectedJob!["jobDescription"] as! String)
-    let contactAddress = self.selectedJob!["contactAddress"] as! String
+    let contactAddress = self.selectedJob!["employerAddress"] as! String
       let objectsToShare = [textToShare, contactAddress]
       let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
       
@@ -146,19 +146,19 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
   
   @IBAction func onApplyJob(sender: UIBarButtonItem) {
     let alertController = UIAlertController(title: "Apply for the job", message: nil, preferredStyle: .ActionSheet)
-    let emailStr = "Email: " + (selectedJob!["contactEmail"] as! String)
-    let emailAddress = selectedJob!["contactEmail"] as! String
+    let emailStr = "Email: " + (selectedJob!["employerEmail"] as! String)
+    let emailAddress = selectedJob!["employerEmail"] as! String
     let email = UIAlertAction(title: emailStr, style: .Default, handler: { (action) -> Void in
       print("Apply by email")
       UIApplication.sharedApplication().openURL(NSURL(string: "mailto:\(emailAddress)")!)
     })
-    let phoneStr = "Phone: " + (selectedJob!["contactPhone"] as! String)
-    let phoneNumber = selectedJob!["contactPhone"] as! String
+    let phoneStr = "Phone: " + (selectedJob!["employerPhone"] as! String)
+    let phoneNumber = selectedJob!["employerPhone"] as! String
     let  phone = UIAlertAction(title: phoneStr, style: .Default) { (action) -> Void in
       print("Apply by phone")
       UIApplication.sharedApplication().openURL(NSURL(string: "telprompt://\(phoneNumber)")!)
     }
-    let addrStr = "Direct to: " + (selectedJob!["contactAddress"] as! String)
+    let addrStr = "Direct to: " + (selectedJob!["employerAddress"] as! String)
     let  address = UIAlertAction(title: addrStr, style: .Default) { (action) -> Void in
       print("Apply by going to address")
       self.getDirection()
@@ -183,7 +183,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     let selectedPlacemark = MKPlacemark(coordinate: selectedLocation, addressDictionary: nil)
     let mapItem = MKMapItem(placemark: selectedPlacemark)
     
-    mapItem.name = selectedJob!["contactAddress"] as?  String
+    mapItem.name = selectedJob!["employerAddress"] as?  String
     
     //You could also choose: MKLaunchOptionsDirectionsModeWalking
     let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]

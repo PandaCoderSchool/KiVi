@@ -174,13 +174,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
   func pinJobOnMap(jobToPin: PFObject?) {
     
     localSearchRequest = MKLocalSearchRequest()
-    localSearchRequest.naturalLanguageQuery = jobToPin!["contactAddress"] as? String
+    localSearchRequest.naturalLanguageQuery = jobToPin!["employerAddress"] as? String
     
     localSearch = MKLocalSearch(request: localSearchRequest)
     localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
       
       if localSearchResponse == nil{
-        let alert = UIAlertController(title: "Place not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Places not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
         let cancel = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
         alert.addAction(cancel)
       
@@ -196,7 +196,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       
       self.pointAnnotation = MKPointAnnotation()
       self.pointAnnotation.title    = jobToPin!["jobTitle"] as? String
-      self.pointAnnotation.subtitle = jobToPin!["contactAddress"] as? String
+      self.pointAnnotation.subtitle = jobToPin!["employerAddress"] as? String
       
       if let thumbNail = jobToPin!["profilePhoto"] as? PFFile {
         
@@ -276,16 +276,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
           self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
           self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
           self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
- 
-          
       }
     }
-  }
-  
-  
-    
-  
-  
+  }  
 }
   
   func centerMapOnLocation(location: CLLocation) {
