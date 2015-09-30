@@ -715,8 +715,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 <connections>
-                                                    <action selector="datePicker:" destination="R5r-76-azm" eventType="editingDidBegin" id="WJe-79-cmy"/>
-                                                    <action selector="onEditDueDate:" destination="R5r-76-azm" eventType="editingDidEnd" id="XJh-xP-cJ4"/>
                                                     <outlet property="delegate" destination="w2A-A4-ON5" id="HjG-VW-qoB"/>
                                                 </connections>
                                             </textField>
@@ -858,7 +856,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="900"/>
                     <connections>
-                        <outlet property="addImage" destination="fOv-OS-RhX" id="pi2-a1-bXv"/>
+                        <outlet property="addImage" destination="fOv-OS-RhX" id="hQd-sJ-J9U"/>
                         <outlet property="comAddressLabel" destination="mdo-mL-CAD" id="VMt-cc-mIE"/>
                         <outlet property="comNameLabel" destination="1Pf-Iq-RXT" id="gUX-4A-huw"/>
                         <outlet property="datePickerTextField" destination="eIV-Xi-E9q" id="6uN-vw-s9g"/>
@@ -868,8 +866,7 @@
                         <outlet property="jobTypePickerTextField" destination="AjT-yG-EEK" id="Y3U-0y-Lxn"/>
                         <outlet property="phoneNumberLabel" destination="AXC-Mc-V2x" id="Wrd-7W-40I"/>
                         <outlet property="profilePhoto" destination="08i-ik-dcG" id="nEn-cN-eAd"/>
-                        <outlet property="salaryPickerTextField" destination="D7L-Lz-6UV" id="kHj-NS-bfU"/>
-                        <outlet property="sectorPickerTextField" destination="yWI-Bp-p6n" id="jPq-v8-6W3"/>
+                        <outlet property="sectorPickerTextField" destination="yWI-Bp-p6n" id="umT-zf-IhV"/>
                         <outlet property="tpScrollView" destination="hm6-LL-nAv" id="iH8-50-Lz6"/>
                         <outlet property="workAtPickerTextField" destination="WeE-px-QTZ" id="tyL-Y4-ZdY"/>
                     </connections>

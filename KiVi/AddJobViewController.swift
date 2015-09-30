@@ -8,10 +8,10 @@
 
 import UIKit
 
-class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
+class AddJobViewController: UIViewController, CLLocationManagerDelegate {
   
   
-  @IBOutlet weak var addressLabel: UILabel!
+  @IBOutlet weak var addImage: UIImageView!
   @IBOutlet weak var profilePhoto: UIImageView!
   
   @IBOutlet weak var comNameLabel: UITextField!
@@ -37,13 +37,19 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
   
   @IBOutlet weak var jobTypePickerTextField: UITextField!
   
+  @IBOutlet weak var sectorPickerTextField: UITextField!
+  
   let datePickerView: UIDatePicker = UIDatePicker()
 
-  let workAtList = ["Ho Chi Minh", "Da Nang", "Ha Noi", "Binh Duong"]
+  let workAtList = ["Ho Chi Minh", "Da Nang", "Ha Noi", "Binh Duong", "Vung Tau", "Can Tho", "Phan Thiet"]
   let workAtPickerView = UIPickerView()
   
-  let jobTypeList = ["Part Time Jobs", "Summer/Holiday Jobs", "Casual Jobs", "Internships", "Full Time Jobs"]
-  let jobPickerView = UIPickerView()
+  let jobTypeList = ["Part Time Jobs", "Summer/Holiday Jobs", "Temporary Jobs", "Internships", "Full Time Jobs"]
+  let jobTypePickerView = UIPickerView()
+  
+  let sectorList = ["Admin", "Advertising/Marketing/PR", "Agriculture", "Art/Music","Catering/Leisure", "Childcare/Care Work","Customer Service/Call Center", "Defense/Security","Education", "Engineering", "IT",  "Manufacturing/Industrial", "Promotion/Events","Real Estate","Retail", "Sales", "Travel/Tourism" ]
+  let sectorPickerView = UIPickerView()
+  
   
   
   var hud = MBProgressHUD()
@@ -59,68 +65,26 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     tpScrollView.contentSize.height = 1200
     // Date Picker for Due Date
     datePickerView.datePickerMode = UIDatePickerMode.Date
+    datePickerView.backgroundColor = UIColor.whiteColor()
     datePickerTextField.inputView = datePickerView
     datePickerView.addTarget(self, action: "getDate:", forControlEvents: UIControlEvents.ValueChanged)
     
     // Location Picker for Work At
     workAtPickerView.delegate = self
+    workAtPickerView.backgroundColor = UIColor.whiteColor()
     workAtPickerTextField.inputView = workAtPickerView
     
-    jobPickerView.delegate = self
-    jobTypePickerTextField.inputView = jobPickerView
+    jobTypePickerView.delegate = self
+    jobTypePickerView.backgroundColor = UIColor.whiteColor()
+    jobTypePickerTextField.inputView = jobTypePickerView
+
+    sectorPickerView.delegate = self
+    sectorPickerView.backgroundColor = UIColor.whiteColor()
+    sectorPickerTextField.inputView = sectorPickerView
     
     
-    
-//    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillAppear:"), name:UIKeyboardWillShowNotification, object: nil);
-//    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillDisappear:"), name:UIKeyboardWillHideNotification, object: nil);
-//    
-    
   }
   
-//  deinit {
-//    NSNotificationCenter.defaultCenter().removeObserver(self)
-//  }
-//  
-//  func keyboardWillAppear(notification: NSNotification) {
-//    if let userInfo = notification.userInfo {
-//      if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-//        kbHeight = keyboardSize.height
-//        animateTextField(true)
-//      }
-//    }
-//  }
-//  func keyboardWillDisappear(notification: NSNotification){
-//    animateTextField(false)
-//    
-//  }
-  
-//  func animateTextField(up: Bool) {
-//    let movement = (up ? -kbHeight : 0)
-//    //    animateImages(!up)
-////    UIView.animateWithDuration(0.3, animations: {
-////      self.jobDescriptionText.transform = CGAffineTransformMakeTranslation(0, movement)
-////    })
-//  }
-  
-  @IBAction func comNameEditing(sender: UITextField) {
-    editItemIndex = sender.tag
-  }
-  
-  @IBAction func comAddressEditing(sender: UITextField) {
-    editItemIndex = sender.tag
-  }
-  
-  @IBAction func comJobTitleEditing(sender: UITextField) {
-    editItemIndex = sender.tag
-  }
-  
-  @IBAction func emailEditing(sender: UITextField) {
-    editItemIndex = sender.tag
-  }
-  
-  @IBAction func phoneNumberEditing(sender: UITextField) {
-    editItemIndex = sender.tag
-  }
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -139,23 +103,11 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     
   }
   
-  @IBAction func useCurrentLocation(sender: UIButton) {
-    comAddressLabel.text = addressLabel.text
-    
-    
-  }
-  
-  @IBAction func datePicker(sender: UITextField) {
-    
-
-    
-  }
-  
+ 
   func getDate(sender: UIDatePicker) {
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "dd/MM/yyyy"
     datePickerTextField.text = dateFormatter.stringFromDate(sender.date)
-
     
   }
   func saveNewJob() {
@@ -212,21 +164,7 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     
   }
   
-  // MARK: Image picker protocol
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-    let editedImage = info[UIImagePickerControllerEditedImage]as! UIImage
-    photo = editedImage
-    profilePhoto.image = editedImage
-    locationManager.stopUpdatingLocation()
-    
-    picker.dismissViewControllerAnimated(true) { () -> Void in
-      print("Image was captured")
-      
-    }
-    
-  }
-  
-  // MARK: LocationManager protocol
+    // MARK: LocationManager protocol
   func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let currentLocation: CLLocation = locations.last!
     self.updateUserCurrentLocation(currentLocation)
@@ -247,17 +185,11 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     } else {
       imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
     }
-    
     self.presentViewController(imagePicker, animated: true, completion: nil)
   }
   
   func updateUserCurrentLocation(userLocation: CLLocation) {
-    //    let latitude = userLocation.coordinate.latitude
-    //    let longitude = userLocation.coordinate.longitude
     self.currentLocation = userLocation
-    
-    
-    
   }
   
   func getAddressFromLocation(location: CLLocation) {
@@ -296,8 +228,7 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
           
           
           print(addr)
-          self.addressLabel.text = "\(addr)"
-          
+            self.comAddressLabel.text = addr
           
         }
       }
@@ -314,19 +245,8 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     return true
     
   }
-  
-  
-  /*
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
-  }
-  */
-  
-}
+} // AddJobViewController - End
+
 
 extension AddJobViewController:UIPickerViewDelegate, UIPickerViewDataSource {
   
@@ -337,30 +257,63 @@ extension AddJobViewController:UIPickerViewDelegate, UIPickerViewDataSource {
   func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     if pickerView == workAtPickerView {
     return workAtList.count
-    } else if pickerView == jobPickerView {
+    } else if pickerView == jobTypePickerView {
       return jobTypeList.count
-    } else {
+    } else if pickerView == sectorPickerView {
+      return sectorList.count
+    }else {
       return 0
     }
   }
   
-  func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+ 
+  
+  func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    var attributedString: NSAttributedString!
+    
+    
     if pickerView == workAtPickerView {
-    return workAtList[row]
-    } else if pickerView == jobPickerView {
-      return jobTypeList[row]
-    } else {
-      return "NA"
+      attributedString = NSAttributedString(string: workAtList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+    } else if pickerView == jobTypePickerView {
+      attributedString = NSAttributedString(string: jobTypeList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+    } else if pickerView == sectorPickerView {
+      attributedString = NSAttributedString(string: sectorList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+    }else {
+      attributedString = nil
     }
-
+    return attributedString
   }
   
   func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     if pickerView == workAtPickerView {
-    workAtPickerTextField.text = workAtList[row]
-    } else if pickerView == jobPickerView  {
+      workAtPickerTextField.text = workAtList[row]
+      
+    } else if pickerView == jobTypePickerView  {
       jobTypePickerTextField.text = jobTypeList[row]
+      
+    } else if pickerView == sectorPickerView  {
+      sectorPickerTextField.text = sectorList[row]
+      
+    }
+  }
+} // Picker externsion - End
+
+// MARK: Image picker protocol
+
+extension AddJobViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    let editedImage = info[UIImagePickerControllerEditedImage]as! UIImage
+    photo = editedImage
+    profilePhoto.image = editedImage
+    locationManager.stopUpdatingLocation()
+    
+    picker.dismissViewControllerAnimated(true) { () -> Void in
+      print("Image was captured")
+      
     }
     
   }
+  
+
+  
 }
