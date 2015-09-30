@@ -42,13 +42,13 @@ class AddJobViewController: UIViewController {
   
   let datePickerView: UIDatePicker = UIDatePicker()
   
-  let workAtList = ["Ho Chi Minh", "Da Nang", "Ha Noi", "Binh Duong", "Vung Tau", "Can Tho", "Phan Thiet"]
+  let workAtList = ["-- Chose a region --", "Ho Chi Minh", "Da Nang", "Ha Noi", "Binh Duong", "Vung Tau", "Can Tho", "Phan Thiet"]
   let workAtPickerView = UIPickerView()
   
-  let jobTypeList = ["Part Time Jobs", "Summer/Holiday Jobs", "Temporary Jobs", "Internships", "Full Time Jobs"]
+  let jobTypeList = ["-- Chose a job type --", "Part Time Jobs", "Summer/Holiday Jobs", "Temporary Jobs", "Internships", "Full Time Jobs"]
   let jobTypePickerView = UIPickerView()
   
-  let sectorList = ["Admin", "Advertising/Marketing/PR", "Agriculture", "Art/Music","Catering/Leisure", "Childcare/Care Work","Customer Service/Call Center", "Defense/Security","Education", "Engineering", "IT",  "Manufacturing/Industrial", "Promotion/Events","Real Estate","Retail", "Sales", "Travel/Tourism" ]
+  let sectorList = ["-- Chose a job sector --","Admin", "Advertising/Marketing/PR", "Agriculture", "Art/Music","Catering/Leisure", "Childcare/Care Work","Customer Service/Call Center", "Defense/Security","Education", "Engineering", "IT",  "Manufacturing/Industrial", "Promotion/Events","Real Estate","Retail", "Sales", "Travel/Tourism" ]
   let sectorPickerView = UIPickerView()
   let jobObj = PFObject(className: ParseInterface.sharedInstance.databaseClassName)
   
@@ -165,12 +165,18 @@ class AddJobViewController: UIViewController {
   }
   
   @IBAction func dueDateChanged(sender: UITextField) {
-    print(sender.text)
     var date = NSDate()
     let dateformatter = NSDateFormatter()
     dateformatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-    date = dateformatter.dateFromString(sender.text!)!
-    jobObj["dueDate"] = date
+
+    if (sender.text != "") {
+      date = dateformatter.dateFromString(sender.text!)!
+      jobObj["dueDate"] = date
+    } else {
+      let dateNow = NSDate()
+      jobObj["dueDate"] = dateNow.dateByAddingTimeInterval(60*60*24*30) // auto add 30 days from now
+      datePickerTextField.text = dateformatter.stringFromDate(dateNow.dateByAddingTimeInterval(60*60*24*30))
+    }
   }
   
   func getDate(sender: UIDatePicker) {
