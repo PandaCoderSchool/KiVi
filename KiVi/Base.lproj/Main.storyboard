@@ -1064,6 +1064,9 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3n8-kd-Eq5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="214.5"/>
                                 <animations/>
+                                <connections>
+                                    <outlet property="delegate" destination="92d-f4-A9F" id="zDf-HE-nwA"/>
+                                </connections>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Title:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ec9-xq-BSf">
                                 <rect key="frame" x="0.0" y="196.5" width="600" height="18"/>

@@ -27,64 +27,58 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
   var pinAnnotationView:MKPinAnnotationView!
   
   var selectedLocation = CLLocationCoordinate2D()
+  var selectedAnnotation = MKAnnotationView()
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    
-
-    
   }
+  
   override func viewDidAppear(animated: Bool) {
     if selectedJob == nil {
-      updateWithSelectedPinJob(selectedLocation) // trigger from MAP
+      updateWithSelectedPinJob() // trigger from MAP
     } else {
       updateWithSelectedJob() // trigger from Table
     }
   }
-  func updateWithSelectedPinJob(location: CLLocationCoordinate2D) {
+  
+  func updateWithSelectedPinJob() {
     // getting info base on location
+//    let geopoint = PFGeoPoint()
+//    geopoint.latitude = location.latitude
+//    geopoint.longitude = location.longitude
+//    print("Location received: \(location)")
+//    print("Geopoint: \(geopoint)")
     
-    let geopoint = PFGeoPoint()
-    geopoint.latitude = location.latitude
-    geopoint.longitude = location.longitude
+    let queryWith: String = selectedAnnotation.annotation!.title!!
     
     let query = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
-    query.whereKey("location", equalTo: geopoint)
+    query.whereKey("jobTitle", equalTo: queryWith )  // get object with the same job title
     query.orderByAscending("updatedAt")
+    
     query.findObjectsInBackgroundWithBlock { (jobObject: [PFObject]?, error: NSError?) -> Void in
       
       self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
       self.hud.mode = MBProgressHUDMode.Indeterminate
-      self.hud.labelText = "Loading"
+      self.hud.labelText = "Loading data..."
       
       if let error = error {
         let errorStr = error.userInfo["error"] as? String
         print("Error: \(errorStr) ")
       } else {
-
-        if let obj = jobObject?.last
-//          for obj in jobObject!
+          for obj in jobObject!
         {
           self.selectedJob = obj
           self.updateWithSelectedJob()
         }
-        
       }
-
-    }
-    
-    
+    } // Block - end    
+    // Update location on Map
     let latDelta: CLLocationDegrees = 0.01
     let lonDelta: CLLocationDegrees = 0.01
     let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
-    let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+    let region: MKCoordinateRegion = MKCoordinateRegionMake((selectedAnnotation.annotation?.coordinate)!, span)
     self.map.setRegion(region, animated: true)
-    
-    
-
-    
-    
   }
   func updateWithSelectedJob() {
     // Update Map
@@ -121,9 +115,6 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
       let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
       let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
       self.map.setRegion(region, animated: true)
-      
-      
-      
     }
     // Update Job info
     self.title = "Job Details"
@@ -132,7 +123,6 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
 
     MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
 
-    
   }
   
   @IBAction func onShareJob(sender: UIBarButtonItem) {
@@ -145,21 +135,25 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
   }
   
   @IBAction func onApplyJob(sender: UIBarButtonItem) {
+    
     let alertController = UIAlertController(title: "Apply for the job", message: nil, preferredStyle: .ActionSheet)
-    let emailStr = "Email: " + (selectedJob!["employerEmail"] as! String)
     let emailAddress = selectedJob!["employerEmail"] as! String
+    let emailStr = "Email: " + emailAddress
+    
     let email = UIAlertAction(title: emailStr, style: .Default, handler: { (action) -> Void in
       print("Apply by email")
       UIApplication.sharedApplication().openURL(NSURL(string: "mailto:\(emailAddress)")!)
     })
-    let phoneStr = "Phone: " + (selectedJob!["employerPhone"] as! String)
+    
     let phoneNumber = selectedJob!["employerPhone"] as! String
+    let phoneStr = "Phone: " + phoneNumber
     let  phone = UIAlertAction(title: phoneStr, style: .Default) { (action) -> Void in
       print("Apply by phone")
       UIApplication.sharedApplication().openURL(NSURL(string: "telprompt://\(phoneNumber)")!)
     }
+    
     let addrStr = "Direct to: " + (selectedJob!["employerAddress"] as! String)
-    let  address = UIAlertAction(title: addrStr, style: .Default) { (action) -> Void in
+    let address = UIAlertAction(title: addrStr, style: .Default) { (action) -> Void in
       print("Apply by going to address")
       self.getDirection()
     }

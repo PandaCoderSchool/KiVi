@@ -12,7 +12,7 @@ import CoreLocation
 
 var activeJob = -1
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MBProgressHUDDelegate {
+class MapViewController: UIViewController, MBProgressHUDDelegate {
   
   
   @IBOutlet var jobMap: MKMapView!
@@ -44,7 +44,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     locationManager.requestAlwaysAuthorization()
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateMap:"), name: "searchResultUpdated", object: nil)
-    
   }
   
   deinit{
@@ -79,70 +78,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     updateJobsMap()
   }
   
-  // MARK: Map View Delegate protocol
-  
-  func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-    if !(annotation is  MKPointAnnotation) {
-      return nil
-    }
-    
-    // Resize the image selected
-    let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
-    resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
-    resizeRenderImageView.layer.borderWidth = 3.0
-    resizeRenderImageView.contentMode = UIViewContentMode.ScaleAspectFill
-    resizeRenderImageView.image = profilePhoto //UIImage(named: "defaultImage")
-    
-    UIGraphicsBeginImageContext(resizeRenderImageView.frame.size)
-    resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-    let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    
-    let reuseID = "myAnnotationView"
-    var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
-    if (annotationView == nil) {
-      // Must use MKAnnotationView instead of MKPointAnnotationView if we want to use image for pin annotation
-      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
-      annotationView!.canShowCallout = true
-       // Left Image annotation
-      annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
-      let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
-      
-      annotationView!.image = thumbnail
-      
-      imageView.image = profilePhoto //UIImage(named: "defaultImage")
-      // Right button annotation
-      annotationView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIButton
-    }
-    else {
-      annotationView!.annotation = annotation
-    }
-    
-    return annotationView
-  }
-  
-  func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-    
-    if control == view.rightCalloutAccessoryView {
-      let vc = self.storyboard?.instantiateViewControllerWithIdentifier("JobDetails") as! JobDetailsViewController
-      let location = view.annotation?.coordinate
-      vc.selectedLocation = location!
-      self.navigationController?.pushViewController(vc, animated: true)
-      activeJob = 1
-      
-    }
-  }
-  // MARK: Location Manager Delegate
-  
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    
-    let userLocation: CLLocation = locations.last!
-    self.updateUserCurrentLocation(userLocation)
-    if userLocation.timestamp.timeIntervalSinceNow < 300 {
-      self.locationManager.stopUpdatingLocation()
-    }
-    
-  }
   
   func fetchJobsInformation() {
     jobsList = ParseInterface.sharedInstance.getJobsInformation()
@@ -188,8 +123,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         return
       }
-
-      
       let geoPoint = PFGeoPoint()
       geoPoint.latitude = localSearchResponse!.boundingRegion.center.latitude
       geoPoint.longitude  = localSearchResponse!.boundingRegion.center.longitude
@@ -208,18 +141,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
           }
         }) // getDataInBackgroundWithBlock - end
       }
-
-      
       self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
-      
       
       self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
       self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
       self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
-      
-      
     }
-    
   }
 
   
@@ -259,14 +186,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
           if pm.country != nil {
             country = pm.country!
           }
-          
           let addr = "\(subThoroughfare), \(thoroughfare), \(subLocality), \(subAdministrativeArea), \(administrativeArea), \(country)"
-          
-          
           print(addr)
-
-          
-          
           self.pointAnnotation = MKPointAnnotation()
           self.pointAnnotation.title    = "Job Address"
           self.pointAnnotation.subtitle = addr
@@ -286,8 +207,73 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
       regionRadius * 20.0, regionRadius * 20.0)
     jobMap.setRegion(coordinateRegion, animated: true)
   }
+}
+// MARK: extension area
 
+extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+  // MARK: Location Manager Delegate
+  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    
+    let userLocation: CLLocation = locations.last!
+    self.updateUserCurrentLocation(userLocation)
+    if userLocation.timestamp.timeIntervalSinceNow < 300 {
+      self.locationManager.stopUpdatingLocation()
+    }
+  }
 
+  // MARK: Map View Delegate protocol
+  
+  func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    if !(annotation is  MKPointAnnotation) {
+      return nil
+    }
+    
+    // Resize the image selected
+    let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
+    resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
+    resizeRenderImageView.layer.borderWidth = 3.0
+    resizeRenderImageView.contentMode = UIViewContentMode.ScaleAspectFill
+    resizeRenderImageView.image = profilePhoto //UIImage(named: "defaultImage")
+    
+    UIGraphicsBeginImageContext(resizeRenderImageView.frame.size)
+    resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    let reuseID = "myAnnotationView"
+    var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
+    if (annotationView == nil) {
+      // Must use MKAnnotationView instead of MKPointAnnotationView if we want to use image for pin annotation
+      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+      annotationView!.canShowCallout = true
+      // Left Image annotation
+      annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
+      let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
+      
+      annotationView!.image = thumbnail
+      
+      imageView.image = profilePhoto //UIImage(named: "defaultImage")
+      // Right button annotation
+      annotationView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIButton
+    }
+    else {
+      annotationView!.annotation = annotation
+    }
+    
+    return annotationView
+  }
+  
+  func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    
+    if control == view.rightCalloutAccessoryView {
+      let vc = self.storyboard?.instantiateViewControllerWithIdentifier("JobDetails") as! JobDetailsViewController
+      vc.selectedAnnotation = view
+      self.navigationController?.pushViewController(vc, animated: true)
+      activeJob = 1
+      
+    }
+  }
 
+  
 }
 
