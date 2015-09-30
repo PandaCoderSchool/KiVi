@@ -30,6 +30,22 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
   var editItemIndex = 0
   var currentLocation = CLLocation()
   
+  
+  @IBOutlet weak var salaryPickerTextField: UITextField!
+  @IBOutlet weak var workAtPickerTextField: UITextField!
+  @IBOutlet weak var datePickerTextField: UITextField!
+  
+  @IBOutlet weak var jobTypePickerTextField: UITextField!
+  
+  let datePickerView: UIDatePicker = UIDatePicker()
+
+  let workAtList = ["Ho Chi Minh", "Da Nang", "Ha Noi", "Binh Duong"]
+  let workAtPickerView = UIPickerView()
+  
+  let jobTypeList = ["Part Time Jobs", "Summer/Holiday Jobs", "Casual Jobs", "Internships", "Full Time Jobs"]
+  let jobPickerView = UIPickerView()
+  
+  
   var hud = MBProgressHUD()
   var dataIsSaved = false
   
@@ -41,6 +57,18 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     locationManager.requestAlwaysAuthorization()
     
     tpScrollView.contentSize.height = 1200
+    // Date Picker for Due Date
+    datePickerView.datePickerMode = UIDatePickerMode.Date
+    datePickerTextField.inputView = datePickerView
+    datePickerView.addTarget(self, action: "getDate:", forControlEvents: UIControlEvents.ValueChanged)
+    
+    // Location Picker for Work At
+    workAtPickerView.delegate = self
+    workAtPickerTextField.inputView = workAtPickerView
+    
+    jobPickerView.delegate = self
+    jobTypePickerTextField.inputView = jobPickerView
+    
     
     
 //    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillAppear:"), name:UIKeyboardWillShowNotification, object: nil);
@@ -117,6 +145,19 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     
   }
   
+  @IBAction func datePicker(sender: UITextField) {
+    
+
+    
+  }
+  
+  func getDate(sender: UIDatePicker) {
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "dd/MM/yyyy"
+    datePickerTextField.text = dateFormatter.stringFromDate(sender.date)
+
+    
+  }
   func saveNewJob() {
     let jobObj = PFObject(className: "JobsInformation")
     
@@ -181,10 +222,6 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
     picker.dismissViewControllerAnimated(true) { () -> Void in
       print("Image was captured")
       
-      
-      //      let vc = self.storyboard?.instantiateViewControllerWithIdentifier("LocationsViewController") as! LocationsViewController
-      //      vc.delegate = self
-      //      self.presentViewController(vc, animated: true, completion: nil)
     }
     
   }
@@ -289,4 +326,41 @@ class AddJobViewController: UIViewController, UIImagePickerControllerDelegate, U
   }
   */
   
+}
+
+extension AddJobViewController:UIPickerViewDelegate, UIPickerViewDataSource {
+  
+  func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    return 1
+  }
+  
+  func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    if pickerView == workAtPickerView {
+    return workAtList.count
+    } else if pickerView == jobPickerView {
+      return jobTypeList.count
+    } else {
+      return 0
+    }
+  }
+  
+  func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    if pickerView == workAtPickerView {
+    return workAtList[row]
+    } else if pickerView == jobPickerView {
+      return jobTypeList[row]
+    } else {
+      return "NA"
+    }
+
+  }
+  
+  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    if pickerView == workAtPickerView {
+    workAtPickerTextField.text = workAtList[row]
+    } else if pickerView == jobPickerView  {
+      jobTypePickerTextField.text = jobTypeList[row]
+    }
+    
+  }
 }
