@@ -227,7 +227,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     if !(annotation is  MKPointAnnotation) {
       return nil
     }
-    
+    /*
     // Resize the image selected
     let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
     resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
@@ -260,6 +260,22 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
       annotationView!.annotation = annotation
     }
     
+    return annotationView
+    */
+    let reuseID = "myAnnotationView"
+    var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
+    if (annotationView == nil) {
+        var annotationView:DXAnnotationView = DXAnnotationView()
+        
+        let image : UIImage = UIImage(named:"pin")!
+        let imgView : UIImageView = UIImageView(image: image)
+        let callOutView : JobMapAnnotationView = JobMapAnnotationView()
+        
+        annotationView = DXAnnotationView(annotation: annotation, reuseIdentifier: NSStringFromClass(DXAnnotationView), pinView: imgView, calloutView: callOutView, settings: DXAnnotationSettings.defaultSettings()!)
+       
+    } else {
+        annotationView!.annotation = annotation
+    }
     return annotationView
   }
   

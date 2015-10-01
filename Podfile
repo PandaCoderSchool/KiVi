@@ -6,6 +6,7 @@ target 'KiVi' do
 	pod ‘ParseUI’
 	pod "AFNetworking"
 	pod 'MBProgressHUD'
+    pod "DXCustomCallout-ObjC"
 
 end
 

@@ -9,3 +9,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "DXAnnotationView.h"
+#import "DXAnnotationSettings.h"
+

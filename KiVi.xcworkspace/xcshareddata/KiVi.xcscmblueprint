@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "580929A13724451E588DFC6329C057C6BB580FC7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "97A452256B50C15789ED5C31249FF87C2C7A8F6D" : 0,
+    "580929A13724451E588DFC6329C057C6BB580FC7" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8F350E6D-7745-4F5B-8205-AEDBFDB53D75",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "97A452256B50C15789ED5C31249FF87C2C7A8F6D" : "..\/KiVi",
+    "580929A13724451E588DFC6329C057C6BB580FC7" : "Kivi\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "KiVi",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "KiVi.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/PandaCoderSchool\/KiVi.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "580929A13724451E588DFC6329C057C6BB580FC7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/PandaCoderSchool\/Job4Students.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "97A452256B50C15789ED5C31249FF87C2C7A8F6D"
+    }
+  ]
+}
