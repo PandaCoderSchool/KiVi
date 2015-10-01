@@ -230,7 +230,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     // Resize the image selected
-    let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
+    let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
     resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
     resizeRenderImageView.layer.borderWidth = 3.0
     resizeRenderImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -245,15 +245,18 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
     if (annotationView == nil) {
       // Must use MKAnnotationView instead of MKPointAnnotationView if we want to use image for pin annotation
-      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+//      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+      
+      annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+      
       annotationView!.canShowCallout = true
       // Left Image annotation
       annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
       let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
+      imageView.image = thumbnail//profilePhoto
+//      annotationView!.image = thumbnail
       
-      annotationView!.image = thumbnail
       
-      imageView.image = profilePhoto //UIImage(named: "defaultImage")
       // Right button annotation
       annotationView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIButton
     }

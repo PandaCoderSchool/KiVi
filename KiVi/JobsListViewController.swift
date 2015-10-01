@@ -15,7 +15,8 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
   var timer: NSTimer = NSTimer()
   var jobsList: [PFObject]? = [PFObject]()
   
-  
+  var hud : MBProgressHUD = MBProgressHUD()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -54,11 +55,17 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
   }
   
   func fetchJobsInformation() {
+    
+    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    self.hud.mode = MBProgressHUDMode.Indeterminate
+    self.hud.labelText = "Updating jobs"
+    
     jobsList = ParseInterface.sharedInstance.getJobsInformation()
     
     if jobsList?.count >  0 {
       jobsTableView.reloadData()
       timer.invalidate()
+      MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
     
   }

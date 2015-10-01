@@ -17,7 +17,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   
   let mapView = "MapView"
   let listView = "ListView"
-  var isMapViewSelected: Bool = true
+  var isMapViewSelected: Bool = false
   
   var searchResult : [PFObject]? = [PFObject]()
   
@@ -65,7 +65,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   func fetchNewJob(searchText: String) {
     print("Searching...")
     let searchQuery = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
-    searchQuery.whereKey("employerAddress", matchesRegex: "(?i)\(searchText)")
+    searchQuery.whereKey("employerAddress", matchesRegex: "(?i)\(searchText)")  // incasensitivity
 //    searchQuery.whereKey("employerAddress", containsString: searchText)
     let searchQuerySecond = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQuerySecond.whereKey("workAt", matchesRegex: "(?i)\(searchText)")
