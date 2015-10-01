@@ -42,9 +42,7 @@ extension FilterJobViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("This is section\(section)")
         let filter = Global.filters[section] as Filter
-        print(filter.options.count)
         if !filter.isExpanded {
             switch filter.type {
             case .MultipleSwitches:
@@ -93,17 +91,23 @@ extension FilterJobViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.accessoryView = UIImageView(image: UIImage(named: "Dropdown"))
                 cell.switchLabel.text = filter.selectedOption.name
             }
+            cell.switchLabel.textAlignment = NSTextAlignment.Left
         case .MultipleSwitches:
             if filter.isExpanded || indexPath.row < filter.numberOfVisibleRows {
                 addSwitch(cell, option:option)
+                cell.switchLabel.textAlignment = NSTextAlignment.Left
+
             }
             else {
                 cell.switchLabel.text = "See All"
                 cell.switchLabel.textAlignment = NSTextAlignment.Center
                 cell.switchLabel.textColor = .darkGrayColor()
+                cell.accessoryView  = nil
             }
         case .SingleSwitch:
             addSwitch(cell, option: option)
+            cell.switchLabel.textAlignment = NSTextAlignment.Left
+
         }
         return cell
     }
