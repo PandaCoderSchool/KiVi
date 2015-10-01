@@ -28,6 +28,10 @@
 		C5AD4DAC1BB25E7C008939D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5AD4DAB1BB25E7C008939D7 /* Assets.xcassets */; };
 		C5AD4DBA1BB25E7C008939D7 /* KiViTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4DB91BB25E7C008939D7 /* KiViTests.swift */; };
 		C5AD4DC51BB25E7C008939D7 /* KiViUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4DC41BB25E7C008939D7 /* KiViUITests.swift */; };
+		FF42364D1BBCD23400AEEEF0 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF42364C1BBCD23400AEEEF0 /* Global.swift */; settings = {ASSET_TAGS = (); }; };
+		FF42364F1BBCD2A800AEEEF0 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF42364E1BBCD2A800AEEEF0 /* Filter.swift */; settings = {ASSET_TAGS = (); }; };
+		FF4236531BBCD68C00AEEEF0 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4236521BBCD68C00AEEEF0 /* Option.swift */; settings = {ASSET_TAGS = (); }; };
+		FF4236551BBCED9F00AEEEF0 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4236541BBCED9F00AEEEF0 /* SwitchCell.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,10 @@
 		C5AD4DC01BB25E7C008939D7 /* KiViUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiViUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5AD4DC41BB25E7C008939D7 /* KiViUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiViUITests.swift; sourceTree = "<group>"; };
 		C5AD4DC61BB25E7C008939D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF42364C1BBCD23400AEEEF0 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		FF42364E1BBCD2A800AEEEF0 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		FF4236521BBCD68C00AEEEF0 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		FF4236541BBCED9F00AEEEF0 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				C516A83F1BB8AA2000982F94 /* JobCell.swift */,
+				FF4236541BBCED9F00AEEEF0 /* SwitchCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -212,6 +221,7 @@
 		C5AD4DA31BB25E7C008939D7 /* KiVi */ = {
 			isa = PBXGroup;
 			children = (
+				FF4236511BBCD5DD00AEEEF0 /* Filters */,
 				C516A8491BB8B4FC00982F94 /* Other Classes */,
 				C516A83E1BB8AA1600982F94 /* Model */,
 				C516A83B1BB8A83C00982F94 /* Parse */,
@@ -242,6 +252,16 @@
 				C5AD4DC61BB25E7C008939D7 /* Info.plist */,
 			);
 			path = KiViUITests;
+			sourceTree = "<group>";
+		};
+		FF4236511BBCD5DD00AEEEF0 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				FF42364E1BBCD2A800AEEEF0 /* Filter.swift */,
+				FF42364C1BBCD23400AEEEF0 /* Global.swift */,
+				FF4236521BBCD68C00AEEEF0 /* Option.swift */,
+			);
+			name = Filters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,18 +430,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF4236531BBCD68C00AEEEF0 /* Option.swift in Sources */,
 				C516A8361BB8A79C00982F94 /* JobsListViewController.swift in Sources */,
+				FF42364F1BBCD2A800AEEEF0 /* Filter.swift in Sources */,
 				C516A8401BB8AA2000982F94 /* JobCell.swift in Sources */,
 				C516A8461BB8B0A100982F94 /* FilterJobViewController.swift in Sources */,
 				C520038B1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				C516A8441BB8B07300982F94 /* AddJobViewController.swift in Sources */,
 				C5AD4DA71BB25E7C008939D7 /* ViewController.swift in Sources */,
+				FF42364D1BBCD23400AEEEF0 /* Global.swift in Sources */,
 				C5AD4DA51BB25E7C008939D7 /* AppDelegate.swift in Sources */,
 				C516A83D1BB8A84500982F94 /* ParseInterface.swift in Sources */,
 				C516A8481BB8B4F800982F94 /* Map.swift in Sources */,
 				C516A8271BB7FD0700982F94 /* HomeViewController.swift in Sources */,
 				C52003881BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				C516A82C1BB7FF4400982F94 /* MapViewController.swift in Sources */,
+				FF4236551BBCED9F00AEEEF0 /* SwitchCell.swift in Sources */,
 				C516A8341BB8A79C00982F94 /* JobDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
