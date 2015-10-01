@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ifL-E7-y9y">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -90,7 +91,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aM3-p0-wPP">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="80" id="yL0-XN-avl" customClass="SwitchCell" customModule="KiVi" customModuleProvider="target">
@@ -100,13 +101,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exq-HQ-sYE">
-                                                    <rect key="frame" x="8" y="29" width="592" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exq-HQ-sYE">
+                                                    <rect key="frame" x="8" y="29" width="584" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Exq-HQ-sYE" secondAttribute="trailing" id="J89-4I-gP8"/>
+                                                <constraint firstItem="Exq-HQ-sYE" firstAttribute="leading" secondItem="EVD-gy-V1Z" secondAttribute="leadingMargin" id="dkb-kx-q5n"/>
+                                                <constraint firstItem="Exq-HQ-sYE" firstAttribute="top" secondItem="EVD-gy-V1Z" secondAttribute="topMargin" constant="21" id="flP-cZ-zuh"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="switchLabel" destination="Exq-HQ-sYE" id="Omv-4f-2oW"/>
@@ -121,7 +127,7 @@
                         <constraints>
                             <constraint firstItem="a6H-hH-VFN" firstAttribute="top" secondItem="aM3-p0-wPP" secondAttribute="bottom" id="1JQ-hg-OcZ"/>
                             <constraint firstItem="aM3-p0-wPP" firstAttribute="leading" secondItem="8DT-R6-5yg" secondAttribute="leading" id="CR9-ci-U0m"/>
-                            <constraint firstItem="aM3-p0-wPP" firstAttribute="top" secondItem="JX5-hY-IRl" secondAttribute="bottom" id="PkA-o0-Qa7"/>
+                            <constraint firstItem="aM3-p0-wPP" firstAttribute="top" secondItem="JX5-hY-IRl" secondAttribute="bottom" constant="-64" id="PkA-o0-Qa7"/>
                             <constraint firstAttribute="trailing" secondItem="aM3-p0-wPP" secondAttribute="trailing" id="dfj-wb-Pgs"/>
                         </constraints>
                     </view>

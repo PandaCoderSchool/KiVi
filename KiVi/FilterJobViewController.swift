@@ -20,18 +20,31 @@ class FilterJobViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }
 
 extension FilterJobViewController: UITableViewDelegate, UITableViewDataSource{
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        
+    
+    @IBAction func switchValueChanged(sender: UISwitch) {
+        switchCell(sender.superview as! SwitchCell, value: sender.on)
+    }
+    
+    func switchCell(switchCell: SwitchCell, value: Bool) {
+        let indexPath = tableView.indexPathForCell(switchCell)
+        let filter = Global.filters[indexPath!.section]
+        filter.options[indexPath!.row].isEnabled = value
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let filter = Global.filters[section]
+        return filter.name
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("This is section\(section)")
         let filter = Global.filters[section] as Filter
+        print(filter.options.count)
         if !filter.isExpanded {
             switch filter.type {
             case .MultipleSwitches:
@@ -43,6 +56,11 @@ extension FilterJobViewController: UITableViewDelegate, UITableViewDataSource{
             }
         }
         return filter.options.count
+
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return Global.filters.count
     }
     
     func addSwitch(cell: SwitchCell, option: Option) {
@@ -69,14 +87,14 @@ extension FilterJobViewController: UITableViewDelegate, UITableViewDataSource{
                 else{
                     cell.accessoryView = UIImageView(image: UIImage(named: "Unchecked"))
                 }
-                cell.switchLabel.text = filter.name
+                cell.switchLabel.text = option.name
             }
             else {
                 cell.accessoryView = UIImageView(image: UIImage(named: "Dropdown"))
                 cell.switchLabel.text = filter.selectedOption.name
             }
         case .MultipleSwitches:
-            if filter.isExpanded {
+            if filter.isExpanded || indexPath.row < filter.numberOfVisibleRows {
                 addSwitch(cell, option:option)
             }
             else {
@@ -88,5 +106,25 @@ extension FilterJobViewController: UITableViewDelegate, UITableViewDataSource{
             addSwitch(cell, option: option)
         }
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let filter = Global.filters[indexPath.section]
+        switch filter.type {
+        case .DropDown:
+            if filter.isExpanded {
+                filter.resetToFalse()
+                filter.options[indexPath.row].isEnabled = true
+            }
+            filter.isExpanded = !filter.isExpanded
+            tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+        case .MultipleSwitches:
+            if indexPath.row == filter.numberOfVisibleRows && !filter.isExpanded {
+                filter.isExpanded = true
+                tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+            }
+        default:
+            break
+        }
     }
 }
