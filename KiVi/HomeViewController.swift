@@ -66,7 +66,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     print("Searching...")
     let searchQuery = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQuery.whereKey("employerAddress", matchesRegex: "(?i)\(searchText)")
-    searchQuery.whereKey("employerAddress", containsString: searchText)
+//    searchQuery.whereKey("employerAddress", containsString: searchText)
     let searchQuerySecond = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQuerySecond.whereKey("workAt", matchesRegex: "(?i)\(searchText)")
     
@@ -103,6 +103,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
     
   }
+  
+  
+
+  
   @IBAction func onChangeViewType(sender: UIBarButtonItem) {
     isMapViewSelected = !isMapViewSelected
     

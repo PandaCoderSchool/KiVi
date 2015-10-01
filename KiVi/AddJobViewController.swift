@@ -50,6 +50,8 @@ class AddJobViewController: UIViewController {
   
   let sectorList = ["-- Chose a job sector --","Admin", "Advertising/Marketing/PR", "Agriculture", "Art/Music","Catering/Leisure", "Childcare/Care Work","Customer Service/Call Center", "Defense/Security","Education", "Engineering", "IT",  "Manufacturing/Industrial", "Promotion/Events","Real Estate","Retail", "Sales", "Travel/Tourism" ]
   let sectorPickerView = UIPickerView()
+  
+  
   let jobObj = PFObject(className: ParseInterface.sharedInstance.databaseClassName)
   
   
@@ -98,6 +100,8 @@ class AddJobViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+  
+  
   @IBAction func saveAllInfo(sender: UIButton) {
     dataIsSaved = false
     self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -333,7 +337,7 @@ class AddJobViewController: UIViewController {
 } // AddJobViewController - End
 
 
-extension AddJobViewController:UIPickerViewDelegate, UIPickerViewDataSource {
+extension AddJobViewController: UIPickerViewDelegate, UIPickerViewDataSource {
   
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
     return 1
