@@ -262,14 +262,14 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
     return annotationView
     */
-    let reuseID = "myAnnotationView"
-    var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
+    let reuseID = "JobMapAnnotationView"
+    let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
     if (annotationView == nil) {
         var annotationView:DXAnnotationView = DXAnnotationView()
         
         let image : UIImage = UIImage(named:"pin")!
         let imgView : UIImageView = UIImageView(image: image)
-        let callOutView : JobMapAnnotationView = JobMapAnnotationView()
+        var callOutView:JobMapAnnotationView = JobMapAnnotationView()
         
         annotationView = DXAnnotationView(annotation: annotation, reuseIdentifier: NSStringFromClass(DXAnnotationView), pinView: imgView, calloutView: callOutView, settings: DXAnnotationSettings.defaultSettings()!)
        
