@@ -13,8 +13,15 @@ import UIKit
     @IBOutlet weak var jobType: UILabel!
     @IBOutlet weak var deadline: UILabel!
     @IBOutlet weak var income: UILabel!
+  
+  
     
     @IBAction func viewDetail(sender: UIButton) {
+      
+      let vc = self.storyboard?.instantiateViewControllerWithIdentifier("JobDetails") as! JobDetailsViewController
+      vc.selectedAnnotation = view
+      self.navigationController?.pushViewController(vc, animated: true)
+      activeJob = 1
         
     }
     
@@ -63,6 +70,7 @@ import UIKit
         income = view.viewWithTag(222) as! UILabel
         deadline = view.viewWithTag(333) as! UILabel
         jobType = view.viewWithTag(444) as! UILabel
+      
         if let button = view.viewWithTag(555) as? UIButton {
             button.addTarget(self, action: "viewDetail", forControlEvents: UIControlEvents.TouchUpInside)
         }
