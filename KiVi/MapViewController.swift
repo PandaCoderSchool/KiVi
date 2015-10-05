@@ -215,7 +215,6 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     // MARK: Location Manager Delegate
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         let userLocation: CLLocation = locations.last!
         self.updateUserCurrentLocation(userLocation)
         if userLocation.timestamp.timeIntervalSinceNow < 300 {
@@ -271,20 +270,16 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         let imgView : UIImageView = UIImageView(image: image)
         var callOutView:JobMapAnnotationView = JobMapAnnotationView()
         callOutView.jobName.text = annotation.title!
-        
         annotationView = DXAnnotationView(annotation: annotation, reuseIdentifier: NSStringFromClass(DXAnnotationView), pinView: imgView, calloutView: callOutView, settings: DXAnnotationSettings.defaultSettings()!)
-        
         return annotationView
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
         if control == view.rightCalloutAccessoryView {
             let vc = self.storyboard?.instantiateViewControllerWithIdentifier("JobDetails") as! JobDetailsViewController
             vc.selectedAnnotation = view
             self.navigationController?.pushViewController(vc, animated: true)
             activeJob = 1
-            
         }
     }
     
