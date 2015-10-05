@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+>>>>>>> release/kivi-beta-02
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
@@ -12,8 +16,13 @@
                         <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
+<<<<<<< HEAD
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+=======
+                    <view key="view" contentMode="scaleAspectFit" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+>>>>>>> release/kivi-beta-02
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright © 2015 . All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="obG-Y5-kRd">
@@ -23,6 +32,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+<<<<<<< HEAD
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="Ebd-mv-xTd">
                                 <rect key="frame" x="240" y="240" width="120" height="120"/>
                                 <animations/>
@@ -31,6 +41,9 @@
                                     <constraint firstAttribute="width" constant="120" id="YWc-Nb-0oQ"/>
                                 </constraints>
                             </imageView>
+=======
+
+>>>>>>> release/kivi-beta-02
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi my friend, looking for a job?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hdo-6a-Obc">
                                 <rect key="frame" x="197" y="385" width="206" height="17.5"/>
                                 <animations/>
@@ -38,17 +51,29 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KiviIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ugo-MF-0uQ">
+                                <rect key="frame" x="100" y="224" width="120" height="120"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="4Us-1o-9k2"/>
+                                    <constraint firstAttribute="width" constant="120" id="ysW-x8-nkV"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <animations/>
+<<<<<<< HEAD
                         <color key="backgroundColor" cyan="0.65000000000000002" magenta="0.0" yellow="0.2287744729" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+=======
+                        <color key="backgroundColor" red="0.01176470588" green="0.66274509800000003" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+>>>>>>> release/kivi-beta-02
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
                             <constraint firstItem="Hdo-6a-Obc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="AVF-22-hfQ"/>
-                            <constraint firstItem="Hdo-6a-Obc" firstAttribute="top" secondItem="Ebd-mv-xTd" secondAttribute="bottom" constant="25" id="SB4-sD-q2K"/>
+                            <constraint firstItem="ugo-MF-0uQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="S9x-Gs-YFi"/>
                             <constraint firstItem="obG-Y5-kRd" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="20" symbolic="YES" id="SfN-ll-jLj"/>
                             <constraint firstAttribute="bottom" secondItem="obG-Y5-kRd" secondAttribute="bottom" constant="20" id="Y44-ml-fuU"/>
-                            <constraint firstItem="Ebd-mv-xTd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ubE-91-c0g"/>
-                            <constraint firstItem="Ebd-mv-xTd" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="xPY-Ib-ahn"/>
+                            <constraint firstItem="Hdo-6a-Obc" firstAttribute="top" secondItem="ugo-MF-0uQ" secondAttribute="bottom" constant="25" id="d0l-c8-Bed"/>
+                            <constraint firstItem="ugo-MF-0uQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="wzg-Q7-xjj"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -58,6 +83,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icon" width="120" height="120"/>
+        <image name="KiviIcon" width="152" height="152"/>
     </resources>
 </document>
