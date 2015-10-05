@@ -94,9 +94,8 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
     
     // 2: update new
     if jobsList?.count > 0 {
-      for var i = 0; i < jobsList?.count; i++ {
-        selectedJob = jobsList![i]
-        pinJobOnMap(selectedJob)
+      for job in jobsList! {
+        pinJobOnMap(job)
       }
       timer.invalidate()
       MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
@@ -139,15 +138,16 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
             let image = UIImage(data:imageData!)
             //image object implementation
             self.profilePhoto = image
+            self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
+            self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
+            self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
+            self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
+
           }
+          
         }) // getDataInBackgroundWithBlock - end
       }
-      self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
-      
-      self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
-      self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
-      self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
-    }
+          }
   }
 
   
