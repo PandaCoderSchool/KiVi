@@ -6,12 +6,7 @@ target 'KiVi' do
 	pod ‘ParseUI’
 	pod "AFNetworking"
 	pod 'MBProgressHUD'
-<<<<<<< HEAD
-    pod "DXCustomCallout-ObjC"
 
-=======
-	
->>>>>>> release/kivi-beta-02
 end
 
 target 'KiViTests' do

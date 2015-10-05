@@ -2,38 +2,40 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SuppressBuildableAutocreation</key>
+	<key>SchemeUserState</key>
 	<dict>
-		<key>55D1BB7230CA5B3A3B00896C360A1077</key>
+		<key>AFNetworking.xcscheme</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>910BAE9423CF01BE5CB1983E1218D6F8</key>
+		<key>Bolts.xcscheme</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>9214902EED118C0CFE02F88701398258</key>
+		<key>MBProgressHUD.xcscheme</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>9C05B8620896DC8F9858FBE73D246C72</key>
+		<key>Parse.xcscheme</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>9D8E6A5B4E627D926E7C1FE5B199F893</key>
+		<key>ParseUI.xcscheme</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>BFA924C30BE6503B556885A5D0BD0984</key>
+		<key>Pods-KiVi.xcscheme</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict/>
 </dict>
 </plist>
