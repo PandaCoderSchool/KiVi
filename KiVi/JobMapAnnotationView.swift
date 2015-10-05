@@ -59,6 +59,13 @@ import UIKit
         let nib = UINib(nibName: "JobMapAnnotationView", bundle: bundle)
         let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
         
+        jobName = view.viewWithTag(111) as! UILabel
+        income = view.viewWithTag(222) as! UILabel
+        deadline = view.viewWithTag(333) as! UILabel
+        jobType = view.viewWithTag(444) as! UILabel
+        if let button = view.viewWithTag(555) as? UIButton {
+            button.addTarget(self, action: "viewDetail", forControlEvents: UIControlEvents.TouchUpInside)
+        }
         return view
     }
     
