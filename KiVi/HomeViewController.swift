@@ -47,7 +47,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   
   func setupSearchBar() {
     
-    searchBar.placeholder = "Search with a location"
+    searchBar.placeholder = "Search location"
     self.navigationItem.titleView = self.searchBar
   }
   
