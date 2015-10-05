@@ -6,7 +6,7 @@ target 'KiVi' do
 	pod ‘ParseUI’
 	pod "AFNetworking"
 	pod 'MBProgressHUD'
-
+	
 end
 
 target 'KiViTests' do
