@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DXCustomCallout-ObjC.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>13C752E10C82D619CFDAE9EB57544441</key>
+		<key>20BBD004E3953D19E73F6E457E42A8FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>173BEA00CDCDC580D073EDFC9144DACE</key>
+		<key>3CA45CE30C997ADFAC7162E763C12BC6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1EFC9CDE70D26C59B1F419BB2F509616</key>
+		<key>3E9523B6843B578D6AAF4B0F58366655</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6471367D70795CD7EF77274A7C5F7101</key>
+		<key>5316417650C6C90D036DF959E4B065FD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>677DC75AA3B3CB98393C1CCC1B9C4D6A</key>
+		<key>60C26902A6BF2058CD89626875FE0EF7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9214902EED118C0CFE02F88701398258</key>
+		<key>808B47CFFC4D462589598E3B59034870</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>809DE27A35BAF4AEE503732752D050FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
