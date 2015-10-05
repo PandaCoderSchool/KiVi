@@ -161,7 +161,9 @@ class AddJobViewController: UIViewController {
     var date = NSDate()
     let dateformatter = NSDateFormatter()
     dateformatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-    date = dateformatter.dateFromString(sender.text!)!
+    if sender.text != "" {
+        date = dateformatter.dateFromString(sender.text!)!
+    }
     jobObj["dueDate"] = date
   }
   
@@ -169,7 +171,6 @@ class AddJobViewController: UIViewController {
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss" // "dd/MM/yyyy"
     datePickerTextField.text = dateFormatter.stringFromDate(sender.date)
-    
   }
   
   @IBAction func jobTypeChanged(sender: UITextField) {
