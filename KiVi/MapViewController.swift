@@ -230,6 +230,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     // Resize the image selected
+    /*
     let resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
     resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
     resizeRenderImageView.layer.borderWidth = 3.0
@@ -240,6 +241,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
     let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
+*/
     
     let reuseID = "myAnnotationView"
     var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
@@ -253,7 +255,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
       // Left Image annotation
       annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
       let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
-      imageView.image = thumbnail//profilePhoto
+      imageView.image = profilePhoto
 //      annotationView!.image = thumbnail
       
       
