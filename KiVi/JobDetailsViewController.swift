@@ -17,6 +17,11 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
   @IBOutlet weak var jobDescription: UITextView!
   @IBOutlet weak var profileImage: UIImageView!
   
+  @IBOutlet weak var salaryLabel: UILabel!
+  @IBOutlet weak var jobTypeLabel: UILabel!
+  @IBOutlet weak var addressLabel: UILabel!
+  
+  
   var hud : MBProgressHUD = MBProgressHUD()
   
   var selectedJob: PFObject?
@@ -121,6 +126,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     self.title = "Job Details"
     
     
+    
     if let thumbNail = selectedJob!["profilePhoto"] as? PFFile {
       thumbNail.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError?) -> Void in
         if (error == nil) {
@@ -130,9 +136,11 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
         }
       }) // getDataInBackgroundWithBlock - end
     }
-    jobTitle.text = selectedJob!["jobTitle"] as? String
+    jobTitle.text       = selectedJob!["jobTitle"] as? String
     jobDescription.text = selectedJob!["jobDescription"] as! String
-//    jobDescription.textColor = UIColor.whiteColor()
+    salaryLabel.text    = selectedJob!["salary"] as? String
+    jobTypeLabel.text   = selectedJob!["jobType"] as? String
+    addressLabel.text   = selectedJob!["employerAddress"] as? String
 
 
     MBProgressHUD.hideAllHUDsForView(self.view, animated: true)

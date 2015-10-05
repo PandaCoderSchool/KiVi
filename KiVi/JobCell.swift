@@ -15,7 +15,7 @@ class JobCell: UITableViewCell {
   @IBOutlet weak var companyLabel: UILabel!
   @IBOutlet weak var dueSubmitDateLabel: UILabel!
   @IBOutlet weak var salaryLabel: UILabel!
-  
+  @IBOutlet weak var jobType: UILabel!
   
   override func awakeFromNib() {
     super.awakeFromNib()

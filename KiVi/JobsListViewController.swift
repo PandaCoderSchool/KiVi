@@ -85,13 +85,14 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     cell.jobTitle.text = jobsList![indexPath.row]["jobTitle"] as? String
     cell.companyLabel.text  = jobsList![indexPath.row]["employerName"] as? String
+    cell.jobType.text  = jobsList![indexPath.row]["jobType"] as? String
     
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "dd'/'MM'/'yyyy"
     if let getDate = jobsList![indexPath.row]["dueDate"] as? NSDate {
       let date = dateFormatter.stringFromDate(getDate)
       if !date.isEmpty {
-        cell.dueSubmitDateLabel.text = "Hạn chót: " + date
+        cell.dueSubmitDateLabel.text = "Due: " + date
       } else {
         cell.dueSubmitDateLabel.text = "NA"
       }

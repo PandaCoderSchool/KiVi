@@ -38,7 +38,7 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestAlwaysAuthorization()
@@ -118,9 +118,9 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
         let alert = UIAlertController(title: "Places not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
         let cancel = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
         alert.addAction(cancel)
-      
+        
         self.presentViewController(alert, animated: true, completion: nil)
-
+        
         return
       }
       let geoPoint = PFGeoPoint()
@@ -128,11 +128,11 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
       geoPoint.longitude  = localSearchResponse!.boundingRegion.center.longitude
       
       self.pointAnnotation = MKPointAnnotation()
-      self.pointAnnotation.title    = jobToPin!["jobTitle"] as? String
-      self.pointAnnotation.subtitle = jobToPin!["employerAddress"] as? String
+      self.pointAnnotation.title    = (jobToPin!["jobTitle"] as? String)!
+      self.pointAnnotation.subtitle =  (jobToPin!["jobType"] as? String)! + " - " + (jobToPin!["salary"] as? String)!
       
+      /*
       if let thumbNail = jobToPin!["profilePhoto"] as? PFFile {
-        
         thumbNail.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError?) -> Void in
           if (error == nil) {
             let image = UIImage(data:imageData!)
@@ -142,18 +142,23 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
             self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
             self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
             self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
-
+            
           }
           
         }) // getDataInBackgroundWithBlock - end
       }
-          }
+      */
+      self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
+      self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
+      self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
+      self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
+    }
   }
-
+  
   
   func updateUserCurrentLocation(userLocation: CLLocation) {
     self.centerMapOnLocation(userLocation)
-
+    
   }
   
   func getAddressFromLocation(location: CLLocation) {
@@ -198,10 +203,10 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
           self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
           self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
           self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
+        }
       }
     }
-  }  
-}
+  }
   
   func centerMapOnLocation(location: CLLocation) {
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
@@ -221,7 +226,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
       self.locationManager.stopUpdatingLocation()
     }
   }
-
+  
   // MARK: Map View Delegate protocol
   
   func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -241,22 +246,22 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
     let thumbnail = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
-*/
+    */
     
     let reuseID = "myAnnotationView"
     var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
     if (annotationView == nil) {
       // Must use MKAnnotationView instead of MKPointAnnotationView if we want to use image for pin annotation
-//      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+      //      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
       
       annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
       
       annotationView!.canShowCallout = true
       // Left Image annotation
-      annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
-      let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
-      imageView.image = profilePhoto
-//      annotationView!.image = thumbnail
+//      annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:80))
+//      let imageView = annotationView!.leftCalloutAccessoryView as! UIImageView
+//      imageView.image = profilePhoto
+      //      annotationView!.image = thumbnail
       
       
       // Right button annotation
@@ -279,7 +284,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
       
     }
   }
-
+  
   
 }
 
