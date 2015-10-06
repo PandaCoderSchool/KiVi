@@ -113,16 +113,16 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
     
     localSearch = MKLocalSearch(request: localSearchRequest)
     localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
-      
-      if localSearchResponse == nil{
-        let alert = UIAlertController(title: "Places not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancel = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-        alert.addAction(cancel)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
-        
-        return
-      }
+//      
+//      if localSearchResponse == nil{
+//        let alert = UIAlertController(title: "Places not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
+//        let cancel = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+//        alert.addAction(cancel)
+//        
+//        self.presentViewController(alert, animated: true, completion: nil)
+//        
+//        return
+//      }
       let geoPoint = PFGeoPoint()
       geoPoint.latitude = localSearchResponse!.boundingRegion.center.latitude
       geoPoint.longitude  = localSearchResponse!.boundingRegion.center.longitude

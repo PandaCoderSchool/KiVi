@@ -229,8 +229,9 @@ class AddJobViewController: UIViewController {
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             self.dataIsSaved = true
             if self.dataIsSaved {
-              self.navigationController?.popToRootViewControllerAnimated(true)
               jobIsUpdated = -1
+              self.navigationController?.popToRootViewControllerAnimated(true)
+              
             }
           }else {
             print(error)

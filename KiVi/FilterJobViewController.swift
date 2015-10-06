@@ -100,8 +100,9 @@ class FilterJobViewController: UIViewController {
   
   @IBAction func onSearchButton(sender: UIButton) {
     print("Searching...")
+    
     let searchQuery = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
-    searchQuery.whereKey("workAt", matchesRegex: "(?i)\(filterCriteria[0])")
+       searchQuery.whereKey("workAt", matchesRegex: "(?i)\(filterCriteria[0])")
     
     let searchQuerySecond = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQuerySecond.whereKey("jobType", matchesRegex: "(?i)\(filterCriteria[1])")

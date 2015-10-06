@@ -1,0 +1,153 @@
+
+/* Class = "UILabel"; text = "Negociate"; ObjectID = "0qJ-A7-Plw"; */
+"0qJ-A7-Plw.text" = "Thương lượng";
+
+/* Class = "UITextField"; placeholder = "e.g: Gremsy Co., Ltd"; ObjectID = "1Pf-Iq-RXT"; */
+"1Pf-Iq-RXT.placeholder" = "e.g: Gremsy Co., Ltd";
+
+/* Class = "UILabel"; text = "Type:"; ObjectID = "1w9-PI-od4"; */
+"1w9-PI-od4.text" = "Loại:";
+
+/* Class = "UILabel"; text = "Phát tờ rơi"; ObjectID = "3kP-Nb-sUz"; */
+"3kP-Nb-sUz.text" = "Phát tờ rơi";
+
+/* Class = "UILabel"; text = "Type:"; ObjectID = "5ge-EC-jh3"; */
+"5ge-EC-jh3.text" = "Loại:";
+
+/* Class = "UIViewController"; title = "Map View"; ObjectID = "5oH-4r-LOf"; */
+"5oH-4r-LOf.title" = "Bản đồ";
+
+/* Class = "UITextField"; placeholder = "e.g: Assemble electronics "; ObjectID = "7A1-Hd-B7R"; */
+"7A1-Hd-B7R.placeholder" = "e.g: Lắp ráp điện ";
+
+/* Class = "UILabel"; text = "Part Time Job"; ObjectID = "7It-S2-yBO"; */
+"7It-S2-yBO.text" = "Bán thời gian";
+
+/* Class = "UIViewController"; title = "Filter Jobs "; ObjectID = "8eb-XW-tJm"; */
+"8eb-XW-tJm.title" = "Lọc việc";
+
+/* Class = "UIViewController"; title = "Job Details"; ObjectID = "92d-f4-A9F"; */
+"92d-f4-A9F.title" = "Chi tiết công việc";
+
+/* Class = "UILabel"; text = "Type:"; ObjectID = "AAO-oH-Ypb"; */
+"AAO-oH-Ypb.text" = "Loại:";
+
+/* Class = "UILabel"; text = "Sector:"; ObjectID = "AN0-ME-vnz"; */
+"AN0-ME-vnz.text" = "Lĩnh vực:";
+
+/* Class = "UITextField"; placeholder = "0935505236"; ObjectID = "AXC-Mc-V2x"; */
+"AXC-Mc-V2x.placeholder" = "01698502676";
+
+/* Class = "UITextField"; placeholder = "-- Chose a type --"; ObjectID = "AjT-yG-EEK"; */
+"AjT-yG-EEK.placeholder" = "-- Chọn loại hình --";
+
+/* Class = "UIButton"; normalTitle = "Save Job Information"; ObjectID = "C6n-68-1jk"; */
+"C6n-68-1jk.normalTitle" = "Lưu thông tin";
+
+/* Class = "UITextField"; placeholder = "e.g: Negotiate"; ObjectID = "D7L-Lz-6UV"; */
+"D7L-Lz-6UV.placeholder" = "Vd: Thương lượng";
+
+/* Class = "UINavigationItem"; title = "Swift Developer"; ObjectID = "Dac-gd-7if"; */
+"Dac-gd-7if.title" = "Lập trình Swift";
+
+/* Class = "UILabel"; text = "Ho Chi Minh City, Vietnam"; ObjectID = "Dfa-GT-TjA"; */
+"Dfa-GT-TjA.text" = "Ho Chi Minh City, Vietnam";
+
+/* Class = "UILabel"; text = "Address:"; ObjectID = "E27-IK-TkT"; */
+"E27-IK-TkT.text" = "Địa chỉ:";
+
+/* Class = "UITextField"; placeholder = "contact@kivi.com"; ObjectID = "FTY-DX-LGl"; */
+"FTY-DX-LGl.placeholder" = "contact@kivi.com";
+
+/* Class = "UITextView"; text = "More details here"; ObjectID = "FTk-Mw-rhX"; */
+"FTk-Mw-rhX.text" = "Thông tin chi tiết tại đây";
+
+/* Class = "UIButton"; normalTitle = "Search"; ObjectID = "GLf-fA-RKI"; */
+"GLf-fA-RKI.normalTitle" = "Tìm kiếm";
+
+/* Class = "UILabel"; text = "Cty TNHH Tờ Rơi"; ObjectID = "Hqo-O7-JFb"; */
+"Hqo-O7-JFb.text" = "Cty TNHH Tờ Rơi";
+
+/* Class = "UILabel"; text = "Description:"; ObjectID = "Lhk-F2-jS4"; */
+"Lhk-F2-jS4.text" = "Mô tả công việc:";
+
+/* Class = "UIViewController"; title = "Add a new job"; ObjectID = "R5r-76-azm"; */
+"R5r-76-azm.title" = "Thêm việc mới";
+
+/* Class = "UILabel"; text = "Name:"; ObjectID = "T2s-jU-Cxm"; */
+"T2s-jU-Cxm.text" = "Tên:";
+
+/* Class = "UILabel"; text = "Salary:"; ObjectID = "TMA-9m-UsX"; */
+"TMA-9m-UsX.text" = "Lương:";
+
+/* Class = "UITextField"; placeholder = "-- Chose a region --"; ObjectID = "WeE-px-QTZ"; */
+"WeE-px-QTZ.placeholder" = "-- Chọn khu vực --";
+
+/* Class = "UILabel"; text = "Thoả thuận"; ObjectID = "YTe-ZO-ujS"; */
+"YTe-ZO-ujS.text" = "Thoả thuận";
+
+/* Class = "UILabel"; text = "Description:"; ObjectID = "ZuF-SA-4D6"; */
+"ZuF-SA-4D6.text" = "Mô tả công việc:";
+
+/* Class = "UILabel"; text = "Address:"; ObjectID = "a9c-Ct-H6S"; */
+"a9c-Ct-H6S.text" = "Địa chỉ:";
+
+/* Class = "UILabel"; text = "Full Time Job"; ObjectID = "aUl-V1-Ujp"; */
+"aUl-V1-Ujp.text" = "Toàn thời gian";
+
+/* Class = "UILabel"; text = "Work at:"; ObjectID = "cI8-wQ-PLu"; */
+"cI8-wQ-PLu.text" = "Làm tại:";
+
+/* Class = "UITextField"; placeholder = "-- Chose a type --"; ObjectID = "cJ6-UQ-vKd"; */
+"cJ6-UQ-vKd.placeholder" = "-- Chọn loại hình --";
+
+/* Class = "UITextField"; placeholder = "-- Pick a date --"; ObjectID = "eIV-Xi-E9q"; */
+"eIV-Xi-E9q.placeholder" = "-- Chọn ngày --";
+
+/* Class = "UITextField"; placeholder = "-- Chose a region --"; ObjectID = "eJU-TE-63i"; */
+"eJU-TE-63i.placeholder" = "-- Chọn khu vực --";
+
+/* Class = "UILabel"; text = "Job information:"; ObjectID = "eMb-j8-4kL"; */
+"eMb-j8-4kL.text" = "Thông tin công việc:";
+
+/* Class = "UILabel"; text = "Job Title:"; ObjectID = "ec9-xq-BSf"; */
+"ec9-xq-BSf.text" = "Tiêu đề:";
+
+/* Class = "UILabel"; text = "Sector:"; ObjectID = "hN2-iW-f6Y"; */
+"hN2-iW-f6Y.text" = "Lĩnh vực:";
+
+/* Class = "UILabel"; text = "Salary:"; ObjectID = "hOp-Bl-jkC"; */
+"hOp-Bl-jkC.text" = "Lương:";
+
+/* Class = "UILabel"; text = "Due on:"; ObjectID = "mEp-Ss-sMi"; */
+"mEp-Ss-sMi.text" = "Hạn chót:";
+
+/* Class = "UITextField"; placeholder = "e.g: 22, đường 18, Linh Đông, Thủ Đức"; ObjectID = "mdo-mL-CAD"; */
+"mdo-mL-CAD.placeholder" = "e.g: 22, đường 18, Linh Đông, Thủ Đức";
+
+/* Class = "UILabel"; text = "Filter by:"; ObjectID = "nxb-wh-B33"; */
+"nxb-wh-B33.text" = "Lọc thông tin theo:";
+
+/* Class = "UITextField"; placeholder = "-- Chose a type --"; ObjectID = "r2f-3I-Kzp"; */
+"r2f-3I-Kzp.placeholder" = "-- Chọn loại hình --";
+
+/* Class = "UILabel"; text = "Title:"; ObjectID = "rch-bf-K3P"; */
+"rch-bf-K3P.text" = "Tiêu đề:";
+
+/* Class = "UILabel"; text = "Email:"; ObjectID = "rgF-P9-01s"; */
+"rgF-P9-01s.text" = "Email:";
+
+/* Class = "UILabel"; text = "Employer information:"; ObjectID = "sWs-lA-fOo"; */
+"sWs-lA-fOo.text" = "Thông tin người tuyển:";
+
+/* Class = "UILabel"; text = "Hạn chót: 30/9/2015"; ObjectID = "uZa-1Z-jhw"; */
+"uZa-1Z-jhw.text" = "Hạn chót: 30/9/2015";
+
+/* Class = "UILabel"; text = "Work at:"; ObjectID = "vMu-rx-CnW"; */
+"vMu-rx-CnW.text" = "Làm tại:";
+
+/* Class = "UILabel"; text = "Phone:"; ObjectID = "vpe-3d-jYi"; */
+"vpe-3d-jYi.text" = "Phone:";
+
+/* Class = "UITextField"; placeholder = "-- Chose a type --"; ObjectID = "yWI-Bp-p6n"; */
+"yWI-Bp-p6n.placeholder" = "-- Chọn loại hình --";
