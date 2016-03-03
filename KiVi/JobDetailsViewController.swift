@@ -9,6 +9,10 @@
 import UIKit
 import MapKit
 
+import MBProgressHUD
+import Parse
+
+
 class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressHUDDelegate {
   
   @IBOutlet weak var map: MKMapView!

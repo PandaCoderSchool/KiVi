@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import MBProgressHUD
+import Parse
 
 var jobIsUpdated = -1
 

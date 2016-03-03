@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BED9A12A69361447DF26260E /* libPods-KiVi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 287ABB8AE10FE5EC2467759C /* libPods-KiVi.a */; };
-		C516A8271BB7FD0700982F94 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8261BB7FD0700982F94 /* HomeViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C516A8291BB7FD6A00982F94 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C516A8281BB7FD6A00982F94 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
-		C516A82C1BB7FF4400982F94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A82B1BB7FF4400982F94 /* MapViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6C4E9268B60715E2A0B08ED2 /* Pods_KiVi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF59EC980AD203121E4E872 /* Pods_KiVi.framework */; };
+		C516A8271BB7FD0700982F94 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8261BB7FD0700982F94 /* HomeViewController.swift */; };
+		C516A8291BB7FD6A00982F94 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C516A8281BB7FD6A00982F94 /* Launch Screen.storyboard */; };
+		C516A82C1BB7FF4400982F94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A82B1BB7FF4400982F94 /* MapViewController.swift */; };
 		C516A82E1BB7FF6200982F94 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C516A82D1BB7FF6200982F94 /* CoreLocation.framework */; };
 		C516A8301BB7FF6900982F94 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C516A82F1BB7FF6900982F94 /* MapKit.framework */; };
-		C516A8341BB8A79C00982F94 /* JobDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8311BB8A79C00982F94 /* JobDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C516A8361BB8A79C00982F94 /* JobsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8331BB8A79C00982F94 /* JobsListViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C516A83D1BB8A84500982F94 /* ParseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A83C1BB8A84500982F94 /* ParseInterface.swift */; settings = {ASSET_TAGS = (); }; };
-		C516A8401BB8AA2000982F94 /* JobCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A83F1BB8AA2000982F94 /* JobCell.swift */; settings = {ASSET_TAGS = (); }; };
-		C516A8441BB8B07300982F94 /* AddJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8431BB8B07300982F94 /* AddJobViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C516A8461BB8B0A100982F94 /* FilterJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8451BB8B0A100982F94 /* FilterJobViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C516A8481BB8B4F800982F94 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8471BB8B4F800982F94 /* Map.swift */; settings = {ASSET_TAGS = (); }; };
-		C52003881BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52003871BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m */; settings = {ASSET_TAGS = (); }; };
-		C520038B1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C520038A1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		C516A8341BB8A79C00982F94 /* JobDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8311BB8A79C00982F94 /* JobDetailsViewController.swift */; };
+		C516A8361BB8A79C00982F94 /* JobsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8331BB8A79C00982F94 /* JobsListViewController.swift */; };
+		C516A83D1BB8A84500982F94 /* ParseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A83C1BB8A84500982F94 /* ParseInterface.swift */; };
+		C516A8401BB8AA2000982F94 /* JobCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A83F1BB8AA2000982F94 /* JobCell.swift */; };
+		C516A8441BB8B07300982F94 /* AddJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8431BB8B07300982F94 /* AddJobViewController.swift */; };
+		C516A8461BB8B0A100982F94 /* FilterJobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8451BB8B0A100982F94 /* FilterJobViewController.swift */; };
+		C516A8481BB8B4F800982F94 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8471BB8B4F800982F94 /* Map.swift */; };
+		C52003881BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C52003871BBB4C560035E532 /* TPKeyboardAvoidingScrollView.m */; };
+		C520038B1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C520038A1BBB4C810035E532 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		C5AD4DA51BB25E7C008939D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4DA41BB25E7C008939D7 /* AppDelegate.swift */; };
 		C5AD4DA71BB25E7C008939D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4DA61BB25E7C008939D7 /* ViewController.swift */; };
 		C5AD4DAA1BB25E7C008939D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5AD4DA81BB25E7C008939D7 /* Main.storyboard */; };
@@ -48,7 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		287ABB8AE10FE5EC2467759C /* libPods-KiVi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KiVi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CF59EC980AD203121E4E872 /* Pods_KiVi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiVi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EF89A2C31E8632D0B2815B6 /* Pods-KiVi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiVi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiVi/Pods-KiVi.debug.xcconfig"; sourceTree = "<group>"; };
 		B70CD39180D6B0AB88B45AEF /* Pods-KiVi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiVi.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiVi/Pods-KiVi.release.xcconfig"; sourceTree = "<group>"; };
 		C514699B1BC381F200AAA97C /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Main.strings; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 			files = (
 				C516A8301BB7FF6900982F94 /* MapKit.framework in Frameworks */,
 				C516A82E1BB7FF6200982F94 /* CoreLocation.framework in Frameworks */,
-				BED9A12A69361447DF26260E /* libPods-KiVi.a in Frameworks */,
+				6C4E9268B60715E2A0B08ED2 /* Pods_KiVi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +125,7 @@
 			children = (
 				C516A82F1BB7FF6900982F94 /* MapKit.framework */,
 				C516A82D1BB7FF6200982F94 /* CoreLocation.framework */,
-				287ABB8AE10FE5EC2467759C /* libPods-KiVi.a */,
+				0CF59EC980AD203121E4E872 /* Pods_KiVi.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -257,6 +257,7 @@
 				C5AD4D9E1BB25E7C008939D7 /* Frameworks */,
 				C5AD4D9F1BB25E7C008939D7 /* Resources */,
 				2CE00181A49EFF9B8B022742 /* Copy Pods Resources */,
+				205DB643031AB4B96AC53BED /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -387,6 +388,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		205DB643031AB4B96AC53BED /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiVi/Pods-KiVi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2CE00181A49EFF9B8B022742 /* Copy Pods Resources */ = {

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import MBProgressHUD
+import Parse
+
 
 class JobsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   

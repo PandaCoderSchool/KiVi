@@ -8,6 +8,7 @@
 
 import UIKit
 
+import Parse
 
 
 class ParseInterface: NSObject {
@@ -18,8 +19,8 @@ class ParseInterface: NSObject {
   let clientKey = "ICQxhc9IndnBEq5X0e4XBAvYIeULHhxzuyi0yzzS"
   let databaseClassName = "JobDatabase"
   
-  let defaultUserName = "panda"
-  let defaultPassword = "panda"
+  let defaultUserName = "kivi"
+  let defaultPassword = "kivi"
   
   var jobsInfo  : [PFObject]?
   var employers : [PFObject]?
@@ -45,7 +46,20 @@ class ParseInterface: NSObject {
   // This will be call in AppDelegate to setup Parse Application
   
   func parseSetup() {
-    Parse.setApplicationId(appId, clientKey: clientKey)
+//    Parse.setApplicationId(appId, clientKey: clientKey)
+    
+    let config = ParseClientConfiguration(block: {
+        (ParseMutableClientConfiguration) -> Void in
+        
+        ParseMutableClientConfiguration.applicationId = "kivi1234567vndfgdfgs";
+        ParseMutableClientConfiguration.clientKey = "kivijdfadkshfkjsdhkjfhasdjkhfkjas";
+        ParseMutableClientConfiguration.server = "http://kivi.us-east-1.elasticbeanstalk.com//parse";
+    });
+    
+    Parse.initializeWithConfiguration(config);
+
+    
+    
   }
   
   // Get Jobs Information from Database, return the PFObject array
@@ -110,6 +124,7 @@ class ParseInterface: NSObject {
         if let error = err {
           let errStr = error.userInfo["user"] as? NSString
           print("Error when login: \(errStr)")
+            self.parseSignUp("kivi", userPass: "kivi")
         }
       }
     }

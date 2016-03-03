@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MBProgressHUD
+import Parse
 
 class FilterJobViewController: UIViewController {
   
