@@ -2,9 +2,10 @@
 # platform :ios, '6.0'
 use_frameworks!
 target 'KiVi' do
-	pod ‘Parse’
-	pod ‘ParseUI’
-	pod "AFNetworking"
+    
+#	pod ‘Parse’
+
+	pod 'AFNetworking'
 	pod 'MBProgressHUD'
 
 end

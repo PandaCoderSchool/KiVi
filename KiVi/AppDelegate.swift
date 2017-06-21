@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     ParseInterface.sharedInstance.parseSetup()
     
-    ParseInterface.sharedInstance.parseSignIn(ParseInterface.sharedInstance.defaultUserName , userPass: ParseInterface.sharedInstance.defaultPassword)
+//    ParseInterface.sharedInstance.parseSignIn(ParseInterface.sharedInstance.defaultUserName , userPass: ParseInterface.sharedInstance.defaultPassword)
     
     return true
   }

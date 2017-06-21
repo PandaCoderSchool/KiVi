@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6C4E9268B60715E2A0B08ED2 /* Pods_KiVi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF59EC980AD203121E4E872 /* Pods_KiVi.framework */; };
+		472219A59CDE0F8252168E42 /* Pods_KiViTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DE453E555A1C30F2B39BF5C /* Pods_KiViTests.framework */; };
+		79A6DB6F3113CA37E966B6D3 /* Pods_KiViUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8283807AF794CD921532DCC4 /* Pods_KiViUITests.framework */; };
 		C516A8271BB7FD0700982F94 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A8261BB7FD0700982F94 /* HomeViewController.swift */; };
 		C516A8291BB7FD6A00982F94 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C516A8281BB7FD6A00982F94 /* Launch Screen.storyboard */; };
 		C516A82C1BB7FF4400982F94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A82B1BB7FF4400982F94 /* MapViewController.swift */; };
@@ -28,6 +29,7 @@
 		C5AD4DAC1BB25E7C008939D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5AD4DAB1BB25E7C008939D7 /* Assets.xcassets */; };
 		C5AD4DBA1BB25E7C008939D7 /* KiViTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4DB91BB25E7C008939D7 /* KiViTests.swift */; };
 		C5AD4DC51BB25E7C008939D7 /* KiViUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD4DC41BB25E7C008939D7 /* KiViUITests.swift */; };
+		DF414D78F0B3CCF9DE56C316 /* Pods_KiVi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788167DD7C5CF3F98F17079B /* Pods_KiVi.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,9 +50,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0CF59EC980AD203121E4E872 /* Pods_KiVi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiVi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6EF89A2C31E8632D0B2815B6 /* Pods-KiVi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiVi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiVi/Pods-KiVi.debug.xcconfig"; sourceTree = "<group>"; };
-		B70CD39180D6B0AB88B45AEF /* Pods-KiVi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiVi.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiVi/Pods-KiVi.release.xcconfig"; sourceTree = "<group>"; };
+		089165D4579C66C1CBBB775B /* Pods-KiVi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiVi.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiVi/Pods-KiVi.release.xcconfig"; sourceTree = "<group>"; };
+		101DB73AC10FBC21DA736F87 /* Pods-KiViTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiViTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiViTests/Pods-KiViTests.debug.xcconfig"; sourceTree = "<group>"; };
+		122A8430B5BD2FB0B3BF4217 /* Pods-KiViUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiViUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiViUITests/Pods-KiViUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1334958018C7F39F59D0A0A9 /* Pods-KiVi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiVi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiVi/Pods-KiVi.debug.xcconfig"; sourceTree = "<group>"; };
+		2DE453E555A1C30F2B39BF5C /* Pods_KiViTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiViTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3ABDDC779418B8176CA427B8 /* Pods-KiViTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiViTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiViTests/Pods-KiViTests.release.xcconfig"; sourceTree = "<group>"; };
+		788167DD7C5CF3F98F17079B /* Pods_KiVi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiVi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8283807AF794CD921532DCC4 /* Pods_KiViUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiViUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEF964C5460BC4B8D204005C /* Pods-KiViUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiViUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiViUITests/Pods-KiViUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C514699B1BC381F200AAA97C /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Main.strings; sourceTree = "<group>"; };
 		C516A8261BB7FD0700982F94 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C516A8281BB7FD6A00982F94 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -90,7 +98,7 @@
 			files = (
 				C516A8301BB7FF6900982F94 /* MapKit.framework in Frameworks */,
 				C516A82E1BB7FF6200982F94 /* CoreLocation.framework in Frameworks */,
-				6C4E9268B60715E2A0B08ED2 /* Pods_KiVi.framework in Frameworks */,
+				DF414D78F0B3CCF9DE56C316 /* Pods_KiVi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				472219A59CDE0F8252168E42 /* Pods_KiViTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,29 +114,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79A6DB6F3113CA37E966B6D3 /* Pods_KiViUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1CF36BB21F4886B789215CB5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6EF89A2C31E8632D0B2815B6 /* Pods-KiVi.debug.xcconfig */,
-				B70CD39180D6B0AB88B45AEF /* Pods-KiVi.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		483425BC780E775A18A52035 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				C516A82F1BB7FF6900982F94 /* MapKit.framework */,
 				C516A82D1BB7FF6200982F94 /* CoreLocation.framework */,
-				0CF59EC980AD203121E4E872 /* Pods_KiVi.framework */,
+				788167DD7C5CF3F98F17079B /* Pods_KiVi.framework */,
+				2DE453E555A1C30F2B39BF5C /* Pods_KiViTests.framework */,
+				8283807AF794CD921532DCC4 /* Pods_KiViUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		983141E001F7091C34940E66 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1334958018C7F39F59D0A0A9 /* Pods-KiVi.debug.xcconfig */,
+				089165D4579C66C1CBBB775B /* Pods-KiVi.release.xcconfig */,
+				101DB73AC10FBC21DA736F87 /* Pods-KiViTests.debug.xcconfig */,
+				3ABDDC779418B8176CA427B8 /* Pods-KiViTests.release.xcconfig */,
+				BEF964C5460BC4B8D204005C /* Pods-KiViUITests.debug.xcconfig */,
+				122A8430B5BD2FB0B3BF4217 /* Pods-KiViUITests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		C516A8251BB7FCE700982F94 /* ViewControllers */ = {
@@ -195,8 +211,8 @@
 				C5AD4DB81BB25E7C008939D7 /* KiViTests */,
 				C5AD4DC31BB25E7C008939D7 /* KiViUITests */,
 				C5AD4DA21BB25E7C008939D7 /* Products */,
-				1CF36BB21F4886B789215CB5 /* Pods */,
 				483425BC780E775A18A52035 /* Frameworks */,
+				983141E001F7091C34940E66 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -252,12 +268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5AD4DC91BB25E7C008939D7 /* Build configuration list for PBXNativeTarget "KiVi" */;
 			buildPhases = (
-				14794D721D93021CD96DCF65 /* Check Pods Manifest.lock */,
+				A29B75F8C2241B155AB52FDF /* [CP] Check Pods Manifest.lock */,
 				C5AD4D9D1BB25E7C008939D7 /* Sources */,
 				C5AD4D9E1BB25E7C008939D7 /* Frameworks */,
 				C5AD4D9F1BB25E7C008939D7 /* Resources */,
-				2CE00181A49EFF9B8B022742 /* Copy Pods Resources */,
-				205DB643031AB4B96AC53BED /* Embed Pods Frameworks */,
+				39F43597A300D849D2DDB901 /* [CP] Embed Pods Frameworks */,
+				21BA6C4397150559DDE2E427 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -272,9 +288,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5AD4DCC1BB25E7C008939D7 /* Build configuration list for PBXNativeTarget "KiViTests" */;
 			buildPhases = (
+				B4FA01D93AC0F2D5F3FE9438 /* [CP] Check Pods Manifest.lock */,
 				C5AD4DB11BB25E7C008939D7 /* Sources */,
 				C5AD4DB21BB25E7C008939D7 /* Frameworks */,
 				C5AD4DB31BB25E7C008939D7 /* Resources */,
+				D0F4B229880A64843AA39B73 /* [CP] Embed Pods Frameworks */,
+				2197A54895674F8286F5B33C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -290,9 +309,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5AD4DCF1BB25E7C008939D7 /* Build configuration list for PBXNativeTarget "KiViUITests" */;
 			buildPhases = (
+				FB9C32F1303706CD277B88E9 /* [CP] Check Pods Manifest.lock */,
 				C5AD4DBC1BB25E7C008939D7 /* Sources */,
 				C5AD4DBD1BB25E7C008939D7 /* Frameworks */,
 				C5AD4DBE1BB25E7C008939D7 /* Resources */,
+				0A21DE2F38CCD7D03D9AC3BA /* [CP] Embed Pods Frameworks */,
+				F681E999C4A427C5A219C52F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -378,29 +400,59 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14794D721D93021CD96DCF65 /* Check Pods Manifest.lock */ = {
+		0A21DE2F38CCD7D03D9AC3BA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiViUITests/Pods-KiViUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		205DB643031AB4B96AC53BED /* Embed Pods Frameworks */ = {
+		2197A54895674F8286F5B33C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiViTests/Pods-KiViTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		21BA6C4397150559DDE2E427 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiVi/Pods-KiVi-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39F43597A300D849D2DDB901 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,19 +460,79 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiVi/Pods-KiVi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2CE00181A49EFF9B8B022742 /* Copy Pods Resources */ = {
+		A29B75F8C2241B155AB52FDF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiVi/Pods-KiVi-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B4FA01D93AC0F2D5F3FE9438 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D0F4B229880A64843AA39B73 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiViTests/Pods-KiViTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F681E999C4A427C5A219C52F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiViUITests/Pods-KiViUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB9C32F1303706CD277B88E9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -580,7 +692,7 @@
 		};
 		C5AD4DCA1BB25E7C008939D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6EF89A2C31E8632D0B2815B6 /* Pods-KiVi.debug.xcconfig */;
+			baseConfigurationReference = 1334958018C7F39F59D0A0A9 /* Pods-KiVi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -596,7 +708,7 @@
 		};
 		C5AD4DCB1BB25E7C008939D7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B70CD39180D6B0AB88B45AEF /* Pods-KiVi.release.xcconfig */;
+			baseConfigurationReference = 089165D4579C66C1CBBB775B /* Pods-KiVi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -611,6 +723,7 @@
 		};
 		C5AD4DCD1BB25E7C008939D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 101DB73AC10FBC21DA736F87 /* Pods-KiViTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = KiViTests/Info.plist;
@@ -624,6 +737,7 @@
 		};
 		C5AD4DCE1BB25E7C008939D7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3ABDDC779418B8176CA427B8 /* Pods-KiViTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = KiViTests/Info.plist;
@@ -637,6 +751,7 @@
 		};
 		C5AD4DD01BB25E7C008939D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEF964C5460BC4B8D204005C /* Pods-KiViUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = KiViUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -650,6 +765,7 @@
 		};
 		C5AD4DD11BB25E7C008939D7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 122A8430B5BD2FB0B3BF4217 /* Pods-KiViUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = KiViUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

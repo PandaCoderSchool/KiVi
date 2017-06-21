@@ -15,8 +15,10 @@ class ParseInterface: NSObject {
   
   // Refer to App setting on Parse: https://www.parse.com/apps/job4students/edit#keys
   
-  let appId = "GVaD3r4Vyi7uQHSydphnOWW2KC4EHHAKm31GXDm7"
-  let clientKey = "ICQxhc9IndnBEq5X0e4XBAvYIeULHhxzuyi0yzzS"
+  let appId = "nQgSZW04VWLpUvzCrBi3aHzwzwncCIJmNIukf1Rd"
+  let clientKey = "Gx5GDhBd4K7MahqFz8u8WspI2ZbYqIWAH0BDsxq0"
+    let seerverURL = "https://parseapi.back4app.com/"
+
   let databaseClassName = "JobDatabase"
   
   let defaultUserName = "kivi"
@@ -46,14 +48,14 @@ class ParseInterface: NSObject {
   // This will be call in AppDelegate to setup Parse Application
   
   func parseSetup() {
-//    Parse.setApplicationId(appId, clientKey: clientKey)
+    Parse.setApplicationId(appId, clientKey: clientKey)
     
     let config = ParseClientConfiguration(block: {
         (ParseMutableClientConfiguration) -> Void in
         
-        ParseMutableClientConfiguration.applicationId = "kivi1234567vndfgdfgs";
-        ParseMutableClientConfiguration.clientKey = "kivijdfadkshfkjsdhkjfhasdjkhfkjas";
-        ParseMutableClientConfiguration.server = "http://kivi.us-east-1.elasticbeanstalk.com//parse";
+        ParseMutableClientConfiguration.applicationId = self.appId
+        ParseMutableClientConfiguration.clientKey = self.clientKey
+        ParseMutableClientConfiguration.server =   self.seerverURL
     });
     
     Parse.initialize(with: config);
@@ -80,7 +82,7 @@ class ParseInterface: NSObject {
         self.jobsInfo = objects!
         
       }
-    } as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void // end of block 
+    } as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void // end of block 
       return jobsInfo
     }
     else {
@@ -106,7 +108,7 @@ class ParseInterface: NSObject {
         print("Sign up successful")
         self.signUpIsSuccess = true
       }
-    } as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock
+    } as! PFBooleanResultBlock
     return signUpIsSuccess
   }
   
@@ -127,7 +129,7 @@ class ParseInterface: NSObject {
             self.parseSignUp("kivi", userPass: "kivi")
         }
       }
-    } as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock
+    } as! PFUserResultBlock 
     return loginIsSuccess
   }
   
