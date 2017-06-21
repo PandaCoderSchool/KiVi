@@ -50,26 +50,26 @@ class FilterJobViewController: UIViewController {
     workAtPickerView.delegate = self
     workAtPickerView.dataSource = self
     workAtPickerView.showsSelectionIndicator = true
-    workAtPickerView.backgroundColor = UIColor.whiteColor()
+    workAtPickerView.backgroundColor = UIColor.white
     workAtPickerTextField.inputView = workAtPickerView
     
     jobTypePickerView.delegate = self
     jobTypePickerView.dataSource = self
-    jobTypePickerView.backgroundColor = UIColor.whiteColor()
+    jobTypePickerView.backgroundColor = UIColor.white
 //    jobTypePickerView.selectedRowInComponent(1)
     jobTypePickerTextField.inputView = jobTypePickerView
     
     sectorPickerView.delegate = self
     sectorPickerView.dataSource = self
   
-    sectorPickerView.backgroundColor = UIColor.whiteColor()
+    sectorPickerView.backgroundColor = UIColor.white
 //    sectorPickerView.selectedRowInComponent(1)
     sectorPickerTextField.inputView = sectorPickerView
     
     
   }
 
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
   }
   
   override func didReceiveMemoryWarning() {
@@ -77,7 +77,7 @@ class FilterJobViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  @IBAction func workAtPickerChanged(sender: UITextField) {
+  @IBAction func workAtPickerChanged(_ sender: UITextField) {
     if sender.text != nil {
       filterCriteria[0] = sender.text!
     } else {
@@ -85,14 +85,14 @@ class FilterJobViewController: UIViewController {
     }
   }
   
-  @IBAction func jobTypePickerChanged(sender: UITextField) {
+  @IBAction func jobTypePickerChanged(_ sender: UITextField) {
     if sender.text != nil {
       filterCriteria[1] = sender.text!
     } else {
       filterCriteria[1]  = "NA"
     }  }
   
-  @IBAction func sectorPickerChanged(sender: UITextField) {
+  @IBAction func sectorPickerChanged(_ sender: UITextField) {
     if sender.text != nil {
       filterCriteria[2] = sender.text!
     } else {
@@ -100,7 +100,7 @@ class FilterJobViewController: UIViewController {
     }
   }
   
-  @IBAction func onSearchButton(sender: UIButton) {
+  @IBAction func onSearchButton(_ sender: UIButton) {
     print("Searching...")
     
     let searchQuery = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
@@ -112,47 +112,47 @@ class FilterJobViewController: UIViewController {
     let searchQueryThird = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQueryThird.whereKey("jobSector", matchesRegex: "(?i)\(filterCriteria[2])")
     
-    let query = PFQuery.orQueryWithSubqueries([searchQuery, searchQuerySecond, searchQueryThird])
-    query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
+    let query = PFQuery.orQuery(withSubqueries: [searchQuery, searchQuerySecond, searchQueryThird])
+    query.findObjectsInBackground { (results: [PFObject]?, error: NSError?) -> Void in
       if error != nil {
-        let errorAlert = UIAlertController(title: "Search Alert", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        let errorAlert = UIAlertController(title: "Search Alert", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
         errorAlert.addAction(okAction)
-        self.presentViewController(errorAlert, animated: true, completion: nil)
+        self.present(errorAlert, animated: true, completion: nil)
         return
       }
       if let objects = results {
-        self.searchResult?.removeAll(keepCapacity: false)
+        self.searchResult?.removeAll(keepingCapacity: false)
         self.searchResult = objects
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        DispatchQueue.main.async(execute: { () -> Void in
           
           
           if self.searchResult?.count == 0 {
-            let errorAlert = UIAlertController(title: "Search Alert", message: "No jobs found", preferredStyle: UIAlertControllerStyle.Alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+            let errorAlert = UIAlertController(title: "Search Alert", message: "No jobs found", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
             errorAlert.addAction(okAction)
-            self.presentViewController(errorAlert, animated: true, completion: nil)
+            self.present(errorAlert, animated: true, completion: nil)
           } else {
             print("Post Notification with result = \(self.searchResult!.count)")
-            NSNotificationCenter.defaultCenter().postNotificationName("searchResultUpdated", object: nil, userInfo: ["result" : self.searchResult!])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "searchResultUpdated"), object: nil, userInfo: ["result" : self.searchResult!])
             jobIsUpdated = -1
           }
           
         }) // dispatch_async - End
       }
       
-    }
+    } as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void
     
 
   }
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)
     
   }
   
-  func textFieldShouldReturn (textField: UITextField) -> Bool {
+  func textFieldShouldReturn (_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return true
     
@@ -162,11 +162,11 @@ class FilterJobViewController: UIViewController {
 
 extension FilterJobViewController: UIPickerViewDelegate, UIPickerViewDataSource {
   
-  func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
   }
   
-  func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     if pickerView == workAtPickerView {
       return workAtList.count
     } else if pickerView == jobTypePickerView {
@@ -180,23 +180,23 @@ extension FilterJobViewController: UIPickerViewDelegate, UIPickerViewDataSource 
   
   
   
-  func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+  func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
     var attributedString: NSAttributedString!
     
     
     if pickerView == workAtPickerView {
-      attributedString = NSAttributedString(string: workAtList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+      attributedString = NSAttributedString(string: workAtList[row], attributes: [NSForegroundColorAttributeName : UIColor.blue])
     } else if pickerView == jobTypePickerView {
-      attributedString = NSAttributedString(string: jobTypeList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+      attributedString = NSAttributedString(string: jobTypeList[row], attributes: [NSForegroundColorAttributeName : UIColor.blue])
     } else if pickerView == sectorPickerView {
-      attributedString = NSAttributedString(string: sectorList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+      attributedString = NSAttributedString(string: sectorList[row], attributes: [NSForegroundColorAttributeName : UIColor.blue])
     }else {
       attributedString = nil
     }
     return attributedString
   }
   
-  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     if pickerView == workAtPickerView {
       workAtPickerTextField.text = workAtList[row]
       

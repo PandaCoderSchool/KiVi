@@ -33,8 +33,8 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     self.setupSearchBar()
     
     
-    mapContainerView.hidden   = !isMapViewSelected
-    listContainerView.hidden  = isMapViewSelected
+    mapContainerView.isHidden   = !isMapViewSelected
+    listContainerView.isHidden  = isMapViewSelected
     
     
     
@@ -53,18 +53,18 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     self.navigationItem.titleView = self.searchBar
   }
   
-  func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     
     fetchNewJob(searchBar.text!)
     searchBar.resignFirstResponder()
     
   }
-  func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     searchBar.resignFirstResponder()
   }
 
   
-  func fetchNewJob(searchText: String) {
+  func fetchNewJob(_ searchText: String) {
     print("Searching...")
     let searchQuery = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQuery.whereKey("employerAddress", matchesRegex: "(?i)\(searchText)")  // incasensitivity
@@ -72,44 +72,44 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     let searchQuerySecond = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     searchQuerySecond.whereKey("workAt", matchesRegex: "(?i)\(searchText)")
     
-    let query = PFQuery.orQueryWithSubqueries([searchQuery, searchQuerySecond])
-    query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
+    let query = PFQuery.orQuery(withSubqueries: [searchQuery, searchQuerySecond])
+    query.findObjectsInBackground { (results: [PFObject]?, error: NSError?) -> Void in
       if error != nil {
-        let errorAlert = UIAlertController(title: "Search Alert", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        let errorAlert = UIAlertController(title: "Search Alert", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
         errorAlert.addAction(okAction)
-        self.presentViewController(errorAlert, animated: true, completion: nil)
+        self.present(errorAlert, animated: true, completion: nil)
         return
       }
       if let objects = results {
-        self.searchResult?.removeAll(keepCapacity: false)
+        self.searchResult?.removeAll(keepingCapacity: false)
         self.searchResult = objects
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        DispatchQueue.main.async(execute: { () -> Void in
           
           
           if self.searchResult?.count == 0 {
-            let errorAlert = UIAlertController(title: "Search Alert", message: "No jobs found", preferredStyle: UIAlertControllerStyle.Alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+            let errorAlert = UIAlertController(title: "Search Alert", message: "No jobs found", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
             errorAlert.addAction(okAction)
-            self.presentViewController(errorAlert, animated: true, completion: nil)
+            self.present(errorAlert, animated: true, completion: nil)
           } else {
             print("Post Notification with result = \(self.searchResult!.count)")
-            NSNotificationCenter.defaultCenter().postNotificationName("searchResultUpdated", object: nil, userInfo: ["result" : self.searchResult!])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "searchResultUpdated"), object: nil, userInfo: ["result" : self.searchResult!])
             
           }
           
         }) // dispatch_async - End
       }
       
-    }
+    } as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void
     
   }
   
   
 
   
-  @IBAction func onChangeViewType(sender: UIBarButtonItem) {
+  @IBAction func onChangeViewType(_ sender: UIBarButtonItem) {
     isMapViewSelected = !isMapViewSelected
     
     if isMapViewSelected {
@@ -135,24 +135,24 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
   
   */
   
-  func changeViewAnimate(fromView: UIView, toView: UIView) {
-    toView.hidden = false
+  func changeViewAnimate(_ fromView: UIView, toView: UIView) {
+    toView.isHidden = false
     
     let hidePosition = isMapViewSelected ? fromView.frame.size.width : -fromView.frame.size.width
     
-    UIView.animateWithDuration(0.4, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
-      fromView.transform = CGAffineTransformMakeTranslation(hidePosition, 0)
-      toView.transform = CGAffineTransformMakeTranslation(0, 0)
+    UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+      fromView.transform = CGAffineTransform(translationX: hidePosition, y: 0)
+      toView.transform = CGAffineTransform(translationX: 0, y: 0)
       fromView.alpha = 0
       toView.alpha = 1
       
       }) { (finished) -> Void in
-        fromView.hidden = true
+        fromView.isHidden = true
     }
     
   }
 
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
   
     searchBar.resignFirstResponder()
   }

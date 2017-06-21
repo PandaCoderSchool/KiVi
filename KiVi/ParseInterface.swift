@@ -56,7 +56,7 @@ class ParseInterface: NSObject {
         ParseMutableClientConfiguration.server = "http://kivi.us-east-1.elasticbeanstalk.com//parse";
     });
     
-    Parse.initializeWithConfiguration(config);
+    Parse.initialize(with: config);
 
     
     
@@ -67,10 +67,10 @@ class ParseInterface: NSObject {
   func getJobsInformation() -> [PFObject]? {
     if loginIsSuccess {
     let query = PFQuery(className: databaseClassName)
-    query.orderByAscending("updatedAt")
+    query.order(byAscending: "updatedAt")
 //    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
     
-    query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+    query.findObjectsInBackground { (objects: [PFObject]?, error: NSError?) -> Void in
       
       if let error = error {
         let errorStr = error.userInfo["error"] as? String
@@ -80,7 +80,7 @@ class ParseInterface: NSObject {
         self.jobsInfo = objects!
         
       }
-    } // end of block 
+    } as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void // end of block 
       return jobsInfo
     }
     else {
@@ -91,11 +91,11 @@ class ParseInterface: NSObject {
   
   
   
-  func parseSignUp(userName: NSString?, userPass: NSString?) -> Bool{
+  func parseSignUp(_ userName: NSString?, userPass: NSString?) -> Bool{
     let user = PFUser()
     user.username = userName as? String
     user.password = userPass as? String
-    user.signUpInBackgroundWithBlock {
+    user.signUpInBackground {
       (succeeded: Bool, error: NSError?) -> Void in
       if let error = error {
         let errorString = error.userInfo["error"] as? NSString
@@ -106,13 +106,13 @@ class ParseInterface: NSObject {
         print("Sign up successful")
         self.signUpIsSuccess = true
       }
-    }
+    } as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock as! PFBooleanResultBlock
     return signUpIsSuccess
   }
   
-  func parseSignIn(userName: String?, userPass: String?) -> Bool {
+  func parseSignIn(_ userName: String?, userPass: String?) -> Bool {
     
-    PFUser.logInWithUsernameInBackground(userName!, password: userPass!) { (user: PFUser?, err: NSError?) -> Void in
+    PFUser.logInWithUsername(inBackground: userName!, password: userPass!) { (user: PFUser?, err: NSError?) -> Void in
       
       if user != nil {
         self.loginIsSuccess = true
@@ -127,19 +127,19 @@ class ParseInterface: NSObject {
             self.parseSignUp("kivi", userPass: "kivi")
         }
       }
-    }
+    } as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock as! PFUserResultBlock
     return loginIsSuccess
   }
   
   // This function will check is the current user is already login, go to next step, if not, show login or sign up
   func isLogInPrevious() -> Bool {
-    let currentUser = PFUser.currentUser()
+    let currentUser = PFUser.current()
     if currentUser != nil {
       print("Log in already, go to next")
       return true
     } else {
       // Show the signup or login screen
-      self.parseSignUp(defaultUserName, userPass: defaultPassword)
+      self.parseSignUp(defaultUserName as NSString, userPass: defaultPassword as NSString)
       
       return false
     }

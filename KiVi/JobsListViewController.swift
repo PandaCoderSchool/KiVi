@@ -9,13 +9,37 @@
 import UIKit
 import MBProgressHUD
 import Parse
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 
 class JobsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   @IBOutlet weak var jobsTableView: UITableView!
   
-  var timer: NSTimer = NSTimer()
+  var timer: Timer = Timer()
   var jobsList: [PFObject]? = [PFObject]()
   
   var hud : MBProgressHUD = MBProgressHUD()
@@ -27,12 +51,12 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     jobsTableView.estimatedRowHeight = 160
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateTable:"), name: "searchResultUpdated", object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(JobsListViewController.updateTable(_:)), name: NSNotification.Name(rawValue: "searchResultUpdated"), object: nil)
     
   }
   
   deinit{
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
   }
   
   override func didReceiveMemoryWarning() {
@@ -40,17 +64,17 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     // Dispose of any resources that can be recreated.
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     
-    timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "fetchJobsInformation", userInfo: nil, repeats: true)
+    timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JobsListViewController.fetchJobsInformation), userInfo: nil, repeats: true)
   }
-  override func viewDidDisappear(animated: Bool) {
+  override func viewDidDisappear(_ animated: Bool) {
     timer.invalidate()
   }
   
-  func updateTable(notification: NSNotification) {
-    let userInfo:Dictionary<String,[PFObject]!> = notification.userInfo as! Dictionary<String,[PFObject]!>
-    jobsList = userInfo["result"]
+  func updateTable(_ notification: Notification) {
+    let userInfo:Dictionary<String,[PFObject]?> = notification.userInfo as! Dictionary<String,[PFObject]?>
+    jobsList = userInfo["result"]!
     if jobsList != nil {
       jobsTableView.reloadData()
       
@@ -59,8 +83,8 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
   
   func fetchJobsInformation() {
     
-    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-    self.hud.mode = MBProgressHUDMode.Indeterminate
+    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+    self.hud.mode = MBProgressHUDMode.indeterminate
     self.hud.labelText = "Updating jobs"
     
     jobsList = ParseInterface.sharedInstance.getJobsInformation()
@@ -68,32 +92,32 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     if jobsList?.count >  0 {
       jobsTableView.reloadData()
       timer.invalidate()
-      MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+      MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
     }
     
   }
   
   // MARK: - TableView Delegate
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if jobsList != nil {
       return jobsList!.count
     } else {
       return 0
     }
   }
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-    let cell = tableView.dequeueReusableCellWithIdentifier("JobCell", forIndexPath: indexPath) as! JobCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: "JobCell", for: indexPath) as! JobCell
     
     cell.jobTitle.text = jobsList![indexPath.row]["jobTitle"] as? String
     cell.companyLabel.text  = jobsList![indexPath.row]["employerName"] as? String
     cell.jobType.text  = jobsList![indexPath.row]["jobType"] as? String
     
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "dd'/'MM'/'yyyy"
-    if let getDate = jobsList![indexPath.row]["dueDate"] as? NSDate {
-      let date = dateFormatter.stringFromDate(getDate)
+    if let getDate = jobsList![indexPath.row]["dueDate"] as? Date {
+      let date = dateFormatter.string(from: getDate)
       if !date.isEmpty {
         cell.dueSubmitDateLabel.text = "Due: " + date
       } else {
@@ -110,13 +134,13 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     if let thumbNail = object["profilePhoto"] as? PFFile {
     
-      thumbNail.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError?) -> Void in
+      thumbNail.getDataInBackground(block: { (imageData: Data?, error: NSError?) -> Void in
         if (error == nil) {
           let image = UIImage(data:imageData!)
           //image object implementation
           cell.jobImage.image = image
         }
-      }) // getDataInBackgroundWithBlock - end
+      } as! PFDataResultBlock) // getDataInBackgroundWithBlock - end
     }
 //
   
@@ -130,7 +154,7 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //    if segue.identifier == "FilterSegue" {
 //      print("Filter was pressed")
 //    }  else if segue.identifier == "MapView" {
@@ -139,17 +163,17 @@ class JobsListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     if sender is UIBarButtonItem {
       
-      if sender?.tag == 0 {
-        let navigationVC = segue.destinationViewController as! UINavigationController
+      if (sender as AnyObject).tag == 0 {
+        let navigationVC = segue.destination as! UINavigationController
         _ = navigationVC.topViewController as! FilterJobViewController
         
-      } else if sender?.tag == 1 {
-        _ = segue.destinationViewController as! MapViewController
+      } else if (sender as AnyObject).tag == 1 {
+        _ = segue.destination as! MapViewController
         
       }
     } else {
-      let detailsVC = segue.destinationViewController as! JobDetailsViewController
-      let indexPath = jobsTableView.indexPathForCell(sender as! UITableViewCell)
+      let detailsVC = segue.destination as! JobDetailsViewController
+      let indexPath = jobsTableView.indexPath(for: sender as! UITableViewCell)
       detailsVC.selectedJob = jobsList![indexPath!.row]
     }
     

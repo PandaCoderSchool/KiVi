@@ -44,7 +44,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     super.viewDidLoad()
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     if selectedJob == nil {
       updateWithSelectedPinJob() // trigger from MAP
     } else {
@@ -64,12 +64,12 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     
     let query = PFQuery(className: ParseInterface.sharedInstance.databaseClassName)
     query.whereKey("jobTitle", equalTo: queryWith )  // get object with the same job title
-    query.orderByAscending("updatedAt")
+    query.order(byAscending: "updatedAt")
     
-    query.findObjectsInBackgroundWithBlock { (jobObject: [PFObject]?, error: NSError?) -> Void in
+    query.findObjectsInBackground { (jobObject: [PFObject]?, error: NSError?) -> Void in
       
-      self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-      self.hud.mode = MBProgressHUDMode.Indeterminate
+      self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+      self.hud.mode = MBProgressHUDMode.indeterminate
       self.hud.labelText = "Loading data..."
       
       if let error = error {
@@ -82,7 +82,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
           self.updateWithSelectedJob()
         }
       }
-    } // Block - end    
+    } as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void // Block - end    
     // Update location on Map
     let latDelta: CLLocationDegrees = 0.01
     let lonDelta: CLLocationDegrees = 0.01
@@ -96,10 +96,10 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     localSearchRequest.naturalLanguageQuery = selectedJob!["employerAddress"] as? String
     
     localSearch = MKLocalSearch(request: localSearchRequest)
-    localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
+    localSearch.start { (localSearchResponse, error) -> Void in
       
       if localSearchResponse == nil{
-        let alert = UIAlertController(title: "Place not found", message: "Please check again", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Place not found", message: "Please check again", preferredStyle: UIAlertControllerStyle.alert)
         alert.presentedViewController
         return
       }
@@ -132,13 +132,13 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     
     
     if let thumbNail = selectedJob!["profilePhoto"] as? PFFile {
-      thumbNail.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError?) -> Void in
+      thumbNail.getDataInBackground(block: { (imageData: Data?, error: NSError?) -> Void in
         if (error == nil) {
           let image = UIImage(data:imageData!)
           //image object implementation
           self.profileImage.image = image
         }
-      }) // getDataInBackgroundWithBlock - end
+      } as! PFDataResultBlock) // getDataInBackgroundWithBlock - end
     }
     jobTitle.text       = selectedJob!["jobTitle"] as? String
     jobDescription.text = selectedJob!["jobDescription"] as! String
@@ -147,44 +147,44 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     addressLabel.text   = selectedJob!["employerAddress"] as? String
 
 
-    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
 
   }
   
-  @IBAction func onShareJob(sender: UIBarButtonItem) {
+  @IBAction func onShareJob(_ sender: UIBarButtonItem) {
     let textToShare = (selectedJob!["jobTitle"] as! String) + "\n" + (selectedJob!["jobDescription"] as! String)
     let contactAddress = self.selectedJob!["employerAddress"] as! String
       let objectsToShare = [textToShare, contactAddress]
       let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
       
-      self.presentViewController(activityVC, animated: true, completion: nil)
+      self.present(activityVC, animated: true, completion: nil)
   }
   
-  @IBAction func onApplyJob(sender: UIBarButtonItem) {
+  @IBAction func onApplyJob(_ sender: UIBarButtonItem) {
     
-    let alertController = UIAlertController(title: "Apply for the job", message: nil, preferredStyle: .ActionSheet)
+    let alertController = UIAlertController(title: "Apply for the job", message: nil, preferredStyle: .actionSheet)
     let emailAddress = selectedJob!["employerEmail"] as! String
     let emailStr = "Email: " + emailAddress
     
-    let email = UIAlertAction(title: emailStr, style: .Default, handler: { (action) -> Void in
+    let email = UIAlertAction(title: emailStr, style: .default, handler: { (action) -> Void in
       print("Apply by email")
-      UIApplication.sharedApplication().openURL(NSURL(string: "mailto:\(emailAddress)")!)
+      UIApplication.shared.openURL(URL(string: "mailto:\(emailAddress)")!)
     })
     
     let phoneNumber = selectedJob!["employerPhone"] as! String
     let phoneStr = "Phone: " + phoneNumber
-    let  phone = UIAlertAction(title: phoneStr, style: .Default) { (action) -> Void in
+    let  phone = UIAlertAction(title: phoneStr, style: .default) { (action) -> Void in
       print("Apply by phone")
-      UIApplication.sharedApplication().openURL(NSURL(string: "telprompt://\(phoneNumber)")!)
+      UIApplication.shared.openURL(URL(string: "telprompt://\(phoneNumber)")!)
     }
     
     let addrStr = "Direct to: " + (selectedJob!["employerAddress"] as! String)
-    let address = UIAlertAction(title: addrStr, style: .Default) { (action) -> Void in
+    let address = UIAlertAction(title: addrStr, style: .default) { (action) -> Void in
       print("Apply by going to address")
       self.getDirection()
     }
 
-    let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
       print("Cancel Button Pressed")
     })
     
@@ -196,7 +196,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     alertController.addAction(cancel)
     
     
-    presentViewController(alertController, animated: true, completion: nil)
+    present(alertController, animated: true, completion: nil)
   }
   
   func getDirection() {
@@ -208,7 +208,7 @@ class JobDetailsViewController: UIViewController, MKMapViewDelegate, MBProgressH
     //You could also choose: MKLaunchOptionsDirectionsModeWalking
     let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
     
-    mapItem.openInMapsWithLaunchOptions(launchOptions)
+    mapItem.openInMaps(launchOptions: launchOptions)
   }
   
   

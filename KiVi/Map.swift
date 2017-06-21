@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 protocol MapDelegate: class {
-  func updateUserCurrentLocation(userLocation: CLLocation)
+  func updateUserCurrentLocation(_ userLocation: CLLocation)
 }
 
 class Map: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
@@ -44,7 +44,7 @@ class Map: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
     
   }
   
-  func getLocationFromAddress(address: String){
+  func getLocationFromAddress(_ address: String){
     
   }
   
@@ -54,7 +54,7 @@ class Map: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
     
   }
   
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     
     let userLocation: CLLocation = locations.last!
     delegate.updateUserCurrentLocation(userLocation)

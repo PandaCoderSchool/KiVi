@@ -79,22 +79,22 @@ class AddJobViewController: UIViewController {
     
     tpScrollView.contentSize.height = 820
     // Date Picker for Due Date
-    datePickerView.datePickerMode = UIDatePickerMode.Date
-    datePickerView.backgroundColor = UIColor.whiteColor()
+    datePickerView.datePickerMode = UIDatePickerMode.date
+    datePickerView.backgroundColor = UIColor.white
     datePickerTextField.inputView = datePickerView
-    datePickerView.addTarget(self, action: "getDate:", forControlEvents: UIControlEvents.ValueChanged)
+    datePickerView.addTarget(self, action: #selector(AddJobViewController.getDate(_:)), for: UIControlEvents.valueChanged)
     
     // Location Picker for Work At
     workAtPickerView.delegate = self
-    workAtPickerView.backgroundColor = UIColor.whiteColor()
+    workAtPickerView.backgroundColor = UIColor.white
     workAtPickerTextField.inputView = workAtPickerView
     
     jobTypePickerView.delegate = self
-    jobTypePickerView.backgroundColor = UIColor.whiteColor()
+    jobTypePickerView.backgroundColor = UIColor.white
     jobTypePickerTextField.inputView = jobTypePickerView
     
     sectorPickerView.delegate = self
-    sectorPickerView.backgroundColor = UIColor.whiteColor()
+    sectorPickerView.backgroundColor = UIColor.white
     sectorPickerTextField.inputView = sectorPickerView
 
   }
@@ -105,17 +105,17 @@ class AddJobViewController: UIViewController {
   }
   
   
-  @IBAction func saveAllInfo(sender: UIButton) {
+  @IBAction func saveAllInfo(_ sender: UIButton) {
     dataIsSaved = false
-    self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-    self.hud.mode = MBProgressHUDMode.Indeterminate
+    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+    self.hud.mode = MBProgressHUDMode.indeterminate
     self.hud.labelText = "Saving your data to server..."
     
     saveNewJob()
     
   }
   
-  @IBAction func employerNameChanged(sender: UITextField) {
+  @IBAction func employerNameChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["employerName"] = sender.text
     } else {
@@ -123,7 +123,7 @@ class AddJobViewController: UIViewController {
     }
   }
   
-  @IBAction func employerAddressChanged(sender: UITextField) {
+  @IBAction func employerAddressChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["employerAddress"] = sender.text
     } else {
@@ -131,7 +131,7 @@ class AddJobViewController: UIViewController {
     }
   }
   
-  @IBAction func employerEmailChanged(sender: UITextField) {
+  @IBAction func employerEmailChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["employerEmail"] = sender.text
     } else {
@@ -139,7 +139,7 @@ class AddJobViewController: UIViewController {
     }
   }
   
-  @IBAction func employerPhoneChanged(sender: UITextField) {
+  @IBAction func employerPhoneChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["employerPhone"] = sender.text
     } else {
@@ -147,7 +147,7 @@ class AddJobViewController: UIViewController {
     }
   }
   
-  @IBAction func jobTitleChanged(sender: UITextField) {
+  @IBAction func jobTitleChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["jobTitle"] = sender.text
     } else {
@@ -155,7 +155,7 @@ class AddJobViewController: UIViewController {
     }
   }
   
-  @IBAction func jobSalaryChanged(sender: UITextField) {
+  @IBAction func jobSalaryChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["salary"] = sender.text
     } else {
@@ -163,7 +163,7 @@ class AddJobViewController: UIViewController {
     }
   }
   
-  @IBAction func workAtChanged(sender: UITextField) {
+  @IBAction func workAtChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["workAt"] = sender.text
     } else {
@@ -171,29 +171,29 @@ class AddJobViewController: UIViewController {
     }
   }
   
-  @IBAction func dueDateChanged(sender: UITextField) {
-    var date = NSDate()
-    let dateformatter = NSDateFormatter()
+  @IBAction func dueDateChanged(_ sender: UITextField) {
+    var date = Date()
+    let dateformatter = DateFormatter()
     dateformatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
 
     if (sender.text != "") {
-      date = dateformatter.dateFromString(sender.text!)!
+      date = dateformatter.date(from: sender.text!)!
       jobObj["dueDate"] = date
     } else {
-      let dateNow = NSDate()
-      jobObj["dueDate"] = dateNow.dateByAddingTimeInterval(60*60*24*30) // auto add 30 days from now
-      datePickerTextField.text = dateformatter.stringFromDate(dateNow.dateByAddingTimeInterval(60*60*24*30))
+      let dateNow = Date()
+      jobObj["dueDate"] = dateNow.addingTimeInterval(60*60*24*30) // auto add 30 days from now
+      datePickerTextField.text = dateformatter.string(from: dateNow.addingTimeInterval(60*60*24*30))
     }
   }
   
-  func getDate(sender: UIDatePicker) {
-    let dateFormatter = NSDateFormatter()
+  func getDate(_ sender: UIDatePicker) {
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss" // "dd/MM/yyyy"
-    datePickerTextField.text = dateFormatter.stringFromDate(sender.date)
+    datePickerTextField.text = dateFormatter.string(from: sender.date)
     
   }
   
-  @IBAction func jobTypeChanged(sender: UITextField) {
+  @IBAction func jobTypeChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["jobType"] = sender.text
     } else {
@@ -201,7 +201,7 @@ class AddJobViewController: UIViewController {
     }
   }
   
-  @IBAction func sectorChanged(sender: UITextField) {
+  @IBAction func sectorChanged(_ sender: UITextField) {
     if sender.text != nil {
       jobObj["jobSector"] = sender.text
     } else {
@@ -211,9 +211,9 @@ class AddJobViewController: UIViewController {
   
   func saveNewJob() {
     jobObj["jobStatus"] = "Open" // Status of new job is open
-    jobObj["createdBy"] = PFUser.currentUser() // Add the user to the job 
+    jobObj["createdBy"] = PFUser.current() // Add the user to the job 
     jobObj["jobDescription"] = jobDescriptionText.text
-    jobObj.saveInBackgroundWithBlock({
+    jobObj.saveInBackground(block: {
       (success: Bool, error: NSError?) -> Void in
       
       if error == nil {
@@ -224,47 +224,47 @@ class AddJobViewController: UIViewController {
         //create a parse file to store in cloud
         let parseImageFile = PFFile(name: "profile_image.png", data: imageData!)
         self.jobObj["profilePhoto"] = parseImageFile
-        self.jobObj.saveInBackgroundWithBlock({
+        self.jobObj.saveInBackground(block: {
           (success: Bool, error: NSError?) -> Void in
           if error == nil {
             //take user home
             print("data uploaded")
-            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
             self.dataIsSaved = true
             if self.dataIsSaved {
               jobIsUpdated = -1
-              self.navigationController?.popToRootViewControllerAnimated(true)
+              self.navigationController?.popToRootViewController(animated: true)
               
             }
           }else {
             print(error)
           }
-        }) // saveInBackgroundWithBlock - save image - End
+        } as! PFBooleanResultBlock) // saveInBackgroundWithBlock - save image - End
       }else {
         print(error)
       }
-    }) // saveInBackgroundWithBlock - save obj - End
+    } as! PFBooleanResultBlock) // saveInBackgroundWithBlock - save obj - End
     
   }
   
   
   
-  @IBAction func TapToTakePhoto(sender: UITapGestureRecognizer) {
+  @IBAction func TapToTakePhoto(_ sender: UITapGestureRecognizer) {
     
     locationManager.startUpdatingLocation() // Get location
     // Alert to select photo source
-    let sourceAlert = UIAlertController(title: "GET A PROFILE PHOTO", message: "Please select a photo source", preferredStyle: UIAlertControllerStyle.ActionSheet)
-    let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default) { (action) -> Void in
-      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-        self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-        self.presentViewController(self.imagePicker, animated: true, completion: nil)
+    let sourceAlert = UIAlertController(title: "GET A PROFILE PHOTO", message: "Please select a photo source", preferredStyle: UIAlertControllerStyle.actionSheet)
+    let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default) { (action) -> Void in
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+        self.present(self.imagePicker, animated: true, completion: nil)
       }
     } // cameraAction-End
-    let libraryAction = UIAlertAction(title: "Library", style: UIAlertActionStyle.Default) { (action) -> Void in
-      self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+    let libraryAction = UIAlertAction(title: "Library", style: UIAlertActionStyle.default) { (action) -> Void in
+      self.imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+      self.present(self.imagePicker, animated: true, completion: nil)
     }
-    let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
       print("Cancel Button Pressed")
     })
 
@@ -272,12 +272,12 @@ class AddJobViewController: UIViewController {
     sourceAlert.addAction(libraryAction)
     sourceAlert.addAction(cancel)
     
-    presentViewController(sourceAlert, animated: true, completion: nil)
+    present(sourceAlert, animated: true, completion: nil)
     
     
   }
   
-  func updateUserCurrentLocation(userLocation: CLLocation) {
+  func updateUserCurrentLocation(_ userLocation: CLLocation) {
     self.currentLocation = userLocation
     
     let geopoint = PFGeoPoint()
@@ -286,7 +286,7 @@ class AddJobViewController: UIViewController {
     jobObj["location"] = geopoint
   }
   
-  func getAddressFromLocation(location: CLLocation) {
+  func getAddressFromLocation(_ location: CLLocation) {
     CLGeocoder().reverseGeocodeLocation(location) { (placemarks:[CLPlacemark]?, error: NSError?) -> Void in
       if error == nil {
         
@@ -325,15 +325,15 @@ class AddJobViewController: UIViewController {
           self.jobObj["employerAddress"] = addr
         }
       }
-    }
+    } as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler
   }
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)
     
   }
   
-  func textFieldShouldReturn (textField: UITextField) -> Bool {
+  func textFieldShouldReturn (_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return true
     
@@ -343,11 +343,11 @@ class AddJobViewController: UIViewController {
 
 extension AddJobViewController: UIPickerViewDelegate, UIPickerViewDataSource {
   
-  func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
   }
   
-  func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     if pickerView == workAtPickerView {
       return workAtList.count
     } else if pickerView == jobTypePickerView {
@@ -361,23 +361,23 @@ extension AddJobViewController: UIPickerViewDelegate, UIPickerViewDataSource {
   
   
   
-  func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+  func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
     var attributedString: NSAttributedString!
     
     
     if pickerView == workAtPickerView {
-      attributedString = NSAttributedString(string: workAtList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+      attributedString = NSAttributedString(string: workAtList[row], attributes: [NSForegroundColorAttributeName : UIColor.blue])
     } else if pickerView == jobTypePickerView {
-      attributedString = NSAttributedString(string: jobTypeList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+      attributedString = NSAttributedString(string: jobTypeList[row], attributes: [NSForegroundColorAttributeName : UIColor.blue])
     } else if pickerView == sectorPickerView {
-      attributedString = NSAttributedString(string: sectorList[row], attributes: [NSForegroundColorAttributeName : UIColor.blueColor()])
+      attributedString = NSAttributedString(string: sectorList[row], attributes: [NSForegroundColorAttributeName : UIColor.blue])
     }else {
       attributedString = nil
     }
     return attributedString
   }
   
-  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     if pickerView == workAtPickerView {
       workAtPickerTextField.text = workAtList[row]
       
@@ -394,13 +394,13 @@ extension AddJobViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 // MARK: Image picker protocol
 
 extension AddJobViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     let editedImage = info[UIImagePickerControllerEditedImage]as! UIImage
     photo = editedImage
     profilePhoto.image = editedImage
     locationManager.stopUpdatingLocation()
     
-    picker.dismissViewControllerAnimated(true) { () -> Void in
+    picker.dismiss(animated: true) { () -> Void in
       print("Image was captured")
       
     }
@@ -411,7 +411,7 @@ extension AddJobViewController: UIImagePickerControllerDelegate, UINavigationCon
 // MARK: LocationManager protocol
 
 extension AddJobViewController: CLLocationManagerDelegate {
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let currentLocation: CLLocation = locations.last!
     self.updateUserCurrentLocation(currentLocation)
     self.getAddressFromLocation(currentLocation)
@@ -422,7 +422,7 @@ extension AddJobViewController: CLLocationManagerDelegate {
 
 extension AddJobViewController: UITextViewDelegate {
   
-  func textViewDidEndEditing(textView: UITextView) {
+  func textViewDidEndEditing(_ textView: UITextView) {
     jobObj["jobDescription"] = textView.text
   }
 }

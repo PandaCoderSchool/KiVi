@@ -11,6 +11,30 @@ import MapKit
 import CoreLocation
 import MBProgressHUD
 import Parse
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 var jobIsUpdated = -1
 
@@ -32,7 +56,7 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
   var locationManager = CLLocationManager()
   var userAnnotation = MKPointAnnotation()
   
-  var timer: NSTimer = NSTimer()
+  var timer: Timer = Timer()
   
   let regionRadius: CLLocationDistance = 1000 // 1000m
   
@@ -45,11 +69,11 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestAlwaysAuthorization()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateMap:"), name: "searchResultUpdated", object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.updateMap(_:)), name: NSNotification.Name(rawValue: "searchResultUpdated"), object: nil)
   }
   
   deinit{
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
   }
   
   
@@ -58,24 +82,24 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
     // Dispose of any resources that can be recreated.
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     if jobIsUpdated == -1 {
-      self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-      self.hud.mode = MBProgressHUDMode.Indeterminate
+      self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+      self.hud.mode = MBProgressHUDMode.indeterminate
       self.hud.labelText = "Updating jobs on map"
       
       locationManager.startUpdatingLocation()
-      timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "fetchJobsInformation", userInfo: nil, repeats: true)
+      timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MapViewController.fetchJobsInformation), userInfo: nil, repeats: true)
     }
   }
   
-  override func viewDidDisappear(animated: Bool) {
+  override func viewDidDisappear(_ animated: Bool) {
     locationManager.stopUpdatingLocation()
   }
   
-  func updateMap(notification: NSNotification) {
-    let userInfo:Dictionary<String,[PFObject]!> = notification.userInfo as! Dictionary<String,[PFObject]!>
-    jobsList = userInfo["result"]
+  func updateMap(_ notification: Notification) {
+    let userInfo:Dictionary<String,[PFObject]?> = notification.userInfo as! Dictionary<String,[PFObject]?>
+    jobsList = userInfo["result"]!
     print("Updated: \(jobsList!.count)" )
     updateJobsMap()
   }
@@ -100,7 +124,7 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
         pinJobOnMap(job)
       }
       timer.invalidate()
-      MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+      MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
       
     }
     
@@ -108,13 +132,13 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
   
   // View job on Map
   
-  func pinJobOnMap(jobToPin: PFObject?) {
+  func pinJobOnMap(_ jobToPin: PFObject?) {
     
     localSearchRequest = MKLocalSearchRequest()
     localSearchRequest.naturalLanguageQuery = jobToPin!["employerAddress"] as? String
     
     localSearch = MKLocalSearch(request: localSearchRequest)
-    localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
+    localSearch.start { (localSearchResponse, error) -> Void in
 //      
 //      if localSearchResponse == nil{
 //        let alert = UIAlertController(title: "Places not found", message: "Please check the internet connection", preferredStyle: UIAlertControllerStyle.Alert)
@@ -158,12 +182,12 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
   }
   
   
-  func updateUserCurrentLocation(userLocation: CLLocation) {
+  func updateUserCurrentLocation(_ userLocation: CLLocation) {
     self.centerMapOnLocation(userLocation)
     
   }
   
-  func getAddressFromLocation(location: CLLocation) {
+  func getAddressFromLocation(_ location: CLLocation) {
     CLGeocoder().reverseGeocodeLocation(location) { (placemarks:[CLPlacemark]?, error: NSError?) -> Void in
       if error == nil {
         
@@ -207,10 +231,10 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
           self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
         }
       }
-    }
+    } as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler
   }
   
-  func centerMapOnLocation(location: CLLocation) {
+  func centerMapOnLocation(_ location: CLLocation) {
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
       regionRadius * 20.0, regionRadius * 20.0)
     jobMap.setRegion(coordinateRegion, animated: true)
@@ -220,7 +244,7 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
 
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
   // MARK: Location Manager Delegate
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     
     let userLocation: CLLocation = locations.last!
     self.updateUserCurrentLocation(userLocation)
@@ -231,7 +255,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
   
   // MARK: Map View Delegate protocol
   
-  func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     if !(annotation is  MKPointAnnotation) {
       return nil
     }
@@ -251,7 +275,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     */
     
     let reuseID = "myAnnotationView"
-    var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
+    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID)
     if (annotationView == nil) {
       // Must use MKAnnotationView instead of MKPointAnnotationView if we want to use image for pin annotation
       //      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
@@ -267,7 +291,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
       
       
       // Right button annotation
-      annotationView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIButton
+      annotationView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIButton
     }
     else {
       annotationView!.annotation = annotation
@@ -276,10 +300,10 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     return annotationView
   }
   
-  func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+  func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
     
     if control == view.rightCalloutAccessoryView {
-      let vc = self.storyboard?.instantiateViewControllerWithIdentifier("JobDetails") as! JobDetailsViewController
+      let vc = self.storyboard?.instantiateViewController(withIdentifier: "JobDetails") as! JobDetailsViewController
       vc.selectedAnnotation = view
       self.navigationController?.pushViewController(vc, animated: true)
       jobIsUpdated = 1
