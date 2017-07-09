@@ -12,139 +12,132 @@ import Parse
 
 
 class ParseInterface: NSObject {
-  
-  // Refer to App setting on Parse: https://www.parse.com/apps/job4students/edit#keys
-  
-  let appId = "nQgSZW04VWLpUvzCrBi3aHzwzwncCIJmNIukf1Rd"
-  let clientKey = "Gx5GDhBd4K7MahqFz8u8WspI2ZbYqIWAH0BDsxq0"
+    
+    // Refer to App setting on Parse on Back4App: https://dashboard.back4app.com/classic#/wizard/app-details/64a99a57-96f0-4c2f-95fc-f605ad982274
+    
+    let appId = "5bvI3MyuZIxfgVL3ayAxMmWuG4N4ofsJRGLqMxbg"
+    let clientKey = "yhk5lnOLudTygtq709WNG7ZuOt8kOIRy2MHOlfLg"
     let seerverURL = "https://parseapi.back4app.com/"
-
-  let databaseClassName = "JobDatabase"
-  
-  let defaultUserName = "kivi"
-  let defaultPassword = "kivi"
-  
-  var jobsInfo  : [PFObject]?
-  var employers : [PFObject]?
-  
-  var signUpIsSuccess = false
-  var loginIsSuccess = false
-  // sharedInstance to be used in other classes
-  
-  class var sharedInstance: ParseInterface {
-    struct Static {
-      static var instance = ParseInterface()
-    }
-    return Static.instance
-  }
-  
-  override init() {
-    super.init()
-    jobsInfo = [PFObject]()
-    employers = [PFObject]()
     
-  }
-  
-  // This will be call in AppDelegate to setup Parse Application
-  
-  func parseSetup() {
-    Parse.setApplicationId(appId, clientKey: clientKey)
+    let databaseClassName = "JobDatabase"
     
-    let config = ParseClientConfiguration(block: {
-        (ParseMutableClientConfiguration) -> Void in
-        
-        ParseMutableClientConfiguration.applicationId = self.appId
-        ParseMutableClientConfiguration.clientKey = self.clientKey
-        ParseMutableClientConfiguration.server =   self.seerverURL
-    });
+    let defaultUserName = "kivi"
+    let defaultPassword = "kivi"
     
-    Parse.initialize(with: config);
-
+    var jobsInfo  : [PFObject]?
+    var employers : [PFObject]?
     
+    var signUpIsSuccess = false
+    var loginIsSuccess = false
+    // sharedInstance to be used in other classes
     
-  }
-  
-  // Get Jobs Information from Database, return the PFObject array
-  
-  func getJobsInformation() -> [PFObject]? {
-    if loginIsSuccess {
-    let query = PFQuery(className: databaseClassName)
-    query.order(byAscending: "updatedAt")
-//    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
-    
-    query.findObjectsInBackground { (objects: [PFObject]?, error: NSError?) -> Void in
-      
-      if let error = error {
-        let errorStr = error.userInfo["error"] as? String
-        print("Error when finding object: \(errorStr) ")
-        self.jobsInfo = nil
-      } else {
-        self.jobsInfo = objects!
-        
-      }
-    } as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void // end of block 
-      return jobsInfo
-    }
-    else {
-      return nil
-
-    }
-  }
-  
-  
-  
-  func parseSignUp(_ userName: NSString?, userPass: NSString?) -> Bool{
-    let user = PFUser()
-    user.username = userName as? String
-    user.password = userPass as? String
-    user.signUpInBackground {
-      (succeeded: Bool, error: NSError?) -> Void in
-      if let error = error {
-        let errorString = error.userInfo["error"] as? NSString
-        print(errorString)
-        self.signUpIsSuccess = false
-      } else {
-//        self.performSegueWithIdentifier("loginSegue", sender: self)
-        print("Sign up successful")
-        self.signUpIsSuccess = true
-      }
-    } as! PFBooleanResultBlock
-    return signUpIsSuccess
-  }
-  
-  func parseSignIn(_ userName: String?, userPass: String?) -> Bool {
-    
-    PFUser.logInWithUsername(inBackground: userName!, password: userPass!) { (user: PFUser?, err: NSError?) -> Void in
-      
-      if user != nil {
-        self.loginIsSuccess = true
-        print("Login succeeded with username: \(userName!)")
-        
-      } else {
-        self.loginIsSuccess = false
-        
-        if let error = err {
-          let errStr = error.userInfo["user"] as? NSString
-          print("Error when login: \(errStr)")
-            self.parseSignUp("kivi", userPass: "kivi")
+    class var sharedInstance: ParseInterface {
+        struct Static {
+            static var instance = ParseInterface()
         }
-      }
-    } as! PFUserResultBlock 
-    return loginIsSuccess
-  }
-  
-  // This function will check is the current user is already login, go to next step, if not, show login or sign up
-  func isLogInPrevious() -> Bool {
-    let currentUser = PFUser.current()
-    if currentUser != nil {
-      print("Log in already, go to next")
-      return true
-    } else {
-      // Show the signup or login screen
-      self.parseSignUp(defaultUserName as NSString, userPass: defaultPassword as NSString)
-      
-      return false
+        return Static.instance
     }
+    
+    override init() {
+        super.init()
+        jobsInfo = [PFObject]()
+        employers = [PFObject]()
+        
+    }
+    
+    // This will be call in AppDelegate to setup Parse Application
+    
+    func parseSetup() {
+      
 
-  }
-}  // End of Class
+        let config = ParseClientConfiguration {
+            $0.applicationId = self.appId
+            $0.clientKey   = self.clientKey
+            $0.server = self.seerverURL
+        }
+        
+        Parse.initialize(with: config);
+        
+        
+        
+    }
+    
+    // Get Jobs Information from Database, return the PFObject array
+    
+    func getJobsInformation() -> [PFObject]? {
+        if loginIsSuccess {
+            let query = PFQuery(className: databaseClassName)
+            query.order(byAscending: "updatedAt")
+            //    query.whereKey("createdBy", equalTo: PFUser.currentUser()!)
+            
+            
+            query.findObjectsInBackground(block: { (objects:[PFObject]?, error: Error?) in
+                
+                if let error = error {
+                    let errorStr = error.localizedDescription
+                    print("Error when finding object: \(errorStr) ")
+                    self.jobsInfo = nil
+                } else {
+                    self.jobsInfo = objects!
+                }
+                
+            })
+            
+        }
+        return jobsInfo
+    }
+    
+    
+    
+    func parseSignUp(_ userName: String?, userPass: String?) -> Bool{
+        let user = PFUser()
+        user.username = userName
+        user.password = userPass
+        user.email    = "tongvtdan@gmail.com"
+        
+        
+        user.signUpInBackground { (succeeded, error) in
+            if let err = error {
+                print("Sign up failed \(err.localizedDescription)")
+                self.signUpIsSuccess = false
+            }else {
+                print("Sign up successfully")
+                self.signUpIsSuccess = true
+            }
+        }
+        return signUpIsSuccess
+        
+    }
+    
+    func parseSignIn(_ userName: String?, userPass: String?) -> Bool {
+        
+        PFUser.logInWithUsername(inBackground: userName!, password: userPass!) { (user: PFUser?,  error) in
+            if user != nil {
+                self.loginIsSuccess  = true
+                print("Login succeeded with username: \(String(describing: userName))")
+                
+            }else {
+                self.loginIsSuccess = false
+                print("Login failed: \(String(describing: error?.localizedDescription))")
+            }
+        }
+        return loginIsSuccess
+        
+    }
+    
+    // This function will check is the current user is already login, go to next step, if not, show login or sign up
+    func isLogInPrevious() -> Bool {
+        let currentUser = PFUser.current()
+        if currentUser != nil {
+            print("Log in already, go to next")
+            return true
+        } else {
+            return parseSignUp(defaultUserName , userPass: defaultPassword )
+            // Show the signup or login screen
+            
+        }
+        
+    }
+    
+    // End of Class
+}

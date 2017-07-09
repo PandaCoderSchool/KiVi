@@ -109,7 +109,7 @@ class AddJobViewController: UIViewController {
     dataIsSaved = false
     self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
     self.hud.mode = MBProgressHUDMode.indeterminate
-    self.hud.labelText = "Saving your data to server..."
+    self.hud.label.text = "Saving your data to server..."
     
     saveNewJob()
     
@@ -213,37 +213,38 @@ class AddJobViewController: UIViewController {
     jobObj["jobStatus"] = "Open" // Status of new job is open
     jobObj["createdBy"] = PFUser.current() // Add the user to the job 
     jobObj["jobDescription"] = jobDescriptionText.text
-    jobObj.saveInBackground(block: {
-      (success: Bool, error: NSError?) -> Void in
-      
-      if error == nil {
-        /**success saving, Now save image.***/
-        
-        //create an image data
-        let imageData = UIImagePNGRepresentation(self.profilePhoto.image!)
-        //create a parse file to store in cloud
-        let parseImageFile = PFFile(name: "profile_image.png", data: imageData!)
-        self.jobObj["profilePhoto"] = parseImageFile
-        self.jobObj.saveInBackground(block: {
-          (success: Bool, error: NSError?) -> Void in
-          if error == nil {
-            //take user home
-            print("data uploaded")
-            MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
-            self.dataIsSaved = true
-            if self.dataIsSaved {
-              jobIsUpdated = -1
-              self.navigationController?.popToRootViewController(animated: true)
-              
-            }
-          }else {
-            print(error)
-          }
-        } as! PFBooleanResultBlock) // saveInBackgroundWithBlock - save image - End
-      }else {
-        print(error)
-      }
-    } as! PFBooleanResultBlock) // saveInBackgroundWithBlock - save obj - End
+    
+    
+    jobObj.saveInBackground { (success, error) in
+        if error == nil {
+            /**success saving, Now save image.***/
+            
+            //create an image data
+            let imageData = UIImagePNGRepresentation(self.profilePhoto.image!)
+            //create a parse file to store in cloud
+            let parseImageFile = PFFile(name: "profile_image.png", data: imageData!)
+            self.jobObj["profilePhoto"] = parseImageFile
+            
+            self.jobObj.saveInBackground(block: { (success, error) in
+                if error == nil {
+                    //take user home
+                    print("data uploaded")
+                    MBProgressHUD.hideAllHUDs(for: self.view, animated: true)
+                    self.dataIsSaved = true
+                    if self.dataIsSaved {
+                        jobIsUpdated = -1
+                        self.navigationController?.popToRootViewController(animated: true)
+                        
+                    }
+                }else {
+                    print("\(error.debugDescription)")
+                }
+            })
+            
+        }else {
+            print("\(error.debugDescription)")
+        }
+    }
     
   }
   
@@ -287,46 +288,48 @@ class AddJobViewController: UIViewController {
   }
   
   func getAddressFromLocation(_ location: CLLocation) {
-    CLGeocoder().reverseGeocodeLocation(location) { (placemarks:[CLPlacemark]?, error: NSError?) -> Void in
-      if error == nil {
-        
-        if let pm = placemarks?.first {
-          
-          var subThoroughfare: String = ""
-          var thoroughfare: String = ""
-          var subLocality: String = ""
-          var subAdministrativeArea: String = ""
-          var administrativeArea: String = ""
-          var country: String = ""
-          
-          if pm.subThoroughfare != nil {
-            subThoroughfare = pm.subThoroughfare!
-          }
-          if pm.thoroughfare != nil {
-            thoroughfare = pm.thoroughfare!
-          }
-          if pm.subLocality != nil {
-            subLocality = pm.subLocality!
-          }
-          if pm.subAdministrativeArea != nil {
-            subAdministrativeArea = pm.subAdministrativeArea!
-          }
-          if pm.administrativeArea != nil {
-            administrativeArea = pm.administrativeArea!
-          }
-          if pm.country != nil {
-            country = pm.country!
-          }
-          
-          let addr = "\(subThoroughfare), \(thoroughfare), \(subLocality), \(subAdministrativeArea), \(administrativeArea) \(country)"
-          
-          print(addr)
-          self.employerAddressText.text = addr
-          self.jobObj["employerAddress"] = addr
+    CLGeocoder().reverseGeocodeLocation(location) { (placemarks: [CLPlacemark]?, error: Error?) in
+        if error == nil {
+            
+            if let pm = placemarks?.first {
+                
+                var subThoroughfare: String = ""
+                var thoroughfare: String = ""
+                var subLocality: String = ""
+                var subAdministrativeArea: String = ""
+                var administrativeArea: String = ""
+                var country: String = ""
+                
+                if pm.subThoroughfare != nil {
+                    subThoroughfare = pm.subThoroughfare!
+                }
+                if pm.thoroughfare != nil {
+                    thoroughfare = pm.thoroughfare!
+                }
+                if pm.subLocality != nil {
+                    subLocality = pm.subLocality!
+                }
+                if pm.subAdministrativeArea != nil {
+                    subAdministrativeArea = pm.subAdministrativeArea!
+                }
+                if pm.administrativeArea != nil {
+                    administrativeArea = pm.administrativeArea!
+                }
+                if pm.country != nil {
+                    country = pm.country!
+                }
+                
+                let addr = "\(subThoroughfare), \(thoroughfare), \(subLocality), \(subAdministrativeArea), \(administrativeArea) \(country)"
+                
+                print(addr)
+                self.employerAddressText.text = addr
+                self.jobObj["employerAddress"] = addr
+            }
         }
-      }
-    } as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler
-  }
+
+    }
+    
+}
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     self.view.endEditing(true)

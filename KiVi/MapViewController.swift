@@ -187,52 +187,56 @@ class MapViewController: UIViewController, MBProgressHUDDelegate {
     
   }
   
-  func getAddressFromLocation(_ location: CLLocation) {
-    CLGeocoder().reverseGeocodeLocation(location) { (placemarks:[CLPlacemark]?, error: NSError?) -> Void in
-      if error == nil {
-        
-        if let pm = placemarks?.first {
-          
-          var subThoroughfare: String = ""
-          var thoroughfare: String = ""
-          var subLocality: String = ""
-          var subAdministrativeArea: String = ""
-          var administrativeArea: String = ""
-          var country: String = ""
-          
-          if pm.subThoroughfare != nil {
-            subThoroughfare = pm.subThoroughfare!
-          }
-          if pm.thoroughfare != nil {
-            thoroughfare = pm.thoroughfare!
-          }
-          if pm.subLocality != nil {
-            subLocality = pm.subLocality!
-          }
-          if pm.subAdministrativeArea != nil {
-            subAdministrativeArea = pm.subAdministrativeArea!
-          }
-          if pm.administrativeArea != nil {
-            administrativeArea = pm.administrativeArea!
-          }
-          if pm.country != nil {
-            country = pm.country!
-          }
-          let addr = "\(subThoroughfare), \(thoroughfare), \(subLocality), \(subAdministrativeArea), \(administrativeArea), \(country)"
-          print(addr)
-          self.pointAnnotation = MKPointAnnotation()
-          self.pointAnnotation.title    = "Job Address"
-          self.pointAnnotation.subtitle = addr
-          
-          self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-          
-          self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
-          self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
-          self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
+    func getAddressFromLocation(_ location: CLLocation) {
+        CLGeocoder().reverseGeocodeLocation(location) { (
+            placemarks, error) in
+            if error == nil {
+                
+                if let pm = placemarks?.first {
+                    
+                    var subThoroughfare: String = ""
+                    var thoroughfare: String = ""
+                    var subLocality: String = ""
+                    var subAdministrativeArea: String = ""
+                    var administrativeArea: String = ""
+                    var country: String = ""
+                    
+                    if pm.subThoroughfare != nil {
+                        subThoroughfare = pm.subThoroughfare!
+                    }
+                    if pm.thoroughfare != nil {
+                        thoroughfare = pm.thoroughfare!
+                    }
+                    if pm.subLocality != nil {
+                        subLocality = pm.subLocality!
+                    }
+                    if pm.subAdministrativeArea != nil {
+                        subAdministrativeArea = pm.subAdministrativeArea!
+                    }
+                    if pm.administrativeArea != nil {
+                        administrativeArea = pm.administrativeArea!
+                    }
+                    if pm.country != nil {
+                        country = pm.country!
+                    }
+                    let addr = "\(subThoroughfare), \(thoroughfare), \(subLocality), \(subAdministrativeArea), \(administrativeArea), \(country)"
+                    print(addr)
+                    self.pointAnnotation = MKPointAnnotation()
+                    self.pointAnnotation.title    = "Job Address"
+                    self.pointAnnotation.subtitle = addr
+                    
+                    self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                    
+                    self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
+                    self.jobMap.centerCoordinate = self.pointAnnotation.coordinate
+                    self.jobMap.addAnnotation(self.pinAnnotationView.annotation!)
+                }
+            }
+            
         }
-      }
-    } as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler
-  }
+        
+    }
+    
   
   func centerMapOnLocation(_ location: CLLocation) {
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,

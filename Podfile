@@ -3,7 +3,7 @@
 use_frameworks!
 target 'KiVi' do
     
-#	pod ‘Parse’
+	pod ‘Parse’
 
 	pod 'AFNetworking'
 	pod 'MBProgressHUD'

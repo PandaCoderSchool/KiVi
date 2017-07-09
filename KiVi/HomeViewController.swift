@@ -40,10 +40,12 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let login = ParseInterface.sharedInstance.isLogInPrevious()
+        
+    }
   
   
   
@@ -73,38 +75,39 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     searchQuerySecond.whereKey("workAt", matchesRegex: "(?i)\(searchText)")
     
     let query = PFQuery.orQuery(withSubqueries: [searchQuery, searchQuerySecond])
-    query.findObjectsInBackground { (results: [PFObject]?, error: NSError?) -> Void in
-      if error != nil {
-        let errorAlert = UIAlertController(title: "Search Alert", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
-        errorAlert.addAction(okAction)
-        self.present(errorAlert, animated: true, completion: nil)
-        return
-      }
-      if let objects = results {
-        self.searchResult?.removeAll(keepingCapacity: false)
-        self.searchResult = objects
-        
-        DispatchQueue.main.async(execute: { () -> Void in
-          
-          
-          if self.searchResult?.count == 0 {
-            let errorAlert = UIAlertController(title: "Search Alert", message: "No jobs found", preferredStyle: UIAlertControllerStyle.alert)
+    
+    query.findObjectsInBackground { (results: [PFObject]?, error: Error?) in
+        if error != nil {
+            let errorAlert = UIAlertController(title: "Search Alert", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
             errorAlert.addAction(okAction)
             self.present(errorAlert, animated: true, completion: nil)
-          } else {
-            print("Post Notification with result = \(self.searchResult!.count)")
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "searchResultUpdated"), object: nil, userInfo: ["result" : self.searchResult!])
+            return
+        }
+        if let objects = results {
+            self.searchResult?.removeAll(keepingCapacity: false)
+            self.searchResult = objects
             
-          }
-          
-        }) // dispatch_async - End
-      }
-      
-    } as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void as! ([PFObject]?, Error?) -> Void
+            DispatchQueue.main.async(execute: { () -> Void in
+                
+                
+                if self.searchResult?.count == 0 {
+                    let errorAlert = UIAlertController(title: "Search Alert", message: "No jobs found", preferredStyle: UIAlertControllerStyle.alert)
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+                    errorAlert.addAction(okAction)
+                    self.present(errorAlert, animated: true, completion: nil)
+                } else {
+                    print("Post Notification with result = \(self.searchResult!.count)")
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "searchResultUpdated"), object: nil, userInfo: ["result" : self.searchResult!])
+                    
+                }
+                
+            }) // dispatch_async - End
+        }
+
+    }
     
-  }
+}
   
   
 
